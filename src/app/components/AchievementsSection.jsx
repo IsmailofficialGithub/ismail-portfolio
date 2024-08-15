@@ -12,21 +12,21 @@ const AnimatedNumbers = dynamic(
 const achievementsList = [
   {
     metric: "Projects",
-    value: "100",
+    value: "50",
     postfix: "+",
   },
   {
     prefix: "~",
     metric: "Users",
-    value: "100,000",
+    value: "1000",
   },
   {
     metric: "Awards",
-    value: "7",
+    value: "4",
   },
   {
     metric: "Years",
-    value: "5",
+    value: "3",
   },
 ];
 
@@ -49,9 +49,9 @@ const AchievementsSection = () => {
                   className="text-white text-4xl font-bold"
                   configs={(_, index) => {
                     return {
-                      mass: 1,
-                      friction: 100,
-                      tensions: 140 * (index + 1),
+                      mass: 100,
+                      friction: 10,
+                      tensions: 150 * (index + 1),
                     };
                   }}
                 />
