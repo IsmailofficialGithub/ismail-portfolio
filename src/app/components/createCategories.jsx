@@ -15,7 +15,7 @@ const CreateCategories = () => {
   const handleSubmit =async()=>{
     setIsloading(true)
     try {
-      const response = await axios.post('http://localhost:3000/api/category',{
+      const response = await axios.post('https://ismail-portfolio-sigma.vercel.app//api/category',{
         category:category,
       })
       const data=response.data;

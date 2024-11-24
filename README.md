@@ -1,11 +1,11 @@
 ﻿# ismail-portfolio
 
- Creating a README file for your portfolio project is a great way to provide context and details about your work. Here’s a template you can use and customize for your portfolio project:
+Creating a README file for your portfolio project is a great way to provide context and details about your work. Here’s a template you can use and customize for your portfolio project:
 
-```markdown
+````markdown
 # My Portfolio
 
-Welcome to my portfolio! This is a showcase of my projects and skills as a full-stack developer. 
+Welcome to my portfolio! This is a showcase of my projects and skills as a full-stack developer.
 
 ## About
 
@@ -31,6 +31,8 @@ To set up this portfolio locally, follow these steps:
    ```bash
    git clone https://github.com/IsmailofficialGithub/ismail-portfolio.git
    ```
+````
+
 2. **Navigate to the Project Directory:**
    ```bash
    cd ismail-portfolio
@@ -44,7 +46,7 @@ To set up this portfolio locally, follow these steps:
    npm run dev
    ```
 5. **Open in Browser:**
-   Navigate to `http://localhost:3000` in your web browser.
+   Navigate to `https://ismail-portfolio-sigma.vercel.app/` in your web browser.
 
 ## Technologies Used
 
@@ -90,3 +92,4 @@ Thank you for visiting my portfolio!
 ```
 
 You can customize this template to fit your specific needs and include more details about your projects and skills. If you have any specific projects or sections you'd like to include, let me know!
+```

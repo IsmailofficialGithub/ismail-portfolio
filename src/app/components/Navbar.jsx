@@ -16,7 +16,7 @@ const Navbar = () => {
   signOut({ callbackUrl: "/login" });
   }
 
-  const Mainhostname='http://localhost:3000';
+  const Mainhostname='https://ismail-portfolio-sigma.vercel.app/';
   const navLinks = [
     { title: "About", path: `${Mainhostname}/#about` },
     { title: "Projects", path: `${Mainhostname}/#projects` },
