@@ -7,7 +7,7 @@ import Loader from "./Loader";
 import CategoryDropdown from "./Categorydropdown";
 import JoditEditor from "jodit-react";
 
-const addBlogModel = ({ refreshBlogs }) => {
+const AddBlogModel = ({ refreshBlogs }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -153,4 +153,4 @@ const addBlogModel = ({ refreshBlogs }) => {
   );
 };
 
-export default addBlogModel;
+export default AddBlogModel;

@@ -9,7 +9,7 @@ import Loader from "@/app/components/Loader";
 import { Button } from "@mui/material";
 import CreateCategories from "@/app/components/createCategories";
 import Navbar from "@/app/components/Navbar";
-const page = () => {
+const Page = () => {
   const [blogs, setBlogs] = useState([]);
   const [noMoreBlogs, setNoMoreBlogs] = useState(false);
   const [skip, setSkip] = useState(0);
@@ -154,4 +154,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Page;
