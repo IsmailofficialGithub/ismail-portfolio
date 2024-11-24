@@ -3,13 +3,15 @@ import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { addAssertsInCloudinary } from "@/app/helper/helper";
 
+export const runtime = "nodejs"; // Use Node.js runtime for the API route
+
 export const POST = async (req) => {
      try {
-          const data = await req.formData();
+          const data = await req.formData(); // Handle FormData directly
           const title = data.get("title");
           const description = data.get("description");
           const image = data.get("image");
-          const category = data.get('categoryId')
+          const category = data.get("categoryId");
 
           // Validate title and description
           if (!title) {
@@ -41,7 +43,7 @@ export const POST = async (req) => {
                          title,
                          description,
                          category,
-                         imageUrl// Save the Cloudinary URL
+                         imageUrl, // Save the Cloudinary URL
                     });
 
                     await blogData.save();
@@ -55,15 +57,13 @@ export const POST = async (req) => {
                          { success: false, message: "Something went wrong while uploading image", error },
                          { status: 500 }
                     );
-
                }
-
           } else {
                await dbConnect();
                const blogData = new BlogModel({
                     title,
                     description,
-                    category
+                    category,
                });
 
                await blogData.save();
@@ -72,7 +72,6 @@ export const POST = async (req) => {
                     { success: true, message: "Successfully added new post", data: blogData },
                     { status: 200 }
                );
-
           }
      } catch (error) {
           console.error("Error:", error);
@@ -81,10 +80,4 @@ export const POST = async (req) => {
                { status: 500 }
           );
      }
-};
-
-export const config = {
-     api: {
-          bodyParser: false, // Disable body parsing for FormData
-     },
 };
