@@ -43,7 +43,7 @@ const Blogsection = () => {
             <ul class="flex border-x overflow-x-auto space-x-4 w-full max-w-screen-lg px-4 scrollbar scrollbar-thumb-gray-600 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-[#121212] [&::-webkit-scrollbar-thumb]:rounded-full dark:[&::-webkit-scrollbar-track]:bg-neutral-700">
              {
               blogs.map(blog=>(
-                <li class="flex-shrink-0 w-1/3 min-w-[300px]">
+                <li class="flex-shrink-0 w-1/3 min-w-[300px]" key={blog._id}>
                <Link href={`/blogs/${blog._id}`}>
                <BlogCard
                   title={blog.title}

@@ -18,39 +18,41 @@ const Page = () => {
   const gettingBlog = async () => {
     setIsloading(true);
     try {
-      const limit = skip === 0 ? 6 : 3;
-      const response = await axios.get(`/api/blogs/readAll?skip=${skip}`);
-      if (response.data.blogs && response.data.blogs.length > 0) {
-        setBlogs((prevBlogs) => [...prevBlogs, ...response.data.blogs]);
-        setSkip((prevSkip) => prevSkip + response.data.blogs.length);
-      } else if(response.data.message==="No more blogs found"){
-        setNoMoreBlogs(true);
-      }
+        const limit = skip === 0 ? 6 : 3;
+        const response = await axios.get(`/api/blogs/readAll?skip=${skip}`);
+        if (response.data?.blogs?.length > 0) {
+            setBlogs((prevBlogs) => [...prevBlogs, ...response.data.blogs]);
+            setSkip((prevSkip) => prevSkip + response.data.blogs.length);
+        } else if (response.data?.message === "No more blogs found") {
+            setNoMoreBlogs(true);
+        }
     } catch (error) {
-      console.log(error);
+        console.error("Error fetching blogs:", error);
+        toast.error("Failed to load blogs. Please try again.");
     } finally {
-      setIsloading(false);
+        setIsloading(false);
     }
-  };
+};
 
-  const handleDelete = async (id) => {
-    const newBlogList = blogs.filter((item) => item._id !== id);
-    setBlogs(newBlogList);
-    try {
+const handleDelete = async (id) => {
+  const originalBlogs = [...blogs]; // Backup original list
+  const newBlogList = blogs.filter((item) => item._id !== id);
+  setBlogs(newBlogList);
+
+  try {
       const deleted = await axios.delete(`/api/blogs/delete/${id}`);
-      if (deleted?.data.success) {
-        toast.success(deleted.data.message);
-        gettingBlog();
+      if (deleted?.data?.success) {
+          toast.success(deleted.data.message);
       } else {
-        toast.error(deleted.data.message);
-        setBlogs((prev) => [...prev, blogs.find((item) => item._id === id)]);
+          throw new Error(deleted?.data?.message || "Unknown error");
       }
-    } catch (error) {
-      console.log(error);
-      toast.error("Failed to delete blogs");
-      setBlogs((prev) => [...prev, blogs.find((item) => item._id === id)]);
-    }
-  };
+  } catch (error) {
+      console.error("Error deleting blog:", error);
+      toast.error("Failed to delete blog. Restoring the original list.");
+      setBlogs(originalBlogs); // Restore original list
+  }
+};
+
   const refreshBlogs = () => {
     gettingBlog();
   };
@@ -100,7 +102,7 @@ const Page = () => {
                  
                  
                       <div
-                      key={index}
+                      key={data._id || index}
                       className="flex items-center gap-4 bg-[#111a22] hover:bg-[#101820] px-4 min-h-[72px] py-2 justify-between cursor-pointer">
                       <div className="flex items-center gap-4">
                         <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" />

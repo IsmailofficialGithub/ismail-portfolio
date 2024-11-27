@@ -121,8 +121,8 @@ const Page = () => {
                 />
 
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3 p-4">
-                  {blogs.map((blog) => (
-                    <div className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onClick={()=>{router.push(`https://ismail-portfolio-sigma.vercel.app//blogs/${blog._id}`)}}>
+                  {blogs.map((blog,Blogindex) => (
+                    <div key={Blogindex} className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onClick={()=>{router.push(`https://ismail-portfolio-sigma.vercel.app//blogs/${blog._id}`)}}>
                       <div
                         className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl object-cover "
                         style={{
