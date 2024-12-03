@@ -114,11 +114,11 @@ const Page = () => {
             <div className="px-4 flex flex-1 justify-center py-2  sm:mb-32 mb-5">
               <div className="layout-content-container flex flex-col max-w-[960px] flex-1 mt-20">
                 {loading ? <Loader /> : ""}
-                <MultipleSelectChip
+                {/* <MultipleSelectChip
                   categories={categories}
                   selectedCategoryIds={selectedCategoryIds}
                   setSelectedCategoryIds={setSelectedCategoryIds}
-                />
+                /> */}
 
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3 p-4">
                   {blogs.map((blog,Blogindex) => (

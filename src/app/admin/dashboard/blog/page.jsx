@@ -18,21 +18,21 @@ const Page = () => {
   const gettingBlog = async () => {
     setIsloading(true);
     try {
-        const limit = skip === 0 ? 6 : 3;
-        const response = await axios.get(`/api/blogs/readAll?skip=${skip}`);
-        if (response.data?.blogs?.length > 0) {
-            setBlogs((prevBlogs) => [...prevBlogs, ...response.data.blogs]);
-            setSkip((prevSkip) => prevSkip + response.data.blogs.length);
-        } else if (response.data?.message === "No more blogs found") {
-            setNoMoreBlogs(true);
-        }
+      const limit = skip === 0 ? 6 : 3;
+      const response = await axios.get(`/api/blogs/readAll?skip=${skip}`);
+      if (response?.data?.blogs?.length > 0) {
+        setBlogs((prevBlogs) => [...prevBlogs, ...response.data.blogs]);
+        setSkip((prevSkip) => prevSkip + response.data.blogs.length);
+      } else {
+        setNoMoreBlogs(true);
+      }
     } catch (error) {
-        console.error("Error fetching blogs:", error);
-        toast.error("Failed to load blogs. Please try again.");
+      console.error("Error fetching blogs:", error);
+      toast.error("Failed to load blogs.");
     } finally {
-        setIsloading(false);
+      setIsloading(false);
     }
-};
+  };
 
 const handleDelete = async (id) => {
   const originalBlogs = [...blogs]; // Backup original list
