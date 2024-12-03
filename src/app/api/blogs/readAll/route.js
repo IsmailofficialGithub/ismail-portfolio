@@ -1,32 +1,30 @@
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
 
-export const GET = async (req, res) => {
+export const GET = async (req) => {
      try {
-          // Get 'skip' parameter from query (default to 0) and set limit to 6 for the first request, 3 for subsequent requests
-          const { searchParams } = new URL(req.url);
-          const skip = parseInt(searchParams.get("skip")) || 0;
-          const limit = skip === 0 ? 6 : 3;
+          // Get 'skip' parameter from query (default to 0)
+          // const { searchParams } = new URL(req.url);
+          // const skip = Number.isNaN(parseInt(searchParams.get("skip"))) ? 0 : parseInt(searchParams.get("skip"));
+          // const INITIAL_LIMIT = 6;
+          // const SUBSEQUENT_LIMIT = 3;
+          // const limit = skip === 0 ? INITIAL_LIMIT : SUBSEQUENT_LIMIT;
 
-          // Fetch blogs from database with skip and limit
-          const blogs = await BlogModel.find()
-               .sort({ createdAt: -1 }) // Sort by 'createdAt' in descending order
-               .skip(skip)
-               .limit(limit);
+          // // Fetch blogs from database
+          // const blogs = await BlogModel.find()
+          //      .sort({ createdAt: -1 }) // Sort by 'createdAt' in descending order
+          //      .skip(skip)
+          //      .limit(limit);
 
-          // Check if no blogs are found
-          if (!blogs || blogs.length === 0) {
-               return NextResponse.json({ success: false, message: "No more blogs found" }, { status: 200 });
-          }
-
-          return NextResponse.json({ success: true, blogs }, { status: 200 });
+          // Respond with blogs or an empty array if none are found
+          return NextResponse.json({ success: true, message: "testing" }, { status: 200 });
+          // return NextResponse.json({ success: true, blogs: blogs || [] }, { status: 200 });
 
      } catch (error) {
-          console.log(error);
+          console.error("Error fetching blogs:", error);
           return NextResponse.json({
                success: false,
                message: "Something went wrong while getting blogs",
-               error
           }, { status: 500 });
      }
 };
