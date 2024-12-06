@@ -26,7 +26,7 @@ export default function VirtualizedList() {
   const fetchCategories = async () => {
     setIsloading(true)
     try {
-      const response = await axios.get('https://ismail-portfolio-sigma.vercel.app//api/category');
+      const response = await axios.get(' /api/category');
       const data = response.data;
       if (data.categories) {
         setCategories(data.categories);

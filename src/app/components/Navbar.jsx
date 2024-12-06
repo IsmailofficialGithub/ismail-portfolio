@@ -4,19 +4,17 @@ import React, { useState } from "react";
 import NavLink from "./NavLink";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import MenuOverlay from "./MenuOverlay";
-import { useSession, signOut } from "next-auth/react";
-
+import { useSession,signOut } from "next-auth/react";
 
 
 const Navbar = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const {session,status} = useSession();
+  const {  session, status } = useSession();
  const handleLogout=()=>{
-  console.log('function called')
   signOut({ callbackUrl: "/login" });
   }
 
-  const Mainhostname='https://ismail-portfolio-sigma.vercel.app/';
+  const Mainhostname='http://localhost:3000';
   const navLinks = [
     { title: "About", path: `${Mainhostname}/#about` },
     { title: "Projects", path: `${Mainhostname}/#projects` },

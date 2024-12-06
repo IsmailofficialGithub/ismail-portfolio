@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const connection = {};
 
 async function dbConnect() {
+
      if (connection.isConnected) {
           console.log("ALready connected to Database");
           return;
@@ -12,7 +13,7 @@ async function dbConnect() {
           connection.isConnected = db.connections[0].readyState;
           console.log("connected to database");
      } catch (error) {
-          console.log("something wents wronge in db connection");
+          console.log("something wents wrong in db connection");
      }
 }
 

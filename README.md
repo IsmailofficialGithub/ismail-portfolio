@@ -46,7 +46,7 @@ To set up this portfolio locally, follow these steps:
    npm run dev
    ```
 5. **Open in Browser:**
-   Navigate to `https://ismail-portfolio-sigma.vercel.app/` in your web browser.
+   Navigate to ` ` in your web browser.
 
 ## Technologies Used
 

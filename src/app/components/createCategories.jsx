@@ -15,7 +15,7 @@ const CreateCategories = () => {
   const handleSubmit =async()=>{
     setIsloading(true)
     try {
-      const response = await axios.post('https://ismail-portfolio-sigma.vercel.app//api/category',{
+      const response = await axios.post('/api/category',{
         category:category,
       })
       const data=response.data;
@@ -28,7 +28,7 @@ const CreateCategories = () => {
       
     } catch (error) {
       console.log(error)
-      toast.error(error.response.data.message)
+      toast.error(error?.response?.data.message)
       
     }finally{
       setIsloading(false)

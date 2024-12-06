@@ -27,7 +27,7 @@ const Page = () => {
   //Getting All categories
   const fetchCategory = async () => {
     try {
-      const response = await axios.get("https://ismail-portfolio-sigma.vercel.app//api/category");
+      const response = await axios.get(" /api/category");
       if (response.data.success) {
         setCategories(response.data.categories);
       } else {
@@ -46,7 +46,7 @@ const Page = () => {
     if (selectedCategoryIds.length > 0) { // if filter is selected
       setLoading(true);
       try {
-        const response = await axios.post("https://ismail-portfolio-sigma.vercel.app//api/category/filter", {
+        const response = await axios.post(" /api/category/filter", {
           selectedCategoryIds,
         });
         if (response.data.success) {
@@ -122,7 +122,7 @@ const Page = () => {
 
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3 p-4">
                   {blogs.map((blog,Blogindex) => (
-                    <div key={Blogindex} className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onClick={()=>{router.push(`https://ismail-portfolio-sigma.vercel.app//blogs/${blog._id}`)}}>
+                    <div key={Blogindex} className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onClick={()=>{router.push(` /blogs/${blog._id}`)}}>
                       <div
                         className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl object-cover "
                         style={{

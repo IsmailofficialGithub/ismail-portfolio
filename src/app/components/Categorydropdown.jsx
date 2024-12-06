@@ -8,7 +8,7 @@ export default function CategoryDropdown({selectedCategory, setSelectedCategory 
    
      const gettingCategories = async () => {
        try {
-         const response = await axios.get('https://ismail-portfolio-sigma.vercel.app//api/category');
+         const response = await axios.get(' /api/category');
          const data = response.data;
          if (data) {
            setCategories(data.categories);
