@@ -4,7 +4,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import EmailSection from "./components/EmailSection";
 import AchievementsSection from "./components/AchievementsSection";
 import Blogsection from "./components/Blogsection";
-import LayoutWrapper from "@/lib/LayoutWrapper";
+import LayoutWrapper from "../lib/LayoutWrapper";
 
 export default function Home() {
   return (
