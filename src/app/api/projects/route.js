@@ -1,5 +1,6 @@
 import dbConnect from '@/app/dbconnect/dbconnect';
 import Project from '@/app/schema/projectSchema';
+import { NextResponse } from 'next/server';
 
 // / GET /api/projects - Get all projects with pagination
 export async function GET(request) {
