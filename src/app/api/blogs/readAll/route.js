@@ -1,3 +1,4 @@
+import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
 
@@ -18,7 +19,8 @@ export const GET = async (req) => {
 
           // Respond with blogs or an empty array if none are found
           return NextResponse.json({ success: true, message: "Successfully getting blogs", blogs }, { status: 200 });
-          // return NextResponse.json({ success: true, blogs: blogs || [] }, { status: 200 });
+  
+
 
      } catch (error) {
           console.error("Error fetching blogs:", error);
