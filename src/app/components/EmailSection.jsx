@@ -9,6 +9,7 @@ import { Loader } from "lucide-react";
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error,setError]=useState('')
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,12 +35,11 @@ const EmailSection = () => {
     };
 
     const response = await fetch(endpoint, options);
-    const resData = await response.json();
-
     if (response.status === 200) {
-      console.log("Message sent.");
       setEmailSubmitted(true);
       setLoading(false);
+    }else{
+      setError("Failed to Send Message");
     }
   };
 
@@ -69,8 +69,8 @@ const EmailSection = () => {
       </div>
       <div>
         {emailSubmitted ? (
-          <p className="text-green-500 text-sm mt-2">
-            Email sent successfully!
+          <p className={`${error.length>0?"text-red-500 ":"text-green-500 "} text-sm mt-2`} >
+            {error.length>=0?"Email sent successfully!":error}
           </p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
@@ -123,7 +123,7 @@ const EmailSection = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`bg-[#${loading ? "5b5461" : "a855f7"}] hover:bg-[#9244db] text-white font-medium py-2.5 px-5 rounded-lg w-full ${loading ? "opacity-50 cursor-not-allowed" : ""
+              className={`${loading ? "bg-[#382848]":"bg-[#a855f7]"} hover:bg-[#9244db] text-white flex justify-center font-medium py-2.5 px-5 rounded-lg w-full ${loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
             >
               {loading ?  <Loader className="animate-spin text-center"/>:"Send Message"}
