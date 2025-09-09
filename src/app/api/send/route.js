@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import {  transporter } from "@/lib/nodemailer";
+import {  transporter } from "../../../lib/nodemailer";
 
 export async function POST(req, res) {
   const { email, subject, message } = await req.json();
