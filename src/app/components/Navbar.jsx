@@ -36,13 +36,6 @@ const Navbar = () => {
         >
           Ismail abbasi
         </Link>
-        <div
-          onClick={() => {
-            console.log(session, status);
-          }}
-        >
-          tesging
-        </div>
         <div className="mobile-menu block md:hidden">
           {!navbarOpen ? (
             <button
