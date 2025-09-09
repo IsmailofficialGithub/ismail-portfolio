@@ -9,11 +9,15 @@ async function dbConnect() {
           return;
      }
      try {
-          const db = await mongoose.connect(process.env.MongoDb_url);
+          const uri = process.env.MongoDb_url;
+          if (!uri) {
+               throw new Error("MongoDB connection string is not defined in environment variables");
+          }
+          const db = await mongoose.connect(uri);
           connection.isConnected = db.connections[0].readyState;
-          console.log("connected to database");
      } catch (error) {
-          console.log("something wents wrong in db connection");
+          console.log("something wents wrong in db connection",error);
+          
      }
 }
 
