@@ -4,6 +4,8 @@ import { ExternalLink, Code, Eye, Globe } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGitAlt, FaPython, FaJava } from "react-icons/fa";
 import { SiNextdotjs, SiExpress, SiMongodb, SiTailwindcss, SiTypescript, SiRedux, SiGraphql, SiDocker, SiKubernetes, SiPostgresql, SiMysql, SiSupabase, SiFirebase, SiVercel, SiNetlify, SiGithub, SiVisualstudiocode } from "react-icons/si";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 
 // Technology → Icon map
@@ -49,82 +51,13 @@ const ProjectShowcase = () => {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-
-      const mockProjects = [
-        {
-          id: 1,
-          name: "E-Commerce Platform",
-          description:
-            "A full-stack e-commerce platform with React, Node.js, and MongoDB. Features include user authentication, product catalog, shopping cart, and payment integration.",
-          images: [
-            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/ecommerce",
-          livePreview: "https://example-ecommerce.vercel.app",
-          techStack: ["React", "Node.js", "Express", "MongoDB","Redux",],
-        },
-        {
-          id: 2,
-          name: "Weather Dashboard",
-          description:
-            "Real-time weather dashboard with beautiful visualizations and forecasts. Built with React and integrated with multiple weather APIs for accurate data.",
-          images: [
-            "https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/weather",
-          livePreview: "https://weather-app.vercel.app",
-          techStack: ["React", "TailwindCSS", "JavaScript"],
-        },
-        {
-          id: 3,
-          name: "Task Management App",
-          description:
-            "Collaborative task management application with drag-and-drop functionality, team collaboration features, and real-time updates.",
-          images: [
-            "https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/tasks",
-          techStack: ["React", "Node.js", "MongoDB","Rust"],
-        },
-        {
-          id: 4,
-          name: "Portfolio Website",
-          description:
-            "Modern portfolio website showcasing creative works with smooth animations and responsive design. Built with Next.js and Framer Motion.",
-          images: [
-            "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/portfolio",
-          livePreview: "https://portfolio.vercel.app",
-          techStack: ["Next.js", "TailwindCSS", "Framer Motion"],
-        },
-        {
-          id: 5,
-          name: "Social Media Analytics",
-          description:
-            "Comprehensive social media analytics dashboard with data visualization, sentiment analysis, and automated reporting features.",
-          images: [
-            "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/analytics",
-          techStack: ["React", "Node.js", "Database"],
-        },
-        {
-          id: 6,
-          name: "Recipe Finder",
-          description:
-            "AI-powered recipe finder that suggests meals based on available ingredients. Includes nutritional information and cooking instructions.",
-          images: [
-            "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=500&h=300&fit=crop",
-          ],
-          code: "https://github.com/example/recipes",
-          livePreview: "https://recipe-finder.vercel.app",
-          techStack: ["React", "API", "TailwindCSS"],
-        },
-      ];
-
-      setProjects(mockProjects);
+      const response = await axios.get('/api/projects/featured');
+      if (response.data.success) {
+        setProjects(response.data.projects);
+      } else {
+       toast.error("Failed to fetch projects");
+      }
+      setProjects(response.data.data);
     } catch (err) {
       setError("Failed to fetch projects");
     } finally {
