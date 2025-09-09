@@ -3,6 +3,8 @@ import React, { useState, useRef } from "react";
 import ProjectCard from "./ProjectCard";
 import ProjectTag from "./ProjectTag";
 import { motion, useInView } from "framer-motion";
+import Button from "./Button";
+import Link from "next/link";
 
 const projectsData = [
   {
@@ -112,6 +114,11 @@ const ProjectsSection = () => {
           </motion.li>
         ))}
       </ul>
+      <div className="flex items-center justify-center mt-12">
+       <Link href="/projects">
+       <Button text="All Projects"/>
+       </Link>
+    </div>
     </section>
   );
 };
