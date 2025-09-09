@@ -57,29 +57,45 @@ To set up this portfolio locally, follow these steps:
 - **Express.js**: A minimal and flexible Node.js web application framework.
 - **MongoDB**: A NoSQL database for storing application data.
 
-## Projects
+# My Projects  
 
-### Project 1
+### Project 1 – E-Commerce Store  
+- **Description**: A fully functional online store with product categories, cart management, authentication, payment integration, and an admin dashboard to manage inventory and users.  
+- **Technologies Used**: React.js, Next.js, Node.js, Express.js, MongoDB, Axios, Bootstrap.  
+- **Live Demo**: [bachatbzr.com](https://bachatbzr.com)  
+- **GitHub Repository**: [IsmailofficialGithub](https://github.com/IsmailofficialGithub)  
 
-- **Description**: Brief description of the project.
-- **Technologies Used**: List of technologies used in the project.
-- **Live Demo**: [Link to the live demo](#)
-- **GitHub Repository**: [Link to the repository](#)
+---
 
-### Project 2
+### Project 2 – School Website  
+- **Description**: An official school website designed to showcase school information, events, notices, faculty details, and provide an easy-to-use interface for students and parents.  
+- **Technologies Used**: HTML, CSS, JavaScript, React.js, Bootstrap, MongoDB, Node.js, Express.js.  
+- **Live Demo**: [my-school-3lk2.onrender.com](https://my-school-3lk2.onrender.com/)  
+- **GitHub Repository**: [MY-SCHOOL](https://github.com/IsmailofficialGithub/MY-SCHOOL)  
 
-- **Description**: Brief description of the project.
-- **Technologies Used**: List of technologies used in the project.
-- **Live Demo**: [Link to the live demo](#)
-- **GitHub Repository**: [Link to the repository](#)
+---
+
+### Project 3 – Message Application  
+- **Description**: A secure, anonymous messaging platform where users can sign up, log in, and send private messages. Admins control messaging permissions, ensuring safe communication between users.  
+- **Technologies Used**: Next.js, Node.js, Express.js, MongoDB, NextAuth, Zod, React Hook Form, Resend, Shadcn, Tailwind CSS.  
+- **GitHub Repository**: [Message-app-next-js](https://github.com/IsmailofficialGithub/Message-app-next-js)  
+
+---
+
+### Project 4 – Portfolio Website  
+- **Description**: A professional portfolio website showcasing projects, skills, and contact details. Includes a responsive design, interactive UI, and email integration for direct communication.  
+- **Technologies Used**: Next.js, Tailwind CSS, Shadcn, Resend.  
+- **Live Demo**: [ismail-portfolio-sigma.vercel.app](https://ismail-portfolio-sigma.vercel.app/)  
+- **GitHub Repository**: [ismail-portfolio](https://github.com/IsmailofficialGithub/ismail-portfolio)  
+
 
 ## Contact
 
 Feel free to reach out to me via:
 
-- **Email**: [your.email@example.com](mailto:your.email@example.com)
-- **LinkedIn**: [Your LinkedIn Profile](https://www.linkedin.com/in/your-profile)
-- **GitHub**: [Your GitHub Profile](https://github.com/IsmailofficialGithub)
+- **Email**: [ismail.official295@gmail.com](mailto:ismail.official295@gmail.com)
+- **LinkedIn**: [LinkedIn Profile](https://www.linkedin.com/in/ismailabbasi/)
+- **GitHub**: [GitHub](https://github.com/IsmailofficialGithub)
 
 ## License
 
@@ -93,3 +109,4 @@ Thank you for visiting my portfolio!
 
 You can customize this template to fit your specific needs and include more details about your projects and skills. If you have any specific projects or sections you'd like to include, let me know!
 ```
+
