@@ -4,12 +4,15 @@ import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
+import { Loader } from "lucide-react";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); 
     const data = {
       email: e.target.email.value,
       subject: e.target.subject.value,
@@ -36,6 +39,7 @@ const EmailSection = () => {
     if (response.status === 200) {
       console.log("Message sent.");
       setEmailSubmitted(true);
+      setLoading(false);
     }
   };
 
@@ -118,9 +122,11 @@ const EmailSection = () => {
             </div>
             <button
               type="submit"
-              className="bg-[#a855f7] hover:bg-[#9244db] text-white font-medium py-2.5 px-5 rounded-lg w-full"
+              disabled={loading}
+              className={`bg-[#${loading ? "5b5461" : "a855f7"}] hover:bg-[#9244db] text-white font-medium py-2.5 px-5 rounded-lg w-full ${loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
             >
-              Send Message
+              {loading ?  <Loader className="animate-spin text-center"/>:"Send Message"}
             </button>
           </form>
         )}

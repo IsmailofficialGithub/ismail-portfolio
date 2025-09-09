@@ -11,7 +11,6 @@ const authOptions = {
                },
                async authorize(credentials) {
                     const { email, password } = credentials ?? {};
-                    console.log('testing1')
                     // Replace this with actual database lookup
                     const mockUser = {
                          id: "1",
@@ -19,12 +18,10 @@ const authOptions = {
                          email: process.env.AdminEmail,
                          password: process.env.AdminPassword, // Use hashed passwords in production
                     };
-                    console.log(mockUser)
-
                     if (email === mockUser.email && password === mockUser.password) {
+                         console.log("here")
                          return { id: mockUser.id, name: mockUser.name, email: mockUser.email };
                     }
-
                     throw new Error("Invalid email or password");
                },
           }),

@@ -5,6 +5,7 @@ import { signIn, signOut } from "next-auth/react";
 import {  useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Loader from "../components/Loader";
+import toast from "react-hot-toast";
 
 
 export default function LoginPage() {
@@ -28,6 +29,8 @@ export default function LoginPage() {
     if (result?.error) {
       setError(result.error); // Show error if login fails
     } else {
+      console.log("Logged in successfully");
+      toast.success("Logged in successfully")
       router.push("/admin/dashboard/blog"); // Redirect after successful login
     }
     
