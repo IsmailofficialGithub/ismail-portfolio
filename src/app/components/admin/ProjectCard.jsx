@@ -1,13 +1,13 @@
-import React from 'react';
-import { 
-  Edit3, 
-  Trash2, 
+import React from "react";
+import {
+  Edit3,
+  Trash2,
   ExternalLink,
   Github,
   Star,
   Calendar,
-  ImageIcon
-} from 'lucide-react';
+  ImageIcon,
+} from "lucide-react";
 
 const ProjectCard = ({ project, onEdit, onDelete }) => (
   <div className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-colors">
@@ -30,11 +30,15 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
             Featured
           </div>
         )}
-        <div className={`px-2 py-1 rounded-full text-xs font-medium ${
-          project.status === 'published' ? 'bg-green-500 text-white' :
-          project.status === 'draft' ? 'bg-yellow-500 text-black' :
-          'bg-gray-500 text-white'
-        }`}>
+        <div
+          className={`px-2 py-1 rounded-full text-xs font-medium ${
+            project.status === "published"
+              ? "bg-green-500 text-white"
+              : project.status === "draft"
+              ? "bg-yellow-500 text-black"
+              : "bg-gray-500 text-white"
+          }`}
+        >
           {project.status}
         </div>
       </div>
@@ -43,10 +47,13 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
     <div className="p-6">
       <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
       <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
-      
+
       <div className="flex flex-wrap gap-1 mb-4">
         {project.techStack.slice(0, 3).map((tech) => (
-          <span key={tech} className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded text-xs">
+          <span
+            key={tech}
+            className="px-2 py-1 bg-purple-600/20 text-purple-300 rounded text-xs"
+          >
             {tech}
           </span>
         ))}
@@ -64,7 +71,7 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
             {new Date(project.createdAt).toLocaleDateString()}
           </div>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <button
             onClick={() => onEdit(project)}
