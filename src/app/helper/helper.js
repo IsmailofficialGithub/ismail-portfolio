@@ -6,7 +6,10 @@ export const deleteAssetsFromCloudinary = async (secureUrl) => {
           const publicIdWithExtension = urlParts.slice(versionIndex + 1).join("/");
           const publicId = publicIdWithExtension.replace(/\.[^/.]+$/, "");
 
+          console.log(publicId)    
+
           const deletingImage = await cloudinary.uploader.destroy(publicId);
+          console.log(deletingImage);
           if (deletingImage.result === "ok") {
                return { success: true, message: "Successfully deleted image" };
           } else {
@@ -38,4 +41,12 @@ export const addAssertsInCloudinary = async (image) => {
           console.log(error)
 
      }
+}
+
+export function getPublicIdFromUrl(url) {
+  const parts = url.split("/upload/")[1]; // take part after /upload/
+  const withoutVersion = parts.replace(/v\d+\//, ""); // remove version like v12345/
+  const withoutExt = withoutVersion.replace(/\.[^/.]+$/, ""); // remove file extension
+  console.log("withoutExt",withoutExt);
+  return withoutExt;
 }
