@@ -181,17 +181,34 @@ export default function AdminProjectsDashboard() {
   const handleDelete = async () => {
     try {
       setSubmitting(true);
+      setError(null);
+
       const response = await fetch(`/api/projects/${selectedProject._id}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      const data = await response.json();
-      if (!data.success) throw new Error(data.message);
+      if (!response.ok) {
+        throw new Error(`Failed to delete project: ${response.status}`);
+      }
 
+      const data = await response.json();
+      
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to delete project');
+      }
+
+      // Success - close modal and refresh
       setShowDeleteModal(false);
       setSelectedProject(null);
-      fetchProjects();
+      await fetchProjects();
+
+      console.log('Project deleted successfully:', data.data?.deletedId);
+
     } catch (err) {
+      console.error('Delete project error:', err);
       setError(err.message);
     } finally {
       setSubmitting(false);

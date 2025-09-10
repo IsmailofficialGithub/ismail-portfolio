@@ -6,6 +6,7 @@ import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGitAlt, FaPy
 import { SiNextdotjs, SiExpress, SiMongodb, SiTailwindcss, SiTypescript, SiRedux, SiGraphql, SiDocker, SiKubernetes, SiPostgresql, SiMysql, SiSupabase, SiFirebase, SiVercel, SiNetlify, SiGithub, SiVisualstudiocode } from "react-icons/si";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Image from "next/image";
 
 
 // Technology → Icon map
@@ -97,7 +98,9 @@ const ProjectShowcase = () => {
   const ProjectCard = ({ project }) => (
     <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105">
       <div className="relative group">
-        <img
+        <Image
+        width={100}
+        height={192}
           src={project.images[0]}
           alt={project.name}
           className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
