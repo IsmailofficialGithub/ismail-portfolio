@@ -3,8 +3,6 @@ import Project from "@/app/schema/projectSchema";
 import { NextResponse } from "next/server";
 import mongoose from "mongoose";
 import { deleteFromCloudinary } from "@/lib/cloudinary";
-import axios from "axios";
-import { message } from "antd";
 import { getPublicIdFromUrl } from "@/app/helper/helper";
 import { getToken } from "next-auth/jwt";
 
