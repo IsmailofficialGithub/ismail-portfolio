@@ -9,6 +9,7 @@ import Loader from "@/app/components/Loader";
 import { Button } from "@mui/material";
 import CreateCategories from "@/app/components/createCategories";
 import Navbar from "@/app/components/Navbar";
+import Link from "next/link";
 const Page = () => {
   const [blogs, setBlogs] = useState([]);
   const [noMoreBlogs, setNoMoreBlogs] = useState(false);
@@ -106,7 +107,8 @@ const handleDelete = async (id) => {
                       className="flex items-center gap-4 bg-[#111a22] hover:bg-[#101820] px-4 min-h-[72px] py-2 justify-between cursor-pointer">
                       <div className="flex items-center gap-4">
                         <div className="bg-center bg-no-repeat aspect-square bg-cover rounded-lg size-14" />
-                        <div className="flex flex-col justify-center">
+                       <Link href={`/blogs/${data._id}`} className="flex items-center gap-4">
+                         <div className="flex flex-col justify-center">
                           <p className="text-white text-base font-medium leading-normal line-clamp-1">
                             {data.title}
                           </p>
@@ -115,6 +117,7 @@ const handleDelete = async (id) => {
                             {new Date(data.createdAt).toLocaleTimeString()}
                           </p>
                         </div>
+                       </Link>
                       </div>
                       <div className="shrink-0">
                         <div
