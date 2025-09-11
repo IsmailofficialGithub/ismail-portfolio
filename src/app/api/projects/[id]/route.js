@@ -6,6 +6,7 @@ import { deleteFromCloudinary } from "@/lib/cloudinary";
 import axios from "axios";
 import { message } from "antd";
 import { getPublicIdFromUrl } from "@/app/helper/helper";
+import { getToken } from "next-auth/jwt";
 
 // GET /api/projects/[id] - Get single project
 export async function GET(request, { params }) {
@@ -54,6 +55,15 @@ export async function GET(request, { params }) {
 }
 // / PUT /api/projects/[id] - Update project
 export async function PUT(request, { params }) {
+   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
+  
   try {
     await dbConnect();
 
@@ -135,6 +145,14 @@ export async function PUT(request, { params }) {
 
 // DELETE /api/projects/[id] - Delete project
 export async function DELETE(request, { params }) {
+   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
   try {
     await dbConnect();
 

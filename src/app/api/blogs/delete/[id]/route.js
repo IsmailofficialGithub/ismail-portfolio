@@ -3,11 +3,20 @@
 import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
-import cloudinary from "../../../../helper/Cloudinary";
 import { deleteAssetsFromCloudinary } from "@/app/helper/helper";
+import { getToken } from "next-auth/jwt";
 
 export async function DELETE(req, { params }) {
+       const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
      try {
+
           const { id } = params;
           await dbConnect();
 

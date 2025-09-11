@@ -2,10 +2,19 @@ import { NextResponse } from "next/server";
 import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { addAssertsInCloudinary } from "@/app/helper/helper";
+import { getToken } from "next-auth/jwt";
 
 export const runtime = "nodejs"; // Use Node.js runtime for the API route
 
 export const POST = async (req) => {
+       const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
      try {
           const data = await req.formData(); // Handle FormData directly
           const title = data.get("title");

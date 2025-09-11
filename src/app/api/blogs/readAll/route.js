@@ -2,7 +2,9 @@ import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
 
+
 export const GET = async (req) => {
+    
      try {
           // Get 'skip' parameter from query (default to 0)
           const { searchParams } = new URL(req.url);

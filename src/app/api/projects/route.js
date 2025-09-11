@@ -1,6 +1,7 @@
 import dbConnect from '@/app/dbconnect/dbconnect';
 import Project from '@/app/schema/projectSchema';
 import { NextResponse } from 'next/server';
+import { getToken } from "next-auth/jwt";
 
 // / GET /api/projects - Get all projects with pagination
 export async function GET(request) {
@@ -80,6 +81,14 @@ export async function GET(request) {
 
 // POST /api/projects - Create new project
 export async function POST(request) {
+     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
     try {
         await dbConnect();
 

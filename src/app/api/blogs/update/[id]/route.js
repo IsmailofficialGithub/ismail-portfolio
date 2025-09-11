@@ -2,8 +2,17 @@ import dbConnect from "@/app/dbconnect/dbconnect";
 import { addAssertsInCloudinary, deleteAssetsFromCloudinary } from "@/app/helper/helper";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
+import { getToken } from "next-auth/jwt";
 
 export const PUT = async (req, { params }) => {
+       const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
      try {
           const { id } = params;
           const data = await req.formData();
