@@ -31,7 +31,7 @@ export default function LoginPage() {
     } else {
       console.log("Logged in successfully");
       toast.success("Logged in successfully")
-      router.push("/admin/dashboard/blog"); // Redirect after successful login
+      router.push("/admin/dashboard"); // Redirect after successful login
     }
     
     setIsLoading(false)
