@@ -2,12 +2,40 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ExternalLink, Code, Eye, Globe } from "lucide-react";
 import { motion, useInView } from "framer-motion";
-import { FaReact, FaNodeJs, FaHtml5, FaCss3Alt, FaJs, FaDatabase, FaGitAlt, FaPython, FaJava } from "react-icons/fa";
-import { SiNextdotjs, SiExpress, SiMongodb, SiTailwindcss, SiTypescript, SiRedux, SiGraphql, SiDocker, SiKubernetes, SiPostgresql, SiMysql, SiSupabase, SiFirebase, SiVercel, SiNetlify, SiGithub, SiVisualstudiocode } from "react-icons/si";
+import {
+  FaReact,
+  FaNodeJs,
+  FaHtml5,
+  FaCss3Alt,
+  FaJs,
+  FaDatabase,
+  FaGitAlt,
+  FaPython,
+  FaJava,
+} from "react-icons/fa";
+import {
+  SiNextdotjs,
+  SiExpress,
+  SiMongodb,
+  SiTailwindcss,
+  SiTypescript,
+  SiRedux,
+  SiGraphql,
+  SiDocker,
+  SiKubernetes,
+  SiPostgresql,
+  SiMysql,
+  SiSupabase,
+  SiFirebase,
+  SiVercel,
+  SiNetlify,
+  SiGithub,
+  SiVisualstudiocode,
+} from "react-icons/si";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
-
+import Link from "next/link";
 
 // Technology → Icon map
 const techIcons = {
@@ -52,11 +80,11 @@ const ProjectShowcase = () => {
   const fetchProjects = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('/api/projects/featured');
+      const response = await axios.get("/api/projects/featured");
       if (response.data.success) {
         setProjects(response.data.projects);
       } else {
-       toast.error("Failed to fetch projects");
+        toast.error("Failed to fetch projects");
       }
       setProjects(response.data.data);
     } catch (err) {
@@ -97,16 +125,19 @@ const ProjectShowcase = () => {
 
   const ProjectCard = ({ project }) => (
     <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105">
-      <div className="relative group">
-        <Image
-        width={100}
-        height={192}
-          src={project.images[0]}
-          alt={project.name}
-          className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-      </div>
+      <Link href={`/projects/${project._id}`} passHref>
+        <div className="relative group cursor-pointer">
+          <Image
+            width={100}
+            height={192}
+            src={project.images[0]}
+            alt={project.name}
+            className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-110"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        </div>
+      </Link>
 
       <div className="p-6">
         <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
@@ -181,8 +212,7 @@ const ProjectShowcase = () => {
       <header className="relative py-16 px-6 text-center h-[35vh]">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-orange-600/20"></div>
         <div className="relative max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent" >
-            
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
             My Projects
           </h1>
           <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
