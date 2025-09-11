@@ -7,11 +7,11 @@ import MultipleSelectChip from "../components/SelectFilter";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
 import { Button } from "@mui/material";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import Footer from "../components/Footer";
 
 const Page = () => {
-  const router=useRouter()
+  const router = useRouter();
   //  states
   const [blogs, setBlogs] = useState([]);
   const [skip, setSkip] = useState(0);
@@ -43,7 +43,8 @@ const Page = () => {
   const fetchFilteredBlog = async () => {
     setSkip(0);
     setNoMoreBlogs(true);
-    if (selectedCategoryIds.length > 0) { // if filter is selected
+    if (selectedCategoryIds.length > 0) {
+      // if filter is selected
       setLoading(true);
       try {
         const response = await axios.post(" /api/category/filter", {
@@ -60,12 +61,11 @@ const Page = () => {
     } else {
       setBlogs([]);
       setNoMoreBlogs(false);
-      fetchBlogs();// fetch default blog fetching function
+      fetchBlogs(); // fetch default blog fetching function
     }
   };
 
-
-  //Getting blogs 
+  //Getting blogs
   const fetchBlogs = async () => {
     setLoading(true);
     try {
@@ -89,7 +89,7 @@ const Page = () => {
     fetchCategory();
   }, []);
 
-  // fuction calling based to filter 
+  // fuction calling based to filter
   useEffect(() => {
     if (isFirstRender) {
       setIsFirstRender(false);
@@ -109,24 +109,28 @@ const Page = () => {
         <title>Ismail.Blogs</title>
         <div
           className="relative flex size-full min-h-screen flex-col bg-[#121212] group/design-root overflow-x-hidden text-white"
-          style={{ fontFamily: 'Newsreader, "Noto Sans", sans-serif' }}>
+          style={{ fontFamily: 'Newsreader, "Noto Sans", sans-serif' }}
+        >
           <div className="layout-container flex h-full grow flex-col">
             <div className="px-4 flex flex-1 justify-center py-2  sm:mb-32 mb-5">
               <div className="layout-content-container flex flex-col max-w-[960px] flex-1 mt-20">
                 {loading ? <Loader /> : ""}
-                {/* <MultipleSelectChip
-                  categories={categories}
-                  selectedCategoryIds={selectedCategoryIds}
-                  setSelectedCategoryIds={setSelectedCategoryIds}
-                /> */}
 
                 <div className="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-3 p-4">
-                  {blogs.map((blog,Blogindex) => (
-                    <div key={Blogindex} className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300" onClick={()=>{router.push(` /blogs/${blog._id}`)}}>
+                  {blogs.map((blog, Blogindex) => (
+                    <div
+                      key={Blogindex}
+                      className="flex flex-col gap-3 pb-3 overflow-hidden cursor-pointer hover:scale-105 transition-transform duration-300"
+                      onClick={() => {
+                        router.push(` /blogs/${blog._id}`);
+                      }}
+                    >
                       <div
                         className="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl object-cover "
                         style={{
-                          backgroundImage: `url("${blog.imageUrl ? blog.imageUrl : defaultImage}")`,
+                          backgroundImage: `url("${
+                            blog.imageUrl ? blog.imageUrl : defaultImage
+                          }")`,
                         }}
                       />
                       <div>
@@ -134,7 +138,8 @@ const Page = () => {
                           {blog.title}...
                         </p>
                         <p className="text-[#4e7397] text-sm font-normal leading-normal">
-                          By Ismail Abbasi . Posted: <TimeAgo createdAt={blog.createdAt} />
+                          By Ismail Abbasi . Posted:{" "}
+                          <TimeAgo createdAt={blog.createdAt} />
                         </p>
                         <p>
                           {new Date(blog.createdAt).toLocaleDateString()} |{" "}
@@ -144,15 +149,24 @@ const Page = () => {
                     </div>
                   ))}
                 </div>
-                {noMoreBlogs ? (
+                <div className="flex justify-center ">
+                  {noMoreBlogs ? (
                   <h1 className="font-bold text-center my-2">No Blog found</h1>
+                ) : loading ? (
+                  ""
                 ) : (
-                  <button className="bg-[#a855f7] hover:bg-[#9244db] text-white font-medium py-2.5 px-5 rounded-lg w-auto" onClick={fetchBlogs}>Load More</button>
+                  <button
+                    className="bg-[#a855f7] hover:bg-[#9244db] text-white w-[30%] font-medium py-2.5 px-5 rounded-lg "
+                    onClick={fetchBlogs}
+                  >
+                    Load More
+                  </button>
                 )}
+                </div>
               </div>
             </div>
           </div>
-      <Footer/>
+          <Footer />
         </div>
       </div>
     </>
