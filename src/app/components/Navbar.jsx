@@ -22,8 +22,8 @@ const navLinks = [
   { title: "Contact", path: "#contact" },
   ...(status === "authenticated"
     ? [
-        { title: "Dashboard", path: "/admin/dashboard/blog" },
-        { title: "Logout", path: "", onClick: handleLogout },
+        { title: "Dashboard", path: "/admin/dashboard" },
+        { title: "Logout", path: "", onClick: handleLogout }, // use onClick
       ]
     : []),
 ];
@@ -60,22 +60,18 @@ const navLinks = [
 
         {/* Desktop Menu */}
         <div className="menu hidden md:block md:w-auto" id="navbar">
-          <ul className="flex p-3 md:p-0 md:flex-row md:space-x-8 mt-0">
-            {navLinks.map((link, index) => (
-              <li key={index}>
-                {link.action ? (
-                  <button
-                    onClick={link.action}
-                    className="text-white hover:text-gray-300"
-                  >
-                    {link.title}
-                  </button>
-                ) : (
-                  <NavLink href={link.path} title={link.title} />
-                )}
-              </li>
-            ))}
-          </ul>
+       <ul className="flex p-3 md:p-0 md:flex-row md:space-x-8 mt-0">
+  {navLinks.map((link, i) => (
+    <li key={i}>
+      <NavLink
+        href={link.path}
+        title={link.title}
+        // only pass onClick if present (NavLink checks for it)
+        onClick={link.onClick ? () => { link.onClick(); setNavbarOpen(false); } : undefined}
+      />
+    </li>
+  ))}
+</ul>
         </div>
       </div>
 
