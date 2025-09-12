@@ -2,6 +2,7 @@ import dbConnect from '@/app/dbconnect/dbconnect';
 import Project from '@/app/schema/projectSchema';
 import { NextResponse } from 'next/server';
 import { getToken } from "next-auth/jwt";
+export const dynamic = "force-dynamic"; // add at top of route.js
 
 // / GET /api/projects - Get all projects with pagination
 export async function GET(request) {
@@ -81,7 +82,7 @@ export async function GET(request) {
 
 // POST /api/projects - Create new project
 export async function POST(request) {
-     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+     const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(

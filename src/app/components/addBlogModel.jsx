@@ -1,3 +1,4 @@
+"use client"
 import React, { useEffect, useState ,useRef} from "react";
 import { Input, Modal } from "antd";
 import { FormLabel } from "@mui/material";
@@ -5,7 +6,11 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
 import CategoryDropdown from "./Categorydropdown";
-import JoditEditor from "jodit-react";
+import dynamic from "next/dynamic";
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+});
+
 
 const AddBlogModel = ({ refreshBlogs }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);

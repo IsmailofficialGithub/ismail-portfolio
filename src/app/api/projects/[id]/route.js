@@ -53,7 +53,7 @@ export async function GET(request, { params }) {
 }
 // / PUT /api/projects/[id] - Update project
 export async function PUT(request, { params }) {
-   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+   const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(
@@ -143,7 +143,7 @@ export async function PUT(request, { params }) {
 
 // DELETE /api/projects/[id] - Delete project
 export async function DELETE(request, { params }) {
-   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+   const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(

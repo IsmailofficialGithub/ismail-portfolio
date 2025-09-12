@@ -1,12 +1,11 @@
 import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import Project from "@/app/schema/projectSchema";
-import { getToken } from "next-auth/jwt";
+export const dynamic = "force-dynamic"; // add at top of route.js
 
 
 // src/app/api/admin/dashboard/recent/route.js
-export async function GET(request) {
-       const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+export async function GET() {
 
   try {
     await dbConnect();

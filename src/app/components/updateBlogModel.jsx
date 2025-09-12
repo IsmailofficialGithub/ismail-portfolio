@@ -5,7 +5,10 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
 import CategoryDropdown from "./Categorydropdown";
-import JoditEditor from "jodit-react";
+const JoditEditor = dynamic(() => import("jodit-react"), {
+  ssr: false,
+});
+
 
 
 const UpdateBlogModel = ({ id,refreshBlogs }) => {

@@ -2,6 +2,8 @@ import dbConnect from "@/app/dbconnect/dbconnect";
 import CategoryModel from "@/app/schema/categorySchema";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic"; // add at top of route.js
+
 
 // Handle GET (Retrieve all categories)
 export async function GET() {

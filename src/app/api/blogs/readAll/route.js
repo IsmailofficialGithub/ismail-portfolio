@@ -1,7 +1,7 @@
 import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
-
+export const dynamic = "force-dynamic"; // add at top of route.js
 
 export const GET = async (req) => {
     
@@ -14,6 +14,7 @@ export const GET = async (req) => {
           const limit = skip === 0 ? INITIAL_LIMIT : SUBSEQUENT_LIMIT;
 
           // Fetch blogs from database
+          await dbConnect()
           const blogs = await BlogModel.find()
                .sort({ createdAt: -1 }) // Sort by 'createdAt' in descending order
                .skip(skip)

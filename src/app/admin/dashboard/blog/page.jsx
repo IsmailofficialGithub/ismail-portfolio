@@ -1,15 +1,22 @@
 "use client";
+
 import React, { useState, useEffect } from "react";
-import AddBlogModel from "@/app/components/addBlogModel";
-import UpdateBlogModel from "@/app/components/updateBlogModel";
+import dynamic from "next/dynamic";   // ✅ required for dynamic imports
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import Loader from "@/app/components/Loader";
 import { Button } from "@mui/material";
-import CreateCategories from "@/app/components/createCategories";
-import Navbar from "@/app/components/Navbar";
 import Link from "next/link";
+
+// ✅ dynamically imported components
+const UpdateBlogModel = dynamic(() => import("@/app/components/updateBlogModel"), { ssr: false });
+const AddBlogModel = dynamic(() => import("@/app/components/addBlogModel"), { ssr: false });
+const CreateCategories = dynamic(() => import("@/app/components/createCategories"), { ssr: false });
+const Navbar = dynamic(() => import("@/app/components/Navbar"), { ssr: false });
+
+// rest of your Page component ...
+
 const Page = () => {
   const [blogs, setBlogs] = useState([]);
   const [noMoreBlogs, setNoMoreBlogs] = useState(false);

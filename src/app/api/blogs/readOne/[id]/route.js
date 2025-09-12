@@ -1,10 +1,11 @@
+import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
 
 export const GET = async (req, { params }) => {
      try {
           const { id } = params;
-
+          await dbConnect();
           const blog = await BlogModel.findById(id);
           if (!blog) {
 

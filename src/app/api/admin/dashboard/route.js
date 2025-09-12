@@ -5,8 +5,13 @@ import Project from "@/app/schema/projectSchema.js";
 import dbConnect from "@/app/dbconnect/dbconnect";
 import { getToken } from "next-auth/jwt";
 
-export async function GET() {
+export async function GET(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (!token) {
+      return NextResponse.json(
+        { success: false, message: "Unauthorized" },
+        { status: 401 }
+      );}
 
   try {
     await dbConnect();

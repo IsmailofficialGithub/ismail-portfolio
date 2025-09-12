@@ -1,10 +1,11 @@
+import dbConnect from "@/app/dbconnect/dbconnect";
 import BlogModel from "@/app/schema/blogSchema";
 import { NextResponse } from "next/server";
 
 export const GET = async (req, res) => {
      try {
           const limit = 6;
-
+          await dbConnect();
           // Fetch blogs from database with skip and limit
           const blogs = await BlogModel.find()
                .sort({ createdAt: -1 }) // Sort by 'createdAt' in descending order
