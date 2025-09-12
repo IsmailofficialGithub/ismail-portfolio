@@ -207,9 +207,9 @@ const ProjectShowcase = () => {
   };
 
   return (
-    <div className="min-h-screen mt-0 md:mt-[-60px]">
+    <div className="min-h-screen mt-10">
       {/* Header */}
-      <header className="relative py-16 px-6 text-center h-[35vh]">
+      <header className="relative py-16 px-6 text-center">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-orange-600/20"></div>
         <div className="relative max-w-4xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
