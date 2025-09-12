@@ -4,6 +4,7 @@ import { FormLabel, Box } from "@mui/material";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Loader from "./Loader";
+import dynamic from "next/dynamic";
 import CategoryDropdown from "./Categorydropdown";
 const JoditEditor = dynamic(() => import("jodit-react"), {
   ssr: false,
