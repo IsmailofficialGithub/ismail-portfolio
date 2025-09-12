@@ -14,7 +14,7 @@ const Navbar = () => {
     signOut({ callbackUrl: "/login" });
   };
 
-  const Mainhostname = "http://localhost:3000";
+  
 const navLinks = [
   { title: "About", path: "#about" },
   { title: "Projects", path: "#projects" },
