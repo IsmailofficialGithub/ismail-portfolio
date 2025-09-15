@@ -82,14 +82,14 @@ export async function GET(req) {
 
 // POST /api/projects - Create new project
 export async function POST(req) {
-    //  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-//   if (!token) {
-//     return NextResponse.json(
-//       { success: false, message: "Unauthorized" },
-//       { status: 401 }
-//     );
-//   }
+  if (!token) {
+    return NextResponse.json(
+      { success: false, message: "Unauthorized" },
+      { status: 401 }
+    );
+  }
     try {
         await dbConnect();
 
