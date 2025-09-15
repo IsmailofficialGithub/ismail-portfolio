@@ -13,16 +13,16 @@ const ProjectSchema = new mongoose.Schema({
         required: [true, 'Description is required'],
         trim: true,
         minlength: [10, 'Description must be at least 10 characters'],
-        maxlength: [1000, 'Description cannot exceed 1000 characters'],
+        maxlength: [3000, 'Description cannot exceed 3000 characters'],
     },
     images: {
         type: [String],
         required: [true, 'At least one image is required'],
         validate: {
             validator: function(v) {
-                return v.length > 0 && v.length <= 5;
+                return v.length > 0 && v.length <= 10;
             },
-            message: 'Must have 1-5 images'
+            message: 'Must have 1-10 images'
         }
     },
     code: {

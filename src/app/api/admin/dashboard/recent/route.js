@@ -10,7 +10,7 @@ export async function GET() {
   try {
     await dbConnect();
     
-    const { searchParams } = new URL(request.url);
+    const { searchParams } = new URL(req.url);
     const limit = parseInt(searchParams.get('limit')) || 10;
 
     const [recentBlogs, recentProjects] = await Promise.all([

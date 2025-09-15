@@ -204,7 +204,7 @@ const BlogSection = () => {
           {loading ? (
             // Loading State
             <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
-              {Array.from({ length: 3 }).map((_, index) => (
+              {Array.from({ length: 5 }).map((_, index) => (
                 <BlogSkeleton key={index} />
               ))}
             </div>

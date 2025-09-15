@@ -1,5 +1,6 @@
 import React from 'react';
 import { Plus, X } from 'lucide-react';
+import Image from 'next/image';
 
 const ProjectForm = ({ 
   formData, 
@@ -59,7 +60,7 @@ const ProjectForm = ({
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-          Description *
+         Description *  <span className={`${formData.description.length > 3000 ? 'text-red-400' : 'text-gray-400'}`}> { "3000" - formData.description.length }  characters left</span>
         </label>
         <textarea
           required
@@ -173,9 +174,11 @@ const ProjectForm = ({
             <div className="grid grid-cols-2 gap-3">
               {formData.images.map((img, index) => (
                 <div key={index} className="relative group">
-                  <img 
-                    src={img} 
-                    alt={`Preview ${index + 1}`} 
+                  <Image
+                    width={100}
+                    height={96}
+                    src={img}
+                    alt={`Preview ${index + 1}`}
                     className="w-full h-24 object-cover rounded-lg border border-gray-600"
                   />
                   <button

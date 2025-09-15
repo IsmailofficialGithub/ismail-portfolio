@@ -1,8 +1,8 @@
 import { uploadToCloudinary } from '@/lib/cloudinary';
 import { NextResponse } from 'next/server';
 import { getToken } from "next-auth/jwt";
-export async function POST(request) {
-     const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
+export async function POST(req) {
+     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(
@@ -11,7 +11,7 @@ export async function POST(request) {
     );
   }
     try {
-        const formData = await request.formData();
+        const formData = await req.formData();
         const files = formData.getAll('images');
 
         if (!files || files.length === 0) {
@@ -21,10 +21,10 @@ export async function POST(request) {
             }, { status: 400 });
         }
 
-        if (files.length > 5) {
+        if (files.length > 10) {
             return NextResponse.json({
                 success: false,
-                message: 'Maximum 5 images allowed'
+                message: 'Maximum 10 images allowed'
             }, { status: 400 });
         }
 

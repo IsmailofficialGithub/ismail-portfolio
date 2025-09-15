@@ -5,11 +5,11 @@ import { getToken } from "next-auth/jwt";
 export const dynamic = "force-dynamic"; // add at top of route.js
 
 // / GET /api/projects - Get all projects with pagination
-export async function GET(request) {
+export async function GET(req) {
     try {
         await dbConnect();
 
-        const { searchParams } = new URL(request.url);
+        const { searchParams } = new URL(req.url);
         const page = parseInt(searchParams.get('page') || '1');
         const limit = Math.min(parseInt(searchParams.get('limit') || '10'), 50);
         const search = searchParams.get('search') || '';
@@ -81,19 +81,19 @@ export async function GET(request) {
 }
 
 // POST /api/projects - Create new project
-export async function POST(request) {
-     const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
+export async function POST(req) {
+    //  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  if (!token) {
-    return NextResponse.json(
-      { success: false, message: "Unauthorized" },
-      { status: 401 }
-    );
-  }
+//   if (!token) {
+//     return NextResponse.json(
+//       { success: false, message: "Unauthorized" },
+//       { status: 401 }
+//     );
+//   }
     try {
         await dbConnect();
 
-        const body = await request.json();
+        const body = await req.json();
         
         // Check if project with same name exists
         const existingProject = await Project.findOne({ 

@@ -50,15 +50,15 @@ const validateForm = (formData) => {
     errors.description = 'Description is required';
   } else if (formData.description.trim().length < 10) {
     errors.description = 'Description must be at least 10 characters';
-  } else if (formData.description.trim().length > 1000) {
-    errors.description = 'Description cannot exceed 1000 characters';
+  } else if (formData.description.trim().length > 3000) {
+    errors.description = 'Description cannot exceed 3000 characters';
   }
 
   // Images validation
   if (formData.images.length === 0) {
     errors.images = 'At least one image is required';
-  } else if (formData.images.length > 5) {
-    errors.images = 'Cannot have more than 5 images';
+  } else if (formData.images.length > 10) {
+    errors.images = 'Cannot have more than 10 images';
   }
 
   // Code validation
@@ -387,19 +387,28 @@ export default function AdminProjectsDashboard() {
   };
 
   // Add tech to stack
-  const addTech = () => {
-    if (techInput.trim() && !formData.techStack.includes(techInput.trim())) {
+const addTech = () => {
+  if (techInput.trim()) {
+    // split by comma, trim spaces, and filter empty values
+    const newTechs = techInput
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t && !formData.techStack.includes(t));
+
+    if (newTechs.length > 0) {
       setFormData((prev) => ({
         ...prev,
-        techStack: [...prev.techStack, techInput.trim()],
+        techStack: [...prev.techStack, ...newTechs],
       }));
       setTechInput("");
-      // Clear tech stack error when adding a tech
+
+      // Clear error if techStack was empty
       if (formErrors.techStack) {
-        setFormErrors(prev => ({ ...prev, techStack: undefined }));
+        setFormErrors((prev) => ({ ...prev, techStack: undefined }));
       }
     }
-  };
+  }
+};
 
   // Remove tech from stack
   const removeTech = (tech) => {

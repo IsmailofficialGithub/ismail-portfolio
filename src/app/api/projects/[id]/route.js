@@ -7,7 +7,7 @@ import { getPublicIdFromUrl } from "@/app/helper/helper";
 import { getToken } from "next-auth/jwt";
 
 // GET /api/projects/[id] - Get single project
-export async function GET(request, { params }) {
+export async function GET(req, { params }) {
   try {
     await dbConnect();
 
@@ -52,8 +52,8 @@ export async function GET(request, { params }) {
   }
 }
 // / PUT /api/projects/[id] - Update project
-export async function PUT(request, { params }) {
-   const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
+export async function PUT(req, { params }) {
+   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(
@@ -66,7 +66,7 @@ export async function PUT(request, { params }) {
     await dbConnect();
 
     const { id } = params;
-    const body = await request.json();
+    const body = await req.json();
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -142,8 +142,8 @@ export async function PUT(request, { params }) {
 }
 
 // DELETE /api/projects/[id] - Delete project
-export async function DELETE(request, { params }) {
-   const token = await getToken({ request, secret: process.env.NEXTAUTH_SECRET });
+export async function DELETE(req, { params }) {
+   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   if (!token) {
     return NextResponse.json(
