@@ -5,7 +5,7 @@ const LayoutWrapper = ({ children }) => {
   return (
     <main className="flex min-h-screen flex-col bg-[#121212]">
       <Navbar />
-      <div className="container mt-24 mx-auto px-4 md:px-12 py-4 mt:[2.5rem] sm:mt-[3.5rem]">
+      <div className="container mx-auto px-4 md:px-12 py-4 " style={{marginTop:"5rem"}}>
         {children}
       </div>
       <Footer />
