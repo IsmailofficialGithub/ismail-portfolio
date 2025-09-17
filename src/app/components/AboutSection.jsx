@@ -80,7 +80,7 @@ const AboutSection = () => {
             working with JavaScript ,TypeScript ,Next.js, React.js, Redux,
             Node.js, Express, mySql, MongoDB, HTML, CSS, and Git. I am always
             looking to expand my knowledge and skill set.
-            <br />
+            <br /> 
             <a
               href="https://www.linkedin.com/in/ismailabbasi/"
               target="_blank"
