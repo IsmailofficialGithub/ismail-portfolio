@@ -45,7 +45,18 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
     </div>
 
     <div className="p-6">
-      <h3 className="text-xl font-bold text-white mb-2">{project.name}</h3>
+      <h3
+        className="text-xl font-bold text-white mb-2"
+        onClick={() => {
+          window.open(
+            `/projects/${project.id}`,
+            "_blank",
+            "noopener,noreferrer",
+          );
+        }}
+      >
+        {project.name}
+      </h3>
       <p className="text-gray-300 mb-4 line-clamp-2">{project.description}</p>
 
       <div className="flex flex-wrap gap-1 mb-4">

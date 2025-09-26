@@ -7,26 +7,6 @@ import ProjectDetailSkeleton from './ProjectDetailSkeleton';
 import { useParams } from 'next/navigation';
 
 const ProjectDetailComponent = () => {
-  // Demo project data with multiple images
-//   const project = {
-//     "_id": "68c1b35ef3d06aa389f1a339",
-//     "name": "Welcome Portfolio",
-//     "description": "A comprehensive portfolio website built with modern web technologies. This project showcases advanced React patterns, responsive design principles, and optimal user experience. The application features dynamic content management, interactive components, and seamless navigation. Built with performance optimization in mind, it delivers fast loading times and smooth animations across all devices.",
-//     "images": [
-//       "https://res.cloudinary.com/dp1lxbzo1/image/upload/v1757524829/projects/project_1757524779352_Gemini_Generated_Image_cgaxvxcgaxvxcgax.jpg",
-//       "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop",
-//       "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=600&fit=crop",
-//       "https://images.unsplash.com/photo-1486312338219-ce68e2c6b696?w=800&h=600&fit=crop",
-//       "https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=800&h=600&fit=crop"
-//     ],
-//     "code": "https://github.com/IsmailofficialGithub/ismail-portfolio/graphs/contributors",
-//     "livePreview": "https://ismail-portfolio.vercel.app",
-//     "techStack": ["React", "Next.js", "Tailwind CSS", "Node.js", "MongoDB", "Vercel"],
-//     "featured": true,
-//     "status": "published",
-//     "createdAt": "2025-09-10T17:20:30.180Z",
-//     "updatedAt": "2025-09-10T17:20:30.180Z"
-//   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -276,7 +256,7 @@ const ProjectDetailComponent = () => {
       {/* Lightbox Modal */}
       {isLightboxOpen && (
         <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4">
-          <div className="relative max-w-5xl w-full max-h-full">
+          <div className="relative mt-[5%] max-w-5xl w-full max-h-full">
             <button
               onClick={() => setIsLightboxOpen(false)}
               className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"

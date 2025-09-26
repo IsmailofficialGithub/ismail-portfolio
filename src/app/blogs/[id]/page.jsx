@@ -274,7 +274,7 @@ const ArticleCard = () => {
                   <img
                     src={blogData.imageUrl}
                     alt={blogData.title}
-                    className={`w-full h-64 md:h-80 lg:h-96 object-cover transition-opacity duration-500 ${
+                    className={`w-full h-auto md:h-80 lg:h-96 object-cover transition-opacity duration-500 ${
                       imageLoading ? 'opacity-0' : 'opacity-100'
                     }`}
                     onLoad={() => setImageLoading(false)}

@@ -13,7 +13,7 @@ const ProjectModal = ({
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-gray-900 rounded-xl border border-gray-800 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+      <div className="mt-[7%] bg-gray-900 rounded-xl border border-gray-800 w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-gray-800">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-white">{title}</h2>
