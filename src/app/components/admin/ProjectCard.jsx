@@ -46,7 +46,7 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
 
     <div className="p-6">
       <h3
-        className="text-xl font-bold text-white mb-2"
+        className="text-xl font-bold text-white mb-2 cursor-pointer hover:text-purple-400 transition-colors"
         onClick={() => {
           window.open(
             `/projects/${project._id}`,
