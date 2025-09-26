@@ -169,7 +169,7 @@ const ProjectShowcase = () => {
 
 const ProjectCard = ({ project }) => (
   <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105 flex flex-col">
-    <div onClick={() => window.open(`/projects/${project.id}`, "_blank", "noopener,noreferrer")} className="relative group cursor-pointer aspect-video bg-gray-800">
+    <div onClick={() => window.open(`/projects/${project._id}`, "_blank", "noopener,noreferrer")} className="relative group cursor-pointer aspect-video bg-gray-800">
       <img
         src={project.images?.[0] || "/api/placeholder/400/200"}
         alt={project.name}

@@ -49,7 +49,7 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
         className="text-xl font-bold text-white mb-2"
         onClick={() => {
           window.open(
-            `/projects/${project.id}`,
+            `/projects/${project._id}`,
             "_blank",
             "noopener,noreferrer",
           );
