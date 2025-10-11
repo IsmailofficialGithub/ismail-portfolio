@@ -38,46 +38,46 @@ const validateForm = (formData) => {
 
   // Name validation
   if (!formData.name.trim()) {
-    errors.name = 'Project name is required';
+    errors.name = "Project name is required";
   } else if (formData.name.trim().length < 3) {
-    errors.name = 'Name must be at least 3 characters';
+    errors.name = "Name must be at least 3 characters";
   } else if (formData.name.trim().length > 100) {
-    errors.name = 'Name cannot exceed 100 characters';
+    errors.name = "Name cannot exceed 100 characters";
   }
 
   // Description validation
   if (!formData.description.trim()) {
-    errors.description = 'Description is required';
+    errors.description = "Description is required";
   } else if (formData.description.trim().length < 10) {
-    errors.description = 'Description must be at least 10 characters';
+    errors.description = "Description must be at least 10 characters";
   } else if (formData.description.trim().length > 3000) {
-    errors.description = 'Description cannot exceed 3000 characters';
+    errors.description = "Description cannot exceed 3000 characters";
   }
 
   // Images validation
   if (formData.images.length === 0) {
-    errors.images = 'At least one image is required';
+    errors.images = "At least one image is required";
   } else if (formData.images.length > 10) {
-    errors.images = 'Cannot have more than 10 images';
+    errors.images = "Cannot have more than 10 images";
   }
 
   // Code validation
   if (!formData.code.trim()) {
-    errors.code = 'Code repository URL is required';
-  } else if (!formData.code.startsWith('https://github.com/')) {
-    errors.code = 'Code URL must be a valid GitHub repository';
+    errors.code = "Code repository URL is required";
+  } else if (!formData.code.startsWith("https://github.com/")) {
+    errors.code = "Code URL must be a valid GitHub repository";
   }
 
   // Live preview validation
-  if (formData.livePreview && !formData.livePreview.startsWith('http')) {
-    errors.livePreview = 'Live preview must be a valid URL';
+  if (formData.livePreview && !formData.livePreview.startsWith("http")) {
+    errors.livePreview = "Live preview must be a valid URL";
   }
 
   // Tech stack validation
   if (formData.techStack.length === 0) {
-    errors.techStack = 'At least one technology is required';
+    errors.techStack = "At least one technology is required";
   } else if (formData.techStack.length > 10) {
-    errors.techStack = 'Cannot have more than 10 technologies';
+    errors.techStack = "Cannot have more than 10 technologies";
   }
 
   return errors;
@@ -173,14 +173,21 @@ export default function AdminProjectsDashboard() {
         setError(data.message);
       }
     } catch (err) {
-      const errorMessage = err.response?.data?.message || "Failed to fetch projects";
+      const errorMessage =
+        err.response?.data?.message || "Failed to fetch projects";
       toast.error(errorMessage);
       setError(errorMessage);
-      setRetryCount(prev => prev + 1);
+      setRetryCount((prev) => prev + 1);
     } finally {
       setLoading(false);
     }
-  }, [currentPage, debouncedSearchTerm, statusFilter, techStackFilter, autoRetryTimer]);
+  }, [
+    currentPage,
+    debouncedSearchTerm,
+    statusFilter,
+    techStackFilter,
+    autoRetryTimer,
+  ]);
 
   useEffect(() => {
     fetchProjects();
@@ -188,7 +195,7 @@ export default function AdminProjectsDashboard() {
 
   // Manual retry function
   const handleRetry = () => {
-    setRetryCount(prev => prev + 1);
+    setRetryCount((prev) => prev + 1);
     fetchProjects();
   };
 
@@ -200,24 +207,6 @@ export default function AdminProjectsDashboard() {
     }
     setRetryCount(0);
     setError(null);
-  };
-
-  // Upload images
-  const uploadImages = async (files) => {
-    const formData = new FormData();
-    files.forEach((file) => formData.append("images", file));
-
-    const response = await fetch("/api/projects/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await response.json();
-    if (!data.success) {
-      toast.error(data.message);
-      throw new Error(data.message);
-    }
-    return data.data.images.map((img) => img.url);
   };
 
   // Reset form
@@ -259,29 +248,30 @@ export default function AdminProjectsDashboard() {
     try {
       setSubmitting(true);
 
-      let imageUrls = formData.images;
       if (imageFiles.length > 0) {
         setUploading(true);
-        imageUrls = await uploadImages(imageFiles);
+        const uploadedUrls = await handleUpload(imageFiles);
         setUploading(false);
+        if (uploadedUrls.length <= 0) {
+          return toast.error("No image Uploaded");
+        }
+        const response = await fetch("/api/projects", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...formData, images: uploadedUrls }),
+        });
+
+        const data = await response.json();
+        if (!data.success) {
+          toast.error(data.message);
+          throw new Error(data.message);
+        }
+        toast.success("Project added successfully");
+
+        setShowAddModal(false);
+        resetForm();
+        fetchProjects();
       }
-
-      const response = await fetch("/api/projects", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, images: imageUrls }),
-      });
-
-      const data = await response.json();
-      if (!data.success) {
-        toast.error(data.message);
-        throw new Error(data.message);
-      }
-      toast.success("Project added successfully");
-
-      setShowAddModal(false);
-      resetForm();
-      fetchProjects();
     } catch (err) {
       toast.error(err.message);
       setError(err.message);
@@ -299,7 +289,10 @@ export default function AdminProjectsDashboard() {
       let imageUrls = formData.images;
       if (imageFiles.length > 0) {
         setUploading(true);
-        const newImageUrls = await uploadImages(imageFiles);
+        const newImageUrls = await handleUpload(imageFiles);
+        if (newImageUrls.length <= 0) {
+          return toast.error("Failed to upload new Image");
+        }
         imageUrls = [...imageUrls, ...newImageUrls];
         setUploading(false);
       }
@@ -369,6 +362,53 @@ export default function AdminProjectsDashboard() {
     }
   };
 
+  const handleUpload = async (imageFiles) => {
+    try {
+      const { data } = await axios.get("/api/projects/GetUploadSignature");
+      const { signature, timestamp, cloudName, apiKey, success, message } =
+        data;
+
+      if (!success) {
+        toast.error(message);
+        return [];
+      }
+
+      console.time("upload");
+
+      const uploadPromises = Array.from(imageFiles).map(async (file) => {
+        const formData = new FormData();
+        formData.append("file", file);
+        formData.append("signature", signature);
+        formData.append("api_key", apiKey);
+        formData.append("timestamp", timestamp);
+
+        // ✅ Use native fetch (faster)
+        const res = await fetch(
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
+
+        const result = await res.json();
+        if (!res.ok) throw new Error(result.error?.message || "Upload failed");
+
+        return result.secure_url;
+      });
+
+      // ✅ Upload all in parallel
+      const urls = await Promise.all(uploadPromises);
+      console.timeEnd("upload");
+
+      return urls;
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to upload images");
+      return [];
+    }
+  };
+
   // Open edit modal
   const openEditModal = (project) => {
     setSelectedProject(project);
@@ -387,28 +427,28 @@ export default function AdminProjectsDashboard() {
   };
 
   // Add tech to stack
-const addTech = () => {
-  if (techInput.trim()) {
-    // split by comma, trim spaces, and filter empty values
-    const newTechs = techInput
-      .split(",")
-      .map((t) => t.trim())
-      .filter((t) => t && !formData.techStack.includes(t));
+  const addTech = () => {
+    if (techInput.trim()) {
+      // split by comma, trim spaces, and filter empty values
+      const newTechs = techInput
+        .split(",")
+        .map((t) => t.trim())
+        .filter((t) => t && !formData.techStack.includes(t));
 
-    if (newTechs.length > 0) {
-      setFormData((prev) => ({
-        ...prev,
-        techStack: [...prev.techStack, ...newTechs],
-      }));
-      setTechInput("");
+      if (newTechs.length > 0) {
+        setFormData((prev) => ({
+          ...prev,
+          techStack: [...prev.techStack, ...newTechs],
+        }));
+        setTechInput("");
 
-      // Clear error if techStack was empty
-      if (formErrors.techStack) {
-        setFormErrors((prev) => ({ ...prev, techStack: undefined }));
+        // Clear error if techStack was empty
+        if (formErrors.techStack) {
+          setFormErrors((prev) => ({ ...prev, techStack: undefined }));
+        }
       }
     }
-  }
-};
+  };
 
   // Remove tech from stack
   const removeTech = (tech) => {
@@ -426,7 +466,7 @@ const addTech = () => {
     }));
     // Clear images error if we still have images
     if (formData.images.length > 1 && formErrors.images) {
-      setFormErrors(prev => ({ ...prev, images: undefined }));
+      setFormErrors((prev) => ({ ...prev, images: undefined }));
     }
   };
 
@@ -470,7 +510,11 @@ const addTech = () => {
             </div>
             <div className="flex items-center justify-between">
               <span>
-                {autoRetryTimer ? `Retrying in ${5 - (retryCount > 5 ? 5 : retryCount)} seconds...` : 'Auto retry cancelled'}
+                {autoRetryTimer
+                  ? `Retrying in ${
+                      5 - (retryCount > 5 ? 5 : retryCount)
+                    } seconds...`
+                  : "Auto retry cancelled"}
               </span>
               <button
                 onClick={handleRetry}

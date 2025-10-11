@@ -169,7 +169,7 @@ const ProjectForm = ({
         {(formData.images.length > 0 || imageFiles.length > 0) && (
           <div className="mt-4">
             <p className="text-sm text-gray-400 mb-2">
-              Preview ({formData.images.length} / 5 images)
+              Preview ({formData.images.length} / 10 images)
             </p>
             <div className="grid grid-cols-2 gap-3">
               {formData.images.map((img, index) => (
@@ -198,7 +198,7 @@ const ProjectForm = ({
         )}
         
         <p className="mt-2 text-xs text-gray-400">
-          Maximum 5 images allowed. Supported formats: JPG, PNG, WebP
+          Maximum 10 images allowed. Supported formats: JPG, PNG, WebP
         </p>
       </div>
 

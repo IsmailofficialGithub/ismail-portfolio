@@ -4,6 +4,7 @@ import CategoryModel from "@/app/schema/categorySchema.js";
 import Project from "@/app/schema/projectSchema.js";
 import dbConnect from "@/app/dbconnect/dbconnect";
 import { getToken } from "next-auth/jwt";
+import { NextResponse } from "next/server";
 
 export async function GET(req) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });

@@ -91,7 +91,7 @@ const ProjectDetailComponent = () => {
   return (
     <div className="min-h-screen bg-gray-950 text-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-900 via-purple-900 to-gray-900 overflow-hidden">
+      <div className="relative  overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -259,7 +259,7 @@ const ProjectDetailComponent = () => {
           <div className="relative mt-[5%] max-w-5xl w-full max-h-full">
             <button
               onClick={() => setIsLightboxOpen(false)}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              className="absolute top-2 z-[10000] right-0 text-white hover:text-gray-300 transition-colors"
             >
               <X className="w-8 h-8" />
             </button>

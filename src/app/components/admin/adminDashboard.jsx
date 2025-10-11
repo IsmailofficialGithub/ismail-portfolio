@@ -207,7 +207,7 @@ const AdminDashboard = () => {
                 count={safeData.overview.projects.total}
                 subtitle={`${safeData.overview.projects.published} Published`}
                 color="from-purple-500 to-purple-600"
-                href="/admin/dashboard/project"
+                href="/admin/dashboard/projects"
               />
               <StatCard 
                 icon={BarChart3}
