@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect, useState, useRef, useCallback } from "react";
-import { MoveUpRight, Calendar, Clock, ExternalLink } from 'lucide-react';
+import { MoveUpRight, Calendar } from 'lucide-react';
 import Button from "./Button";
 import Link from "next/link";
 import Image from "next/image";
 import axios from "axios";
+import { motion, useInView } from "framer-motion";
 
 // Custom hook for intersection observer (lazy loading)
 const useIntersectionObserver = (options = {}) => {
@@ -164,6 +165,8 @@ const BlogSkeleton = () => (
 const BlogSection = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   const fetchingBlogs = async () => {
     setLoading(true);
@@ -187,20 +190,37 @@ const BlogSection = () => {
   }, []);
 
   return (
-    <div className="bg-[#121212] min-h-screen py-12 px-4" id="blogs">
+    <motion.section
+      ref={sectionRef}
+      className="bg-[#121212] min-h-screen py-12 px-4"
+      id="blogs"
+      initial={{ opacity: 0, y: 48 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.1, duration: 0.5 }}
+        >
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Latest <span className="text-[#a855f7]">Blog Posts</span>
           </h1>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Discover insights, tutorials, and thoughts on modern software development, AI, and technology trends.
           </p>
-        </div>
+        </motion.div>
 
         {/* Blog Cards Container */}
-        <div className="relative">
+        <motion.div
+          className="relative"
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.2, duration: 0.6 }}
+        >
           {loading ? (
             // Loading State
             <div className="flex gap-6 overflow-x-auto pb-6 scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-800">
@@ -221,22 +241,32 @@ const BlogSection = () => {
               ))}
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* View All Button */}
         {!loading && blogs.length > 0 && (
-          <div className="text-center mt-8">
+          <motion.div
+            className="text-center mt-8"
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <Link href="/blogs" target="_blank" rel="noopener noreferrer">
               <Button text="View All Posts"/>
             </Link>
-          </div>
+          </motion.div>
         )}
 
         {/* Empty State */}
         {!loading && blogs.length === 0 && (
-          <div className="text-center py-12">
+          <motion.div
+            className="text-center py-12"
+            initial={{ opacity: 0, y: 12 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3, duration: 0.5 }}
+          >
             <div className="text-gray-400 text-lg">No blog posts found.</div>
-          </div>
+          </motion.div>
         )}
       </div>
 
@@ -262,7 +292,7 @@ const BlogSection = () => {
           overflow: hidden;
         }
       `}</style>
-    </div>
+    </motion.section>
   );
 };
 

@@ -1,15 +1,18 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import GithubIcon from "../../../public/github-icon.svg";
 import LinkedinIcon from "../../../public/linkedin-icon.svg";
 import Link from "next/link";
 import Image from "next/image";
 import { Loader } from "lucide-react";
+import { motion, useInView } from "framer-motion";
 
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error,setError]=useState('')
+  const sectionRef = useRef(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,12 +47,21 @@ const EmailSection = () => {
   };
 
   return (
-    <section
+    <motion.section
+      ref={sectionRef}
       id="contact"
       className="grid md:grid-cols-2 my-12 md:my-12 py-24 gap-4 relative"
+      initial={{ opacity: 0, y: 40 }}
+      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary-900 to-transparent rounded-full h-80 w-80 z-0 blur-lg absolute top-3/4 -left-4 transform -translate-x-1/2 -translate-1/2"></div>
-      <div className="z-10">
+      <motion.div
+        className="z-10"
+        initial={{ opacity: 0, x: -20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ delay: 0.1, duration: 0.5 }}
+      >
         <h5 className="text-xl font-bold text-white my-2">
           Let&apos;s Connect
         </h5>
@@ -66,8 +78,12 @@ const EmailSection = () => {
             <Image src={LinkedinIcon} alt="Linkedin Icon" />
           </Link>
         </div>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 20 }}
+        animate={isInView ? { opacity: 1, x: 0 } : {}}
+        transition={{ delay: 0.2, duration: 0.5 }}
+      >
         {emailSubmitted ? (
           <p className={`${error.length>0?"text-red-500 ":"text-green-500 "} text-sm mt-2`} >
             {error.length>=0?"Email sent successfully!":error}
@@ -130,8 +146,8 @@ const EmailSection = () => {
             </button>
           </form>
         )}
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 };
 
