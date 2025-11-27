@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
@@ -37,10 +37,49 @@ const skillHighlights = [
   },
 ];
 
+const experiences = [
+  {
+    company: "Cloud Rexpo",
+    role: "Full Stack & AI Developer",
+    period: "Jan 2025 – Present",
+    items: [
+      "Lead end-to-end delivery of AI-powered products with admin control, analytics, and pixel-perfect UX.",
+      "Built an AI Interview Bot leveraging OpenAI and orchestrated with n8n workflows for evaluation and feedback.",
+      "Delivered zero-downtime deployments with Docker, Nginx, Linux, and CI/CD pipelines for automated scaling.",
+    ],
+  },
+  {
+    company: "ENCS",
+    role: "Backend Developer",
+    period: "August 2023 – December 2024",
+    items: [
+      "Developed and maintained scalable backend systems, including RESTful APIs, database schemas, authentication flows, and third-party integrations.",
+      "Optimized legacy APIs, improved query performance, fixed production issues, and implemented best practices in security and code quality.",
+    ],
+  },
+  {
+    company: "Firefly Tech Solutions",
+    role: "Database Manager",
+    period: "July 2022 – March 2023",
+    items: [
+      "Developed and maintained scalable backend systems including RESTful APIs, authentication flows, automation workflows, and server-side logic.",
+      "Designed and optimized SQL/NoSQL databases, created efficient schemas, tuned queries, and managed cloud databases using AWS RDS.",
+    ],
+  },
+];
+
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.4 });
   const heroImageSrc = "/images/hero.svg";
+  const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentExperienceIndex((prev) => (prev + 1) % experiences.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   const highlightVariants = useMemo(
     () => ({
@@ -144,27 +183,25 @@ const HeroSection = () => {
           </div>
 
           <motion.div
-            className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left"
-            initial={{ opacity: 0, y: 18 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            key={currentExperienceIndex}
+            className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left min-h-[180px]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.5 }}
           >
             <p className="text-xs uppercase tracking-[0.2em] text-emerald-200 mb-2">
               Experience Highlight
             </p>
             <h3 className="text-lg font-semibold text-white">
-              Cloud Rexpo | Full Stack &amp; AI Developer · Jan 2025 – Present
+              {experiences[currentExperienceIndex].company} |{" "}
+              {experiences[currentExperienceIndex].role} ·{" "}
+              {experiences[currentExperienceIndex].period}
             </h3>
             <ul className="mt-2 space-y-2 text-sm text-[#C8E6D0] list-disc pl-5">
-              <li>
-                Lead end-to-end delivery of AI-powered products with admin control, analytics, and pixel-perfect UX.
-              </li>
-              <li>
-                Built an AI Interview Bot leveraging OpenAI and orchestrated with n8n workflows for evaluation and feedback.
-              </li>
-              <li>
-                Delivered zero-downtime deployments with Docker, Nginx, Linux, and CI/CD pipelines for automated scaling.
-              </li>
+              {experiences[currentExperienceIndex].items.map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
             </ul>
           </motion.div>
         </div>

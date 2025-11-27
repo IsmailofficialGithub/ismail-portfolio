@@ -10,13 +10,13 @@ import { motion, useInView } from "framer-motion";
 const EmailSection = () => {
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error,setError]=useState('')
+  const [error, setError] = useState('')
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); 
+    setLoading(true);
     const data = {
       email: e.target.email.value,
       subject: e.target.subject.value,
@@ -41,7 +41,7 @@ const EmailSection = () => {
     if (response.status === 200) {
       setEmailSubmitted(true);
       setLoading(false);
-    }else{
+    } else {
       setError("Failed to Send Message");
     }
   };
@@ -71,10 +71,10 @@ const EmailSection = () => {
           try my best to get back to you!
         </p>
         <div className="socials flex flex-row gap-2">
-          <Link href="https://github.com/IsmailofficialGithub/">
+          <Link href="https://github.com/IsmailofficialGithub/" target="_blank" rel="noopener noreferrer">
             <Image src={GithubIcon} alt="Github Icon" />
           </Link>
-          <Link href="https://www.linkedin.com/in/ismailabbasi/">
+          <Link href="https://www.linkedin.com/in/ismailabbasi/" target="_blank" rel="noopener noreferrer">
             <Image src={LinkedinIcon} alt="Linkedin Icon" />
           </Link>
         </div>
@@ -85,8 +85,8 @@ const EmailSection = () => {
         transition={{ delay: 0.2, duration: 0.5 }}
       >
         {emailSubmitted ? (
-          <p className={`${error.length>0?"text-red-500 ":"text-green-500 "} text-sm mt-2`} >
-            {error.length>=0?"Email sent successfully!":error}
+          <p className={`${error.length > 0 ? "text-red-500 " : "text-green-500 "} text-sm mt-2`} >
+            {error.length >= 0 ? "Email sent successfully!" : error}
           </p>
         ) : (
           <form className="flex flex-col" onSubmit={handleSubmit}>
@@ -139,10 +139,10 @@ const EmailSection = () => {
             <button
               type="submit"
               disabled={loading}
-              className={`${loading ? "bg-[#382848]":"bg-[#a855f7]"} hover:bg-[#9244db] text-white flex justify-center font-medium py-2.5 px-5 rounded-lg w-full ${loading ? "opacity-50 cursor-not-allowed" : ""
+              className={`${loading ? "bg-[#382848]" : "bg-[#a855f7]"} hover:bg-[#9244db] text-white flex justify-center font-medium py-2.5 px-5 rounded-lg w-full ${loading ? "opacity-50 cursor-not-allowed" : ""
                 }`}
             >
-              {loading ?  <Loader className="animate-spin text-center"/>:"Send Message"}
+              {loading ? <Loader className="animate-spin text-center" /> : "Send Message"}
             </button>
           </form>
         )}
