@@ -16,8 +16,8 @@ async function dbConnect() {
           const db = await mongoose.connect(uri);
           connection.isConnected = db.connections[0].readyState;
      } catch (error) {
-          console.log("something wents wrong in db connection",error);
-          
+          console.log("something wents wrong in db connection", error);
+
      }
 }
 

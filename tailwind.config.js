@@ -67,6 +67,9 @@ module.exports = {
 			secondary: 'colors.pink'
 		}
 	},
-	plugins: [require("tailwindcss-animate")],
-	plugins: [require('tailwind-scrollbar')],
+	plugins: [
+		require("tailwindcss-animate"),
+		require('tailwind-scrollbar'),
+		require('@tailwindcss/typography')
+	],
 };

@@ -9,6 +9,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { motion, useInView } from "framer-motion";
+import Masonry from "react-masonry-css";
 import {
   FaReact,
   FaNodeJs,
@@ -87,8 +88,14 @@ const ProjectShowcase = () => {
     animate: { opacity: 1, y: 0 },
   };
 
+  const breakpointColumnsObj = {
+    default: 3,
+    1100: 2,
+    700: 1
+  };
+
   // Fetch projects with pagination
-  const fetchProjects = async (page = 1, limit = 6) => {
+  const fetchProjects = async (page = 1, limit = 11) => {
     try {
       setLoading(true);
       setError(null);
@@ -164,86 +171,82 @@ const ProjectShowcase = () => {
     </div>
   );
 
- 
-
-
-const ProjectCard = ({ project }) => (
-  <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-105 flex flex-col">
-    <div onClick={() => window.open(`/projects/${project._id}`, "_blank", "noopener,noreferrer")} className="relative group cursor-pointer aspect-video bg-gray-800">
-      <img
-        src={project.images?.[0] || "/api/placeholder/400/200"}
-        alt={project.name}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-      />
-    </div>
-    
-    <div className="p-3 sm:p-6 flex-1 flex flex-col">
-      {/* Title - smaller on mobile */}
-      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3 group-hover:text-purple-400 transition-colors">
-        {project.name}
-      </h3>
-      
-      {/* Description - smaller font and spacing on mobile */}
-      <p className="text-sm sm:text-base text-gray-300 mb-3 sm:mb-4 line-clamp-3 leading-relaxed">
-        {project.description}
-      </p>
-      
-      {/* Tech Stack - responsive sizing and count */}
-      <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
-        {project.techStack?.slice(0, window.innerWidth < 640 ? 3 : 5).map((tech, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-gray-800 rounded-full text-xs sm:text-sm text-gray-200"
-          >
-            <span className="text-xs sm:text-sm">{techIcons[tech] || <span>🔧</span>}</span>
-            <span>{tech}</span>
-          </div>
-        ))}
-        
-        {project.techStack?.length > (window.innerWidth < 640 ? 3 : 5) && (
-          <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 bg-gray-700 rounded-full text-xs sm:text-sm text-gray-300">
-            +{project.techStack.length - (window.innerWidth < 640 ? 3 : 5)} more
-          </div>
-        )}
+  const ProjectCard = ({ project }) => (
+    <div className="bg-gray-900 rounded-xl overflow-hidden shadow-2xl border border-gray-800 hover:border-purple-500 transition-all duration-300 hover:transform hover:scale-[1.02] flex flex-col h-full">
+      <div
+        onClick={() => window.open(`/projects/${project._id}`, "_blank", "noopener,noreferrer")}
+        className="relative group cursor-pointer bg-gray-800 overflow-hidden"
+      >
+        <img
+          src={project.images?.[0] || "/api/placeholder/400/200"}
+          alt={project.name}
+          className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
+        />
       </div>
-      
-      {/* Buttons - responsive sizing and text */}
-      <div className="flex flex-wrap gap-2 sm:gap-3 mt-auto">
-        {project.code && (
-          <a
-            href={project.code}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-3 sm:px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200 font-medium text-sm sm:text-base"
-          >
-            <Code className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
-            <span className="hidden sm:inline">Code</span>
-            <span className="sm:hidden">Code</span>
-            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
-          </a>
-        )}
-        
-        {project.livePreview && (
-          <a
-            href={project.livePreview}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-3 sm:px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors duration-200 font-medium text-sm sm:text-base"
-          >
-            <Globe className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
-            <span className="hidden sm:inline">Live Demo</span>
-            <span className="sm:hidden">Live</span>
-            <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 ml-1" />
-          </a>
-        )}
+
+      <div className="p-5 flex-1 flex flex-col">
+        {/* Title */}
+        <h3 className="text-xl font-bold text-white mb-3 group-hover:text-purple-400 transition-colors">
+          {project.name}
+        </h3>
+
+        {/* Description */}
+        <p className="text-sm text-gray-300 mb-4 leading-relaxed line-clamp-3">
+          {project.description}
+        </p>
+
+        {/* Tech Stack */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.techStack?.slice(0, 5).map((tech, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-800 rounded-full text-xs font-medium text-gray-300 border border-gray-700/50"
+            >
+              <span className="text-xs">{techIcons[tech] || <span>_</span>}</span>
+              <span>{tech}</span>
+            </div>
+          ))}
+
+          {project.techStack?.length > 5 && (
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-gray-800 rounded-full text-xs font-medium text-gray-400 border border-gray-700/50">
+              +{project.techStack.length - 5}
+            </div>
+          )}
+        </div>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-2 mt-auto pt-2">
+          {project.code && (
+            <a
+              href={project.code}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex justify-center items-center px-4 py-2 bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium group/btn"
+            >
+              <Code className="w-4 h-4 mr-2 text-purple-400 group-hover/btn:text-purple-300" />
+              Code
+            </a>
+          )}
+
+          {project.livePreview && (
+            <a
+              href={project.livePreview}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex justify-center items-center px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium shadow-lg shadow-purple-900/20"
+            >
+              <Globe className="w-4 h-4 mr-2" />
+              Live Demo
+            </a>
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
 
   const AnimatedProjectCard = ({ project, index }) => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: false });
+    const isInView = useInView(ref, { once: true });
 
     return (
       <motion.div
@@ -251,7 +254,8 @@ const ProjectCard = ({ project }) => (
         variants={cardVariants}
         initial="initial"
         animate={isInView ? "animate" : "initial"}
-        transition={{ duration: 0.5, delay: index * 0.2 }}
+        transition={{ duration: 0.5, delay: index * 0.1 }}
+        className="mb-6"
       >
         <ProjectCard project={project} />
       </motion.div>
@@ -299,7 +303,7 @@ const ProjectCard = ({ project }) => (
     };
 
     return (
-      <div className="flex justify-center items-center space-x-2 mt-12">
+      <div className="flex justify-center items-center space-x-2 mt-12 pb-12">
         {/* Previous Button */}
         <button
           onClick={() => handlePageChange(currentPage - 1)}
@@ -317,13 +321,12 @@ const ProjectCard = ({ project }) => (
               key={index}
               onClick={() => page !== "..." && handlePageChange(page)}
               disabled={page === "..."}
-              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                page === currentPage
-                  ? "bg-purple-600 text-white border-purple-600"
-                  : page === "..."
+              className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors ${page === currentPage
+                ? "bg-purple-600 text-white border-purple-600 shadow-lg shadow-purple-900/30"
+                : page === "..."
                   ? "text-gray-500 cursor-default"
                   : "text-gray-300 bg-gray-800 border border-gray-700 hover:bg-gray-700 hover:text-white"
-              }`}
+                }`}
             >
               {page}
             </button>
@@ -344,22 +347,23 @@ const ProjectCard = ({ project }) => (
   };
 
   return (
-    <div className="min-h-screen bg-[#121212]">
+    <div className="min-h-screen bg-[#0a0a0a]">
       {/* Header */}
-      <header className="relative py-16 px-6 text-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-orange-600/20"></div>
-        <div className="relative max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent">
-            My Projects
+      <header className="relative py-20 px-6 text-center overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/20 via-[#0a0a0a] to-[#0a0a0a]"></div>
+        <div className="relative max-w-4xl mx-auto z-10">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent tracking-tight">
+            Featured Projects
           </h1>
-          <p className="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
-            Explore my latest work and creative endeavors. Each project
-            represents a unique challenge solved with passion and innovation.
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            A curated collection of my technical projects, featuring web applications,
+            mobile apps, and open source contributions.
           </p>
 
           {/* Project count info */}
           {!loading && pagination.totalProjects > 0 && (
-            <div className="mt-4 text-gray-400">
+            <div className="mt-8 inline-flex items-center px-4 py-2 rounded-full bg-gray-900/50 border border-gray-800 text-gray-400 text-sm">
+              <span className="w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
               Showing {projects.length} of {pagination.totalProjects} projects
             </div>
           )}
@@ -367,19 +371,19 @@ const ProjectCard = ({ project }) => (
       </header>
 
       {/* Main Content */}
-      <main className="pb-0 lg:pb-16 px-6 max-w-7xl mx-auto">
+      <main className="px-6 max-w-[1600px] mx-auto">
         {loading && <LoadingSkeleton />}
 
         {error && (
           <div className="text-center py-20">
-            <div className="bg-red-900/20 border border-red-500 rounded-lg p-8 max-w-md mx-auto">
+            <div className="bg-red-900/20 border border-red-500/50 rounded-xl p-8 max-w-md mx-auto backdrop-blur-sm">
               <h3 className="text-red-400 text-xl font-semibold mb-2">
-                Error Loading Projects
+                Unable to Load Projects
               </h3>
-              <p className="text-red-300 mb-4">{error}</p>
+              <p className="text-red-300/80 mb-6">{error}</p>
               <button
                 onClick={() => fetchProjects(currentPage)}
-                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                className="px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors shadow-lg shadow-red-900/20"
               >
                 Try Again
               </button>
@@ -388,18 +392,22 @@ const ProjectCard = ({ project }) => (
         )}
 
         {!loading && !error && projects.length === 0 && (
-          <div className="text-center py-20">
-            <div className="text-gray-400">
-              <Eye className="w-16 h-16 mx-auto mb-4 opacity-50" />
-              <h3 className="text-xl font-semibold mb-2">No Projects Found</h3>
-              <p>Check back soon for new projects!</p>
+          <div className="text-center py-32">
+            <div className="text-gray-500">
+              <Eye className="w-20 h-20 mx-auto mb-6 opacity-20" />
+              <h3 className="text-2xl font-bold mb-3 text-gray-400">No Projects Found</h3>
+              <p className="text-gray-500">Check back soon for new additions to the portfolio.</p>
             </div>
           </div>
         )}
 
         {!loading && !error && projects.length > 0 && (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Masonry
+              breakpointCols={breakpointColumnsObj}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
               {projects.map((project, index) => (
                 <AnimatedProjectCard
                   key={project._id || project.id}
@@ -407,7 +415,7 @@ const ProjectCard = ({ project }) => (
                   index={index}
                 />
               ))}
-            </div>
+            </Masonry>
 
             <Pagination />
           </>

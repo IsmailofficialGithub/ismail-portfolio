@@ -11,15 +11,15 @@ import {
 
 const ProjectCard = ({ project, onEdit, onDelete }) => (
   <div className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-colors">
-    <div className="relative h-48 bg-gray-800">
+    <div className="relative bg-gray-800">
       {project.images?.[0] ? (
         <img
           src={project.images[0]}
           alt={project.name}
-          className="w-full h-full object-cover"
+          className="w-full h-auto object-cover"
         />
       ) : (
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="w-full h-48 flex items-center justify-center">
           <ImageIcon className="w-12 h-12 text-gray-600" />
         </div>
       )}
@@ -31,13 +31,12 @@ const ProjectCard = ({ project, onEdit, onDelete }) => (
           </div>
         )}
         <div
-          className={`px-2 py-1 rounded-full text-xs font-medium ${
-            project.status === "published"
+          className={`px-2 py-1 rounded-full text-xs font-medium ${project.status === "published"
               ? "bg-green-500 text-white"
               : project.status === "draft"
-              ? "bg-yellow-500 text-black"
-              : "bg-gray-500 text-white"
-          }`}
+                ? "bg-yellow-500 text-black"
+                : "bg-gray-500 text-white"
+            }`}
         >
           {project.status}
         </div>

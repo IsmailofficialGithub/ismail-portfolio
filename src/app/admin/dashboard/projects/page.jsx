@@ -4,6 +4,7 @@ import React, { useState, useEffect, Suspense, useCallback } from "react";
 import dynamic from "next/dynamic";
 import { X, RefreshCw } from "lucide-react";
 import LayoutWrapper from "@/lib/LayoutWrapper";
+import Masonry from "react-masonry-css";
 import toast from "react-hot-toast";
 import axios from "axios";
 
@@ -511,9 +512,8 @@ export default function AdminProjectsDashboard() {
             <div className="flex items-center justify-between">
               <span>
                 {autoRetryTimer
-                  ? `Retrying in ${
-                      5 - (retryCount > 5 ? 5 : retryCount)
-                    } seconds...`
+                  ? `Retrying in ${5 - (retryCount > 5 ? 5 : retryCount)
+                  } seconds...`
                   : "Auto retry cancelled"}
               </span>
               <button
@@ -565,25 +565,34 @@ export default function AdminProjectsDashboard() {
           </Suspense>
         ) : projects.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Masonry
+              breakpointCols={{
+                default: 3,
+                1100: 2,
+                700: 1
+              }}
+              className="my-masonry-grid"
+              columnClassName="my-masonry-grid_column"
+            >
               {projects.map((project) => (
-                <Suspense
-                  key={project._id}
-                  fallback={
-                    <div className="bg-gray-900 rounded-xl h-96 animate-pulse"></div>
-                  }
-                >
-                  <ProjectCard
-                    project={project}
-                    onEdit={openEditModal}
-                    onDelete={(project) => {
-                      setSelectedProject(project);
-                      setShowDeleteModal(true);
-                    }}
-                  />
-                </Suspense>
+                <div key={project._id} className="mb-6">
+                  <Suspense
+                    fallback={
+                      <div className="bg-gray-900 rounded-xl h-96 animate-pulse"></div>
+                    }
+                  >
+                    <ProjectCard
+                      project={project}
+                      onEdit={openEditModal}
+                      onDelete={(project) => {
+                        setSelectedProject(project);
+                        setShowDeleteModal(true);
+                      }}
+                    />
+                  </Suspense>
+                </div>
               ))}
-            </div>
+            </Masonry>
 
             {/* Pagination */}
             <Suspense fallback={<div className="h-12 mt-8"></div>}>

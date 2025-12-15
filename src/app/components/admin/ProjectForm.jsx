@@ -2,12 +2,12 @@ import React from 'react';
 import { Plus, X } from 'lucide-react';
 import Image from 'next/image';
 
-const ProjectForm = ({ 
-  formData, 
-  setFormData, 
-  techInput, 
-  setTechInput, 
-  imageFiles, 
+const ProjectForm = ({
+  formData,
+  setFormData,
+  techInput,
+  setTechInput,
+  imageFiles,
   setImageFiles,
   onAddTech,
   onRemoveTech,
@@ -18,12 +18,12 @@ const ProjectForm = ({
   const handleFileSelect = (e) => {
     const files = Array.from(e.target.files);
     setImageFiles(files);
-    
+
     // Create object URLs for preview
     const previewUrls = files.map(file => URL.createObjectURL(file));
-    setFormData(prev => ({ 
-      ...prev, 
-      images: [...prev.images, ...previewUrls] 
+    setFormData(prev => ({
+      ...prev,
+      images: [...prev.images, ...previewUrls]
     }));
   };
 
@@ -50,9 +50,8 @@ const ProjectForm = ({
           required
           value={formData.name}
           onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-            errors.name ? 'border-red-500' : 'border-gray-700'
-          }`}
+          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.name ? 'border-red-500' : 'border-gray-700'
+            }`}
           placeholder="Enter project name"
         />
         {errors.name && <p className="mt-1 text-sm text-red-400">{errors.name}</p>}
@@ -60,18 +59,18 @@ const ProjectForm = ({
 
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
-         Description *  <span className={`${formData.description.length > 3000 ? 'text-red-400' : 'text-gray-400'}`}> { "3000" - formData.description.length }  characters left</span>
+          Description *  <span className={`${formData.description.length > 3000 ? 'text-red-400' : 'text-gray-400'}`}> {"3000" - formData.description.length}  characters left</span>
         </label>
         <textarea
           required
-          rows={4}
+          rows={10}
           value={formData.description}
           onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-            errors.description ? 'border-red-500' : 'border-gray-700'
-          }`}
-          placeholder="Enter project description"
+          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.description ? 'border-red-500' : 'border-gray-700'
+            }`}
+          placeholder="Enter project description (Markdown supported)"
         />
+        <p className="text-xs text-gray-500 mt-1 mb-1">markdown supported</p>
         {errors.description && <p className="mt-1 text-sm text-red-400">{errors.description}</p>}
       </div>
 
@@ -84,9 +83,8 @@ const ProjectForm = ({
           required
           value={formData.code}
           onChange={(e) => setFormData(prev => ({ ...prev, code: e.target.value }))}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-            errors.code ? 'border-red-500' : 'border-gray-700'
-          }`}
+          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.code ? 'border-red-500' : 'border-gray-700'
+            }`}
           placeholder="https://github.com/username/repo"
         />
         {errors.code && <p className="mt-1 text-sm text-red-400">{errors.code}</p>}
@@ -100,9 +98,8 @@ const ProjectForm = ({
           type="url"
           value={formData.livePreview}
           onChange={(e) => setFormData(prev => ({ ...prev, livePreview: e.target.value }))}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-            errors.livePreview ? 'border-red-500' : 'border-gray-700'
-          }`}
+          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.livePreview ? 'border-red-500' : 'border-gray-700'
+            }`}
           placeholder="https://your-project.vercel.app"
         />
         {errors.livePreview && <p className="mt-1 text-sm text-red-400">{errors.livePreview}</p>}
@@ -118,9 +115,8 @@ const ProjectForm = ({
             value={techInput}
             onChange={(e) => setTechInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), onAddTech())}
-            className={`flex-1 px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-              errors.techStack ? 'border-red-500' : 'border-gray-700'
-            }`}
+            className={`flex-1 px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.techStack ? 'border-red-500' : 'border-gray-700'
+              }`}
             placeholder="Add technology"
           />
           <button
@@ -160,12 +156,11 @@ const ProjectForm = ({
           multiple
           accept="image/*"
           onChange={handleFileSelect}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${
-            errors.images ? 'border-red-500' : 'border-gray-700'
-          }`}
+          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.images ? 'border-red-500' : 'border-gray-700'
+            }`}
         />
         {errors.images && <p className="mt-1 text-sm text-red-400">{errors.images}</p>}
-        
+
         {(formData.images.length > 0 || imageFiles.length > 0) && (
           <div className="mt-4">
             <p className="text-sm text-gray-400 mb-2">
@@ -196,7 +191,7 @@ const ProjectForm = ({
             </div>
           </div>
         )}
-        
+
         <p className="mt-2 text-xs text-gray-400">
           Maximum 10 images allowed. Supported formats: JPG, PNG, WebP
         </p>
