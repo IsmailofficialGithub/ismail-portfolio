@@ -17,7 +17,7 @@ const skillHighlights = [
   },
   {
     title: "Database",
-    items: "MongoDB · MySQL · Supabase",
+    items: "MongoDB · MySQL · PostgreSQL · Supabase",
   },
   {
     title: "DevOps",
@@ -71,7 +71,7 @@ const experiences = [
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.4 });
-  const heroImageSrc = "/images/hero.svg";
+  const heroImageSrc = "/images/hero-portrait.png";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
 
   useEffect(() => {
@@ -96,13 +96,13 @@ const HeroSection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="lg:py-16"
+      className="py-8 sm:py-12 lg:py-16"
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-10">
-        <div className="col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-10">
+        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-4 sm:space-y-6">
           <motion.h1
             className="text-white text-4xl sm:text-5xl lg:text-7xl lg:leading-tight font-extrabold"
             initial={{ opacity: 0, y: 24 }}
@@ -207,29 +207,13 @@ const HeroSection = () => {
         </div>
 
         <motion.div
-          className="col-span-5 place-self-center w-full"
+          className="col-span-1 sm:col-span-5 place-self-center w-full mt-4 sm:mt-0"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
           <div className="relative mx-auto max-w-[520px] w-full">
-            <div className="group relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)]">
-              <div
-                className="pointer-events-none absolute -inset-[4px] rounded-[36px] opacity-0 group-hover:opacity-100 transition duration-500 ease-out [animation:none] group-hover:[animation:spin_3s_linear_infinite]"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, rgba(255,255,255,0) 0deg, rgba(249,115,22,0.8) 120deg, rgba(255,255,255,0) 240deg)",
-                  filter: "blur(1px)",
-                }}
-              />
-              <div
-                className="pointer-events-none absolute -inset-[6px] rounded-[40px] opacity-0 group-hover:opacity-60 transition duration-500 ease-out [animation:none] group-hover:[animation:spin_3s_linear_infinite]"
-                style={{
-                  background:
-                    "conic-gradient(from 0deg, rgba(249,115,22,0.0) 0deg, rgba(255,176,67,0.35) 120deg, rgba(249,115,22,0.0) 240deg)",
-                  filter: "blur(8px)",
-                }}
-              />
+            <div className="relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
               <Image
                 src={heroImageSrc}
                 alt="Ismail Abbasi portrait"
@@ -237,8 +221,15 @@ const HeroSection = () => {
                 priority
                 sizes="(max-width: 1024px) 70vw, 520px"
                 className="relative z-[1] object-cover"
+                style={{ 
+                  objectPosition: 'center bottom',
+                  top: '80px',
+                  left: '-10px',
+                  right: '0px',
+                  bottom: '0px'
+                }}
               />
-              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t from-black/20 via-transparent to-transparent" />
+              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t  via-transparent to-transparent" />
             </div>
           </div>
         </motion.div>
