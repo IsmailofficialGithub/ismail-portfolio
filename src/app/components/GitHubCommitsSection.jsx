@@ -181,301 +181,320 @@ const GitHubCommitsSection = ({ username }) => {
     }
   }, [availableYears, selectedYear]);
 
-  if (loading) {
-    return (
-      <motion.section
-        id="github-activity"
-        ref={sectionRef}
-        className="py-8 px-4 sm:py-16"
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="text-center text-white">
-          <p className="text-lg">Loading GitHub activity...</p>
-        </div>
-      </motion.section>
-    );
-  }
-
-  if (error) {
-    return (
-      <motion.section
-        id="github-activity"
-        ref={sectionRef}
-        className="py-8 px-4 sm:py-16"
-        initial={{ opacity: 0, y: 40 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.6 }}
-      >
-        <div className="text-center text-white">
-          <p className="text-lg text-red-400">{error}</p>
-        </div>
-      </motion.section>
-    );
-  }
-
-  const { weeks, monthLabels, totalContributions } = generateContributionData(selectedYear);
+  const { weeks, monthLabels, totalContributions } = loading || error
+    ? { weeks: [], monthLabels: [], totalContributions: 0 }
+    : generateContributionData(selectedYear);
 
   return (
     <motion.section
       id="github-activity"
       ref={sectionRef}
       className="py-8 px-4 sm:py-16"
-      initial={{ opacity: 0, y: 40 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.8 }}
     >
-      <motion.h2
-        className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12"
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{ delay: 0.1, duration: 0.5 }}
-      >
-        GitHub Activity
-      </motion.h2>
+      <div className="max-w-7xl mx-auto">
+        {loading ? (
+          <div className="animate-pulse">
+            {/* Title Placeholder */}
+            <div className="h-10 w-64 bg-white/10 rounded-lg mx-auto mb-12"></div>
 
-      {/* Statistics Cards */}
-      {stats && (
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
-            <div className="flex items-center gap-3 mb-2">
-              <Code className="w-6 h-6 text-orange-400" />
-              <h3 className="text-lg font-semibold text-white">Total Commits</h3>
-            </div>
-            <p className="text-3xl font-bold text-green-400">
-              {stats.totalCommits > 0 ? (
-                <AnimatedNumbers
-                  includeComma
-                  className="text-green-400"
-                  transitions={(idx) => ({
-                    type: "spring",
-                    duration: idx + 0.3,
-                  })}
-                  animateToNumber={stats.totalCommits}
-                  configs={(_, idx) => ({
-                    mass: 1,
-                    friction: 100,
-                    tensions: 150 * (idx + 1),
-                  })}
-                />
-              ) : (
-                "0"
-              )}
-            </p>
-            <p className="text-sm text-[#ADB7BE] mt-1">Last 2 years</p>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
-            <div className="flex items-center gap-3 mb-2">
-              <Github className="w-6 h-6 text-orange-400" />
-              <h3 className="text-lg font-semibold text-white">Repositories</h3>
-            </div>
-            <p className="text-3xl font-bold text-green-400">
-              {stats.totalRepos > 0 ? (
-                <AnimatedNumbers
-                  includeComma
-                  className="text-green-400"
-                  transitions={(idx) => ({
-                    type: "spring",
-                    duration: idx + 0.3,
-                  })}
-                  animateToNumber={stats.totalRepos}
-                  configs={(_, idx) => ({
-                    mass: 1,
-                    friction: 100,
-                    tensions: 150 * (idx + 1),
-                  })}
-                />
-              ) : (
-                "0"
-              )}
-            </p>
-            <p className="text-sm text-[#ADB7BE] mt-1">Active repos</p>
-          </div>
-
-          <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
-            <div className="flex items-center gap-3 mb-2">
-              <TrendingUp className="w-6 h-6 text-orange-400" />
-              <h3 className="text-lg font-semibold text-white">Languages</h3>
-            </div>
-            <p className="text-3xl font-bold text-green-400">
-              {Object.keys(stats.languages || {}).length}
-            </p>
-            <p className="text-sm text-[#ADB7BE] mt-1">Technologies used</p>
-          </div>
-        </motion.div>
-      )}
-
-      {/* GitHub-style Contribution Graph */}
-      {weeks.length > 0 && (
-        <motion.div
-          className="mb-12 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.3, duration: 0.5 }}
-        >
-          <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
-            <h3 className="text-base font-normal text-[#8b949e]">
-              <span className="font-semibold text-white">{totalContributions}</span> contributions in {selectedYear}
-            </h3>
-
-            {/* Year Filter Dropdown */}
-            {availableYears.length > 1 && (
-              <div className="flex items-center gap-2">
-                <label htmlFor="year-filter" className="text-sm text-[#8b949e]">
-                  Year:
-                </label>
-                <select
-                  id="year-filter"
-                  value={selectedYear}
-                  onChange={(e) => setSelectedYear(parseInt(e.target.value))}
-                  className="px-3 py-1.5 rounded-md bg-[#161b22] border border-[#30363d] text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition cursor-pointer hover:border-[#8b949e]"
-                >
-                  {availableYears.map(year => (
-                    <option key={year} value={year} className="bg-[#161b22]">
-                      {year}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            )}
-          </div>
-
-          {/* Contribution Graph */}
-          <div className="overflow-x-auto pb-4">
-            <div className="flex gap-1 w-full mx-auto min-w-[600px]">
-              {/* Day labels */}
-              <div className="flex flex-col gap-1 mr-2 pt-5 flex-shrink-0">
-                {['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((day, idx) => (
-                  <div key={idx} className="h-3 text-xs text-[#8b949e] leading-3">
-                    {day}
+            {/* Stats Cards Placeholder */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-32 rounded-xl border border-white/10 bg-white/[0.03] p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-6 h-6 rounded-full bg-white/10"></div>
+                    <div className="w-24 h-5 bg-white/10 rounded"></div>
                   </div>
-                ))}
-              </div>
-
-              {/* Graph grid */}
-              <div className="flex flex-col gap-1 flex-1">
-                {/* Month labels */}
-                <div className="flex gap-1 mb-1 h-4 w-full">
-                  {weeks.map((week, weekIdx) => {
-                    const monthLabel = monthLabels.find(m => m.weekIdx === weekIdx);
-                    return (
-                      <div key={weekIdx} className="flex-1 relative">
-                        {monthLabel && (
-                          <span className="absolute left-0 top-0 text-[10px] sm:text-xs text-[#8b949e] whitespace-nowrap">
-                            {monthLabel.label}
-                          </span>
-                        )}
-                      </div>
-                    );
-                  })}
+                  <div className="w-16 h-8 bg-white/10 rounded mb-2"></div>
+                  <div className="w-20 h-4 bg-white/10 rounded"></div>
                 </div>
-
-                {/* Contribution squares - GitHub style: weeks as columns, days as rows */}
-                <div className="flex gap-1 w-full">
-                  {weeks.map((week, weekIdx) => (
-                    <div key={weekIdx} className="flex flex-col gap-1 flex-1">
-                      {week.map((day, dayIdx) => {
-                        if (!day) {
-                          return <div key={`empty-${weekIdx}-${dayIdx}`} className="w-full aspect-square"></div>;
-                        }
-
-                        return (
-                          <motion.div
-                            key={day.dateStr}
-                            className={`w-full aspect-square rounded-sm ${getColorClass(day.level)} transition-colors cursor-pointer`}
-                            title={`${day.count} contribution${day.count !== 1 ? 's' : ''} on ${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-                            transition={{
-                              delay: 0.4 + (weekIdx * 0.01) + (dayIdx * 0.001),
-                              duration: 0.2
-                            }}
-                          />
-                        );
-                      })}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Legend */}
-          <div className="flex items-center justify-end gap-2 mt-4 text-xs text-[#8b949e]">
-            <span>Less</span>
-            <div className="flex gap-1">
-              {[0, 1, 2, 3, 4].map(level => (
-                <div
-                  key={level}
-                  className={`w-3 h-3 rounded-sm ${getColorClass(level)}`}
-                />
               ))}
             </div>
-            <span>More</span>
-          </div>
-        </motion.div>
-      )}
 
-      {/* Recent Commits */}
-      {commits.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.5 }}
-        >
-          <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
-            <Github className="w-5 h-5 text-orange-400" />
-            Recent Commits
-          </h3>
-          <div className="space-y-3 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-white/5">
-            {commits.slice(0, 20).map((commit, index) => (
-              <motion.a
-                key={commit.sha}
-                href={commit.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block rounded-lg border border-white/10 bg-white/[0.03] backdrop-blur-sm p-4 hover:border-orange-500/40 hover:bg-white/[0.05] transition group"
-                initial={{ opacity: 0, x: -20 }}
-                animate={isInView ? { opacity: 1, x: 0 } : {}}
-                transition={{ delay: 0.5 + index * 0.03, duration: 0.3 }}
+            {/* Graph Placeholder */}
+            <div className="mb-12 rounded-xl border border-white/10 bg-white/[0.03] p-6">
+              <div className="flex justify-between mb-6">
+                <div className="w-48 h-5 bg-white/10 rounded"></div>
+                <div className="w-24 h-8 bg-white/10 rounded"></div>
+              </div>
+              <div className="h-32 bg-white/10 rounded w-full"></div>
+              <div className="flex justify-end mt-4">
+                <div className="w-32 h-4 bg-white/10 rounded"></div>
+              </div>
+            </div>
+
+            {/* Commits Placeholder */}
+            <div className="h-7 w-40 bg-white/10 rounded mb-6"></div>
+            <div className="space-y-3">
+              {[1, 2, 3, 4, 5].map((i) => (
+                <div key={i} className="h-20 rounded-lg border border-white/10 bg-white/[0.03] p-4">
+                  <div className="w-full h-5 bg-white/10 rounded mb-2"></div>
+                  <div className="w-2/3 h-4 bg-white/10 rounded"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : error ? (
+          <div className="text-center text-white py-20">
+            <p className="text-lg text-red-400 mb-4">{error}</p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 rounded-full bg-orange-500 text-white font-semibold hover:bg-orange-600 transition"
+            >
+              Retry
+            </button>
+          </div>
+        ) : (
+          <>
+            <motion.h2
+              className="text-center text-4xl font-bold text-white mt-4 mb-8 md:mb-12"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1, duration: 0.5 }}
+            >
+              GitHub Activity
+            </motion.h2>
+
+            {/* Statistics Cards */}
+            {stats && (
+              <motion.div
+                className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
               >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1 min-w-0 ">
-                    <p className="text-white font-medium truncate group-hover:text-orange-400 transition">
-                      {commit.message.split('\n')[0]}
-                    </p>
-                    <div className="flex items-center gap-3 mt-2 text-sm text-[#ADB7BE]">
-                      <span className="truncate">{commit.repo.fullName}</span>
-                      <span>•</span>
-                      <span>{new Date(commit.date).toLocaleDateString()}</span>
-                      {commit.repo.language && (
-                        <>
-                          <span>•</span>
-                          <span className="text-orange-400">{commit.repo.language}</span>
-                        </>
-                      )}
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Code className="w-6 h-6 text-orange-400" />
+                    <h3 className="text-lg font-semibold text-white">Total Commits</h3>
+                  </div>
+                  <div className="text-3xl font-bold text-green-400">
+                    <AnimatedNumbers
+                      includeComma
+                      className="text-green-400"
+                      transitions={(idx) => ({
+                        type: "spring",
+                        duration: idx + 0.3,
+                      })}
+                      animateToNumber={stats.totalCommits || 0}
+                      configs={(_, idx) => ({
+                        mass: 1,
+                        friction: 100,
+                        tensions: 150 * (idx + 1),
+                      })}
+                    />
+                  </div>
+                  <p className="text-sm text-[#ADB7BE] mt-1">Last 2 years</p>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
+                  <div className="flex items-center gap-3 mb-2">
+                    <Github className="w-6 h-6 text-orange-400" />
+                    <h3 className="text-lg font-semibold text-white">Repositories</h3>
+                  </div>
+                  <div className="text-3xl font-bold text-green-400">
+                    <AnimatedNumbers
+                      includeComma
+                      className="text-green-400"
+                      transitions={(idx) => ({
+                        type: "spring",
+                        duration: idx + 0.3,
+                      })}
+                      animateToNumber={stats.totalRepos || 0}
+                      configs={(_, idx) => ({
+                        mass: 1,
+                        friction: 100,
+                        tensions: 150 * (idx + 1),
+                      })}
+                    />
+                  </div>
+                  <p className="text-sm text-[#ADB7BE] mt-1">Active repos</p>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6 hover:border-orange-500/40 transition">
+                  <div className="flex items-center gap-3 mb-2">
+                    <TrendingUp className="w-6 h-6 text-orange-400" />
+                    <h3 className="text-lg font-semibold text-white">Languages</h3>
+                  </div>
+                  <p className="text-3xl font-bold text-green-400">
+                    {Object.keys(stats.languages || {}).length}
+                  </p>
+                  <p className="text-sm text-[#ADB7BE] mt-1">Technologies used</p>
+                </div>
+              </motion.div>
+            )}
+
+            {/* GitHub-style Contribution Graph */}
+            {weeks.length > 0 && (
+              <motion.div
+                className="mb-12 rounded-xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-6"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+              >
+                <div className="flex items-center justify-between mb-4 flex-wrap gap-4">
+                  <h3 className="text-base font-normal text-[#8b949e]">
+                    <span className="font-semibold text-white">{totalContributions}</span> contributions in {selectedYear}
+                  </h3>
+
+                  {/* Year Filter Dropdown */}
+                  {availableYears.length > 1 && (
+                    <div className="flex items-center gap-2">
+                      <label htmlFor="year-filter" className="text-sm text-[#8b949e]">
+                        Year:
+                      </label>
+                      <select
+                        id="year-filter"
+                        value={selectedYear}
+                        onChange={(e) => setSelectedYear(parseInt(e.target.value))}
+                        className="px-3 py-1.5 rounded-md bg-[#161b22] border border-[#30363d] text-white text-sm focus:outline-none focus:ring-2 focus:ring-orange-500/50 focus:border-orange-500/50 transition cursor-pointer hover:border-[#8b949e]"
+                      >
+                        {availableYears.map(year => (
+                          <option key={year} value={year} className="bg-[#161b22]">
+                            {year}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                </div>
+
+                {/* Contribution Graph */}
+                <div className="overflow-x-auto pb-4">
+                  <div className="flex gap-1 w-full mx-auto min-w-[600px]">
+                    {/* Day labels */}
+                    <div className="flex flex-col gap-1 mr-2 pt-5 flex-shrink-0">
+                      {['Mon', '', 'Wed', '', 'Fri', '', 'Sun'].map((day, idx) => (
+                        <div key={idx} className="h-3 text-xs text-[#8b949e] leading-3">
+                          {day}
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Graph grid */}
+                    <div className="flex flex-col gap-1 flex-1">
+                      {/* Month labels */}
+                      <div className="flex gap-1 mb-1 h-4 w-full">
+                        {weeks.map((week, weekIdx) => {
+                          const monthLabel = monthLabels.find(m => m.weekIdx === weekIdx);
+                          return (
+                            <div key={weekIdx} className="flex-1 relative">
+                              {monthLabel && (
+                                <span className="absolute left-0 top-0 text-[10px] sm:text-xs text-[#8b949e] whitespace-nowrap">
+                                  {monthLabel.label}
+                                </span>
+                              )}
+                            </div>
+                          );
+                        })}
+                      </div>
+
+                      {/* Contribution squares - GitHub style: weeks as columns, days as rows */}
+                      <div className="flex gap-1 w-full">
+                        {weeks.map((week, weekIdx) => (
+                          <div key={weekIdx} className="flex flex-col gap-1 flex-1">
+                            {week.map((day, dayIdx) => {
+                              if (!day) {
+                                return <div key={`empty-${weekIdx}-${dayIdx}`} className="w-full aspect-square"></div>;
+                              }
+
+                              return (
+                                <motion.div
+                                  key={day.dateStr}
+                                  className={`w-full aspect-square rounded-sm ${getColorClass(day.level)} transition-colors cursor-pointer`}
+                                  title={`${day.count} contribution${day.count !== 1 ? 's' : ''} on ${day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}`}
+                                  initial={{ opacity: 0, scale: 0.8 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{
+                                    delay: 0.4 + (weekIdx * 0.005) + (dayIdx * 0.001),
+                                    duration: 0.2
+                                  }}
+                                />
+                              );
+                            })}
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <ExternalLink className="w-4 h-4 text-[#ADB7BE] group-hover:text-orange-400 transition flex-shrink-0" />
                 </div>
-              </motion.a>
-            ))}
-          </div>
-        </motion.div>
-      )}
 
-      {commits.length === 0 && !loading && (
-        <div className="text-center text-white py-8">
-          <p className="text-lg text-[#ADB7BE]">No commits found in the last 2 years</p>
-        </div>
-      )}
+                {/* Legend */}
+                <div className="flex items-center justify-end gap-2 mt-4 text-xs text-[#8b949e]">
+                  <span>Less</span>
+                  <div className="flex gap-1">
+                    {[0, 1, 2, 3, 4].map(level => (
+                      <div
+                        key={level}
+                        className={`w-3 h-3 rounded-sm ${getColorClass(level)}`}
+                      />
+                    ))}
+                  </div>
+                  <span>More</span>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Recent Commits */}
+            {commits.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+              >
+                <h3 className="text-xl font-semibold text-white mb-6 flex items-center gap-2">
+                  <Github className="w-5 h-5 text-orange-400" />
+                  Recent Commits
+                </h3>
+                <div className="space-y-3 max-h-[500px] overflow-y-auto scrollbar-thin scrollbar-thumb-orange-500 scrollbar-track-white/5">
+                  {commits.slice(0, 20).map((commit, index) => (
+                    <motion.a
+                      key={commit.sha}
+                      href={commit.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block rounded-lg border border-white/10 bg-white/[0.03] backdrop-blur-sm p-4 hover:border-orange-500/40 hover:bg-white/[0.05] transition group"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 + index * 0.03, duration: 0.3 }}
+                    >
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex-1 min-w-0 ">
+                          <p className="text-white font-medium truncate group-hover:text-orange-400 transition">
+                            {commit.message.split('\n')[0]}
+                          </p>
+                          <div className="flex items-center gap-3 mt-2 text-sm text-[#ADB7BE]">
+                            <span className="truncate">{commit.repo.fullName}</span>
+                            <span>•</span>
+                            <span>{new Date(commit.date).toLocaleDateString()}</span>
+                            {commit.repo.language && (
+                              <>
+                                <span>•</span>
+                                <span className="text-orange-400">{commit.repo.language}</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                        <ExternalLink className="w-4 h-4 text-[#ADB7BE] group-hover:text-orange-400 transition flex-shrink-0" />
+                      </div>
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {commits.length === 0 && (
+              <div className="text-center text-white py-8">
+                <p className="text-lg text-[#ADB7BE]">No commits found in the last 2 years</p>
+              </div>
+            )}
+          </>
+        )}
+      </div>
     </motion.section>
   );
 };
