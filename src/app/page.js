@@ -4,6 +4,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import EmailSection from "./components/EmailSection";
 import AchievementsSection from "./components/AchievementsSection";
 import Blogsection from "./components/Blogsection";
+import GitHubCommitsSection from "./components/GitHubCommitsSection";
 import LayoutWrapper from "../lib/LayoutWrapper";
 
 export default function Home() {
@@ -13,6 +14,7 @@ export default function Home() {
         <AchievementsSection />
         <AboutSection />
         <ProjectsSection />
+        <GitHubCommitsSection />
         <Blogsection />
         <EmailSection />
    </LayoutWrapper>
