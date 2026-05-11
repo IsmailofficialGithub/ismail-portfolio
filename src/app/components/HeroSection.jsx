@@ -102,7 +102,7 @@ const HeroSection = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-10">
-        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-4 sm:space-y-6">
+        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-4 sm:space-y-6 order-2 sm:order-1 mt-6 sm:mt-0">
           <motion.h1
             className="text-white text-4xl sm:text-5xl lg:text-7xl lg:leading-tight font-extrabold"
             initial={{ opacity: 0, y: 24 }}
@@ -207,12 +207,12 @@ const HeroSection = () => {
         </div>
 
         <motion.div
-          className="col-span-1 sm:col-span-5 place-self-center w-full mt-4 sm:mt-0"
+          className="col-span-1 sm:col-span-5 place-self-center w-full mt-4 sm:mt-0 order-1 sm:order-2"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
-          <div className="relative mx-auto max-w-[520px] w-full">
+          <div className="relative mx-auto max-w-[240px] sm:max-w-[520px] w-full">
             <div className="relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
               <Image
                 src={heroImageSrc}
