@@ -70,7 +70,7 @@ const experiences = [
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.4 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.01 });
   const heroImageSrc = "/images/hero-portrait.png";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
 
