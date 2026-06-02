@@ -229,7 +229,7 @@ const HeroSection = () => {
                 fill
                 priority
                 sizes="(max-width: 1024px) 70vw, 520px"
-                className="relative z-[1] object-contain object-bottom"
+                className="relative z-[1] object-cover object-[center_18%]"
               />
               <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t  via-transparent to-transparent" />
             </div>
