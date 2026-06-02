@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus, X } from 'lucide-react';
+import { ImagePlus, Plus, Upload, X } from 'lucide-react';
 import Image from 'next/image';
 
 const ProjectForm = ({
@@ -14,18 +14,62 @@ const ProjectForm = ({
   onRemoveImage,
   errors = {} // Add errors prop with default empty object
 }) => {
+  const fileInputRef = React.useRef(null);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [imageNotice, setImageNotice] = React.useState('');
 
-  const handleFileSelect = (e) => {
-    const files = Array.from(e.target.files);
-    setImageFiles(files);
+  const addImageFiles = React.useCallback((selectedFiles) => {
+    const files = Array.from(selectedFiles || []).filter(file => file.type.startsWith('image/'));
 
-    // Create object URLs for preview
-    const previewUrls = files.map(file => URL.createObjectURL(file));
+    if (files.length === 0) {
+      setImageNotice('Add JPG, PNG, or WebP image files.');
+      return;
+    }
+
+    const remainingSlots = 10 - formData.images.length;
+    if (remainingSlots <= 0) {
+      setImageNotice('Maximum 10 images allowed.');
+      return;
+    }
+
+    const acceptedFiles = files.slice(0, remainingSlots);
+    const previewUrls = acceptedFiles.map(file => URL.createObjectURL(file));
+
+    setImageFiles(prev => [...prev, ...acceptedFiles]);
     setFormData(prev => ({
       ...prev,
       images: [...prev.images, ...previewUrls]
     }));
+    setImageNotice(
+      files.length > acceptedFiles.length
+        ? `Added ${acceptedFiles.length} image(s). Maximum 10 images allowed.`
+        : ''
+    );
+  }, [formData.images.length, setFormData, setImageFiles]);
+
+  const handleFileSelect = (e) => {
+    addImageFiles(e.target.files);
+    e.target.value = '';
   };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    addImageFiles(e.dataTransfer.files);
+  };
+
+  const handlePaste = React.useCallback((e) => {
+    const files = Array.from(e.clipboardData?.files || []);
+    if (files.length > 0) {
+      e.preventDefault();
+      addImageFiles(files);
+    }
+  }, [addImageFiles]);
+
+  React.useEffect(() => {
+    document.addEventListener('paste', handlePaste);
+    return () => document.removeEventListener('paste', handlePaste);
+  }, [handlePaste]);
 
   // Clean up object URLs when component unmounts or images are removed
   React.useEffect(() => {
@@ -151,15 +195,52 @@ const ProjectForm = ({
         <label className="block text-sm font-medium text-gray-300 mb-2">
           Project Images *
         </label>
-        <input
-          type="file"
-          multiple
-          accept="image/*"
-          onChange={handleFileSelect}
-          className={`w-full px-4 py-2 bg-gray-800 border rounded-lg text-white focus:outline-none focus:border-purple-500 ${errors.images ? 'border-red-500' : 'border-gray-700'
+        <div
+          role="button"
+          tabIndex={0}
+          onClick={() => fileInputRef.current?.click()}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              fileInputRef.current?.click();
+            }
+          }}
+          onDragEnter={(e) => {
+            e.preventDefault();
+            setIsDragging(true);
+          }}
+          onDragOver={(e) => {
+            e.preventDefault();
+            setIsDragging(true);
+          }}
+          onDragLeave={(e) => {
+            if (e.currentTarget.contains(e.relatedTarget)) return;
+            setIsDragging(false);
+          }}
+          onDrop={handleDrop}
+          onPaste={handlePaste}
+          className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-gray-800 px-4 py-8 text-center text-white transition-colors focus:outline-none focus:border-purple-500 ${isDragging ? 'border-purple-400 bg-purple-500/10' : errors.images ? 'border-red-500' : 'border-gray-700 hover:border-purple-500'
             }`}
-        />
+        >
+          <input
+            ref={fileInputRef}
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleFileSelect}
+            className="sr-only"
+          />
+          <Upload className="mb-3 h-8 w-8 text-purple-300" />
+          <p className="text-sm font-medium text-gray-200">
+            Drop images here, paste from clipboard, or click to browse
+          </p>
+          <p className="mt-1 flex items-center gap-1 text-xs text-gray-400">
+            <ImagePlus className="h-3 w-3" />
+            JPG, PNG, or WebP up to 10 images
+          </p>
+        </div>
         {errors.images && <p className="mt-1 text-sm text-red-400">{errors.images}</p>}
+        {imageNotice && <p className="mt-1 text-sm text-yellow-400">{imageNotice}</p>}
 
         {(formData.images.length > 0 || imageFiles.length > 0) && (
           <div className="mt-4">
@@ -193,7 +274,7 @@ const ProjectForm = ({
         )}
 
         <p className="mt-2 text-xs text-gray-400">
-          Maximum 10 images allowed. Supported formats: JPG, PNG, WebP
+          You can also press Ctrl+V after copying an image.
         </p>
       </div>
 

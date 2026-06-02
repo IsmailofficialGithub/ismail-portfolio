@@ -212,6 +212,11 @@ export default function AdminProjectsDashboard() {
 
   // Reset form
   const resetForm = () => {
+    formData.images.forEach((url) => {
+      if (url.startsWith("blob:")) {
+        URL.revokeObjectURL(url);
+      }
+    });
     setFormData({
       name: "",
       description: "",
@@ -287,7 +292,7 @@ export default function AdminProjectsDashboard() {
     try {
       setSubmitting(true);
 
-      let imageUrls = formData.images;
+      let imageUrls = formData.images.filter((url) => !url.startsWith("blob:"));
       if (imageFiles.length > 0) {
         setUploading(true);
         const newImageUrls = await handleUpload(imageFiles);
@@ -413,6 +418,7 @@ export default function AdminProjectsDashboard() {
   // Open edit modal
   const openEditModal = (project) => {
     setSelectedProject(project);
+    setImageFiles([]);
     setFormData({
       name: project.name,
       description: project.description,
@@ -461,12 +467,24 @@ export default function AdminProjectsDashboard() {
 
   // Remove image
   const removeImage = (index) => {
+    const imageToRemove = formData.images[index];
+
+    if (imageToRemove?.startsWith("blob:")) {
+      URL.revokeObjectURL(imageToRemove);
+      const fileIndex = formData.images
+        .slice(0, index)
+        .filter((url) => url.startsWith("blob:")).length;
+
+      setImageFiles((prev) => prev.filter((_, i) => i !== fileIndex));
+    }
+
+    const nextImages = formData.images.filter((_, i) => i !== index);
     setFormData((prev) => ({
       ...prev,
-      images: prev.images.filter((_, i) => i !== index),
+      images: nextImages,
     }));
     // Clear images error if we still have images
-    if (formData.images.length > 1 && formErrors.images) {
+    if (nextImages.length > 0 && formErrors.images) {
       setFormErrors((prev) => ({ ...prev, images: undefined }));
     }
   };
