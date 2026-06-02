@@ -71,7 +71,7 @@ const experiences = [
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.01 });
-  const heroImageSrc = "/ismail-abbasi.jpg";
+  const heroImageSrc = "/images/hero-portrait.png";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
 
   useEffect(() => {
@@ -96,15 +96,15 @@ const HeroSection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="py-8 sm:py-12 lg:py-16"
+      className="py-4 sm:py-6 lg:py-8"
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="grid grid-cols-1 sm:grid-cols-12 gap-6 sm:gap-10">
-        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-4 sm:space-y-6 order-2 sm:order-1 mt-6 sm:mt-0">
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-10 lg:gap-14">
+        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-5 sm:space-y-6 order-2 sm:order-1">
           <motion.h1
-            className="text-white text-4xl sm:text-5xl lg:text-7xl lg:leading-tight font-extrabold"
+            className="text-white text-4xl leading-tight sm:text-5xl lg:text-6xl lg:leading-tight font-extrabold"
             initial={{ opacity: 0, y: 24 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.05, duration: 0.6, ease: "easeOut" }}
@@ -115,7 +115,7 @@ const HeroSection = () => {
           </motion.h1>
 
           <motion.h2
-            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+            className="min-h-[2.5rem] text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.12, duration: 0.6, ease: "easeOut" }}
@@ -151,21 +151,21 @@ const HeroSection = () => {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4"
+            className="flex flex-col justify-center gap-3 pt-1 sm:flex-row sm:justify-start sm:gap-4"
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.3, duration: 0.6 }}
           >
             <Link
               href="/#contact"
-              className="px-6 py-3 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 hover:from-orange-400 hover:to-pink-400 text-white font-semibold shadow-lg shadow-orange-500/20 transition"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full bg-gradient-to-br from-orange-500 to-pink-500 hover:from-orange-400 hover:to-pink-400 text-white font-semibold shadow-lg shadow-orange-500/20 transition"
             >
               Hire Me
             </Link>
             <a
               href="/Ismail_Abbasi_Resume.pdf"
               download
-              className="px-6 py-3 rounded-full border border-orange-500 text-orange-200 hover:bg-orange-500/10 font-semibold transition"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-full border border-orange-500 text-orange-200 hover:bg-orange-500/10 font-semibold transition"
             >
               Download CV
             </a>
@@ -216,27 +216,20 @@ const HeroSection = () => {
         </div>
 
         <motion.div
-          className="col-span-1 sm:col-span-5 place-self-center w-full mt-4 sm:mt-0 order-1 sm:order-2"
+          className="col-span-1 sm:col-span-5 place-self-center w-full order-1 sm:order-2"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
-          <div className="relative mx-auto max-w-[240px] sm:max-w-[520px] w-full">
-            <div className="relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
+          <div className="relative mx-auto max-w-[260px] sm:max-w-[420px] lg:max-w-[460px] w-full">
+            <div className="relative aspect-[3/4] rounded-[28px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
               <Image
                 src={heroImageSrc}
                 alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
                 fill
                 priority
                 sizes="(max-width: 1024px) 70vw, 520px"
-                className="relative z-[1] object-cover"
-                style={{ 
-                  objectPosition: 'center bottom',
-                  top: '80px',
-                  left: '-10px',
-                  right: '0px',
-                  bottom: '0px'
-                }}
+                className="relative z-[1] object-contain object-bottom"
               />
               <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t  via-transparent to-transparent" />
             </div>

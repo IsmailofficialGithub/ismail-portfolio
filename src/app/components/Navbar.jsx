@@ -29,13 +29,13 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed mx-auto border border-[#33353F] top-0 left-0 right-0 z-[10000] bg-[#121212] bg-opacity-100 mb-3">
-      <div className="flex container lg:py-4 flex-wrap items-center justify-between mx-auto px-4 py-2">
+    <nav className="fixed mx-auto border-b border-[#33353F] top-0 left-0 right-0 z-[10000] bg-[#121212] bg-opacity-100">
+      <div className="flex container flex-wrap items-center justify-between mx-auto px-4 py-3">
         <Link
           href={"/"}
-          className="text-2xl md:text-5xl text-white font-semibold"
+          className="text-2xl md:text-3xl text-white font-semibold leading-none"
         >
-          Ismail abbasi
+          Ismail Abbasi
         </Link>
 
         {/* Mobile Menu Button */}
