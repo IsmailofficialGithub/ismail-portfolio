@@ -178,7 +178,7 @@ const ProjectShowcase = () => {
         className="relative group cursor-pointer bg-gray-800 overflow-hidden"
       >
         <img
-          src={project.images?.[0] || "/api/placeholder/400/200"}
+          src={project.thumbnail || project.images?.[0] || "/api/placeholder/400/200"}
           alt={project.name}
           className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-110"
         />

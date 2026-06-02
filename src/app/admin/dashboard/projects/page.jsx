@@ -108,6 +108,7 @@ export default function AdminProjectsDashboard() {
     name: "",
     description: "",
     images: [],
+    thumbnail: "",
     code: "",
     livePreview: "",
     techStack: [],
@@ -221,6 +222,7 @@ export default function AdminProjectsDashboard() {
       name: "",
       description: "",
       images: [],
+      thumbnail: "",
       code: "",
       livePreview: "",
       techStack: [],
@@ -261,10 +263,11 @@ export default function AdminProjectsDashboard() {
         if (uploadedUrls.length <= 0) {
           return toast.error("No image Uploaded");
         }
+        const thumbnail = resolveUploadedThumbnail(formData.thumbnail, uploadedUrls);
         const response = await fetch("/api/projects", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ ...formData, images: uploadedUrls }),
+          body: JSON.stringify({ ...formData, images: uploadedUrls, thumbnail }),
         });
 
         const data = await response.json();
@@ -293,20 +296,25 @@ export default function AdminProjectsDashboard() {
       setSubmitting(true);
 
       let imageUrls = formData.images.filter((url) => !url.startsWith("blob:"));
+      let thumbnail = formData.thumbnail;
       if (imageFiles.length > 0) {
         setUploading(true);
         const newImageUrls = await handleUpload(imageFiles);
         if (newImageUrls.length <= 0) {
           return toast.error("Failed to upload new Image");
         }
+        thumbnail = resolveUploadedThumbnail(thumbnail, newImageUrls);
         imageUrls = [...imageUrls, ...newImageUrls];
         setUploading(false);
+      }
+      if (!thumbnail || !imageUrls.includes(thumbnail)) {
+        thumbnail = imageUrls[0] || "";
       }
 
       const response = await fetch(`/api/projects/${selectedProject._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...formData, images: imageUrls }),
+        body: JSON.stringify({ ...formData, images: imageUrls, thumbnail }),
       });
 
       const data = await response.json();
@@ -415,6 +423,18 @@ export default function AdminProjectsDashboard() {
     }
   };
 
+  const resolveUploadedThumbnail = (thumbnail, uploadedUrls) => {
+    if (!thumbnail?.startsWith("blob:")) {
+      return thumbnail || uploadedUrls[0] || "";
+    }
+
+    const blobIndex = formData.images
+      .filter((url) => url.startsWith("blob:"))
+      .indexOf(thumbnail);
+
+    return uploadedUrls[blobIndex] || uploadedUrls[0] || "";
+  };
+
   // Open edit modal
   const openEditModal = (project) => {
     setSelectedProject(project);
@@ -423,6 +443,7 @@ export default function AdminProjectsDashboard() {
       name: project.name,
       description: project.description,
       images: project.images,
+      thumbnail: project.thumbnail || project.images?.[0] || "",
       code: project.code,
       livePreview: project.livePreview || "",
       techStack: project.techStack,
@@ -482,6 +503,7 @@ export default function AdminProjectsDashboard() {
     setFormData((prev) => ({
       ...prev,
       images: nextImages,
+      thumbnail: prev.thumbnail === imageToRemove ? nextImages[0] || "" : prev.thumbnail,
     }));
     // Clear images error if we still have images
     if (nextImages.length > 0 && formErrors.images) {

@@ -25,6 +25,15 @@ const ProjectSchema = new mongoose.Schema({
             message: 'Must have 1-10 images'
         }
     },
+    thumbnail: {
+        type: String,
+        validate: {
+            validator: function(v) {
+                return !v || this.images.includes(v);
+            },
+            message: 'Thumbnail must be one of the project images'
+        }
+    },
     code: {
         type: String,
         required: [true, 'Code repository URL is required'],

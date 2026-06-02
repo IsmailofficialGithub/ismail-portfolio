@@ -12,9 +12,9 @@ import {
 const ProjectCard = ({ project, onEdit, onDelete }) => (
   <div className="bg-gray-900 rounded-xl overflow-hidden border border-gray-800 hover:border-purple-500 transition-colors">
     <div className="relative bg-gray-800">
-      {project.images?.[0] ? (
+      {project.thumbnail || project.images?.[0] ? (
         <img
-          src={project.images[0]}
+          src={project.thumbnail || project.images[0]}
           alt={project.name}
           className="w-full h-auto object-cover"
         />

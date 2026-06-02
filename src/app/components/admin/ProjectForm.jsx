@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImagePlus, Plus, Upload, X } from 'lucide-react';
+import { CheckCircle, ImagePlus, Plus, Upload, X } from 'lucide-react';
 import Image from 'next/image';
 
 const ProjectForm = ({
@@ -39,7 +39,8 @@ const ProjectForm = ({
     setImageFiles(prev => [...prev, ...acceptedFiles]);
     setFormData(prev => ({
       ...prev,
-      images: [...prev.images, ...previewUrls]
+      images: [...prev.images, ...previewUrls],
+      thumbnail: prev.thumbnail || previewUrls[0] || ''
     }));
     setImageNotice(
       files.length > acceptedFiles.length
@@ -272,6 +273,17 @@ const ProjectForm = ({
                   <div className="absolute bottom-1 left-1 bg-black/70 px-2 py-1 rounded text-xs text-white">
                     {index + 1}
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, thumbnail: img }))}
+                    className={`absolute bottom-1 right-1 flex items-center gap-1 rounded px-2 py-1 text-xs font-medium transition-colors ${formData.thumbnail === img
+                      ? 'bg-green-600 text-white'
+                      : 'bg-black/70 text-gray-200 hover:bg-purple-600'
+                      }`}
+                  >
+                    {formData.thumbnail === img && <CheckCircle className="h-3 w-3" />}
+                    {formData.thumbnail === img ? 'Thumbnail' : 'Set thumbnail'}
+                  </button>
                 </div>
               ))}
             </div>

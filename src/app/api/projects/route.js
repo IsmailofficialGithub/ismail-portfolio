@@ -107,7 +107,10 @@ export async function POST(req) {
             }, { status: 409 });
         }
 
-        const project = new Project(body);
+        const project = new Project({
+            ...body,
+            thumbnail: body.thumbnail || body.images?.[0]
+        });
         await project.save();
 
         return NextResponse.json({

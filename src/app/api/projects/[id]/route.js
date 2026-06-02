@@ -67,6 +67,10 @@ export async function PUT(req, { params }) {
 
     const { id } = params;
     const body = await req.json();
+    const updateBody = {
+      ...body,
+      thumbnail: body.thumbnail || body.images?.[0],
+    };
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return NextResponse.json(
@@ -79,9 +83,9 @@ export async function PUT(req, { params }) {
     }
 
     // Check for duplicate name (excluding current project)
-    if (body.name) {
+    if (updateBody.name) {
       const duplicateName = await Project.findOne({
-        name: { $regex: `^${body.name}$`, $options: "i" },
+        name: { $regex: `^${updateBody.name}$`, $options: "i" },
         _id: { $ne: id },
       });
 
@@ -96,7 +100,7 @@ export async function PUT(req, { params }) {
       }
     }
 
-    const project = await Project.findByIdAndUpdate(id, body, {
+    const project = await Project.findByIdAndUpdate(id, updateBody, {
       new: true,
       runValidators: true,
     });
