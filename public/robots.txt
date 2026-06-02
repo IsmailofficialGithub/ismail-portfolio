@@ -3,3 +3,5 @@ Allow: /
 Disallow: /admin/
 Disallow: /api/
 Disallow: /login/
+
+Sitemap: https://ismailabbasi.qzz.io/sitemap.xml

@@ -110,14 +110,19 @@ const HeroSection = () => {
             transition={{ delay: 0.05, duration: 0.6, ease: "easeOut" }}
           >
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-500 via-slate-300 to-orange-500">
-              Hello, I&apos;m
+              Ismail Abbasi
             </span>
-            <br />
+          </motion.h1>
+
+          <motion.h2
+            className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white"
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.12, duration: 0.6, ease: "easeOut" }}
+          >
             <TypeAnimation
               sequence={[
-                "Ismail Abbasi",
-                1200,
-                "Full-Stack AI Developer",
+                "Full Stack & AI Developer",
                 1200,
                 "MERN Specialist",
                 1200,
@@ -130,7 +135,7 @@ const HeroSection = () => {
               speed={55}
               repeat={Infinity}
             />
-          </motion.h1>
+          </motion.h2>
 
           <motion.p
             className="text-[#ADB7BE] text-base sm:text-lg lg:text-xl leading-relaxed"
