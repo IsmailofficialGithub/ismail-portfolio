@@ -15,6 +15,7 @@ const ProjectForm = ({
   errors = {} // Add errors prop with default empty object
 }) => {
   const fileInputRef = React.useRef(null);
+  const imageUrlsRef = React.useRef(formData.images);
   const [isDragging, setIsDragging] = React.useState(false);
   const [imageNotice, setImageNotice] = React.useState('');
 
@@ -59,6 +60,8 @@ const ProjectForm = ({
   };
 
   const handlePaste = React.useCallback((e) => {
+    if (e.defaultPrevented) return;
+
     const files = Array.from(e.clipboardData?.files || []);
     if (files.length > 0) {
       e.preventDefault();
@@ -73,15 +76,18 @@ const ProjectForm = ({
 
   // Clean up object URLs when component unmounts or images are removed
   React.useEffect(() => {
+    imageUrlsRef.current = formData.images;
+  }, [formData.images]);
+
+  React.useEffect(() => {
     return () => {
-      // Revoke object URLs to avoid memory leaks
-      formData.images.forEach(url => {
+      imageUrlsRef.current.forEach(url => {
         if (url.startsWith('blob:')) {
           URL.revokeObjectURL(url);
         }
       });
     };
-  }, [formData.images]);
+  }, []);
 
   return (
     <div className="space-y-4">
@@ -218,7 +224,6 @@ const ProjectForm = ({
             setIsDragging(false);
           }}
           onDrop={handleDrop}
-          onPaste={handlePaste}
           className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed bg-gray-800 px-4 py-8 text-center text-white transition-colors focus:outline-none focus:border-purple-500 ${isDragging ? 'border-purple-400 bg-purple-500/10' : errors.images ? 'border-red-500' : 'border-gray-700 hover:border-purple-500'
             }`}
         >
