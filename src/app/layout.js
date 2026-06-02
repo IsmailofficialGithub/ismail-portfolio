@@ -54,11 +54,33 @@ const personSchema = {
   name: "Ismail Abbasi",
   url: siteUrl,
   jobTitle: "Full Stack & AI Developer",
+  email: "mailto:ismail.official295@gmail.com",
+  telephone: "+923255028225",
   image: `${siteUrl}/images/hero-portrait.png`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Rawalpindi / Islamabad",
+    addressCountry: "PK",
+  },
+  worksFor: {
+    "@type": "Organization",
+    name: "DevDabs",
+    url: "https://devdabs.com",
+  },
   sameAs: [
     "https://www.linkedin.com/in/ismailabbasi/",
     "https://github.com/IsmailofficialGithub/",
+    "https://x.com/ismailAbbasi23",
+    "https://devdabs.com",
   ],
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: "ismail.official295@gmail.com",
+    telephone: "+923255028225",
+    contactType: "Professional inquiries",
+    areaServed: "Worldwide",
+    availableLanguage: ["English", "Urdu"],
+  },
   knowsAbout: [
     "React",
     "Next.js",
@@ -70,6 +92,19 @@ const personSchema = {
   ],
 };
 
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Ismail Abbasi",
+  url: siteUrl,
+  description:
+    "Portfolio, projects, blogs, and professional contact details for Ismail Abbasi, Full Stack & AI Developer.",
+  publisher: {
+    "@type": "Person",
+    name: "Ismail Abbasi",
+  },
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -77,6 +112,10 @@ export default function RootLayout({ children }) {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
           />
           <ClientProviders>
             <Toaster position="bottom-right"/>
