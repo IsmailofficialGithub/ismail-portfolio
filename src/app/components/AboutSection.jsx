@@ -163,10 +163,11 @@ const AboutSection = () => {
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
         >
           <Image
-            src="/images/about-image.svg"
+            src="/ismail-abbasi.jpg"
             width={500}
             height={500}
-            alt="aboutImage"
+            alt="Ismail Abbasi Full Stack AI Developer"
+            className="rounded-3xl object-cover"
           />
         </motion.div>
         <motion.div

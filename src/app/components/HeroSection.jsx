@@ -71,7 +71,7 @@ const experiences = [
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.01 });
-  const heroImageSrc = "/images/hero-portrait.png";
+  const heroImageSrc = "/ismail-abbasi.jpg";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
 
   useEffect(() => {
@@ -221,7 +221,7 @@ const HeroSection = () => {
             <div className="relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
               <Image
                 src={heroImageSrc}
-                alt="Ismail Abbasi portrait"
+                alt="Ismail Abbasi Full Stack AI Developer"
                 fill
                 priority
                 sizes="(max-width: 1024px) 70vw, 520px"

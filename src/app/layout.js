@@ -26,7 +26,7 @@ export const metadata = {
     siteName: "Ismail Abbasi Portfolio",
     images: [
       {
-        url: "/images/hero-portrait.png",
+        url: "/ismail-abbasi.jpg",
         width: 1200,
         height: 1600,
         alt: "Ismail Abbasi",
@@ -40,7 +40,7 @@ export const metadata = {
     title: "Ismail Abbasi | Full Stack & AI Developer",
     description:
       "Full Stack and AI Developer specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
-    images: ["/images/hero-portrait.png"],
+    images: ["/ismail-abbasi.jpg"],
   },
   robots: {
     index: true,
@@ -56,7 +56,7 @@ const personSchema = {
   jobTitle: "Full Stack & AI Developer",
   email: "mailto:ismail.official295@gmail.com",
   telephone: "+923255028225",
-  image: `${siteUrl}/images/hero-portrait.png`,
+  image: `${siteUrl}/ismail-abbasi.jpg`,
   address: {
     "@type": "PostalAddress",
     addressLocality: "Rawalpindi / Islamabad",
@@ -105,6 +105,16 @@ const websiteSchema = {
   },
 };
 
+const imageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ImageObject",
+  url: `${siteUrl}/ismail-abbasi.jpg`,
+  contentUrl: `${siteUrl}/ismail-abbasi.jpg`,
+  name: "Ismail Abbasi Full Stack AI Developer",
+  caption: "Ismail Abbasi, Full Stack & AI Developer",
+  representativeOfPage: true,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -116,6 +126,10 @@ export default function RootLayout({ children }) {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(imageSchema) }}
           />
           <ClientProviders>
             <Toaster position="bottom-right"/>
