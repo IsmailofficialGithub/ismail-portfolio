@@ -294,6 +294,49 @@ const ArticleCard = () => {
 
               {/* Article Footer */}
               <footer className="mt-16 pt-8 border-t border-gray-700">
+                <div className="mb-10 rounded-2xl border border-blue-500/30 bg-blue-950/20 p-6 text-left">
+                  <h3 className="text-xl font-semibold mb-3 text-white">
+                    About the Author
+                  </h3>
+                  <p className="text-gray-200 leading-relaxed">
+                    Ismail Abbasi is a Full Stack and AI Developer based in
+                    Rawalpindi / Islamabad, Pakistan, specializing in React,
+                    Next.js, Node.js, Supabase, PostgreSQL, DevOps, AI
+                    automation, and cloud infrastructure.
+                  </p>
+                  <div className="mt-4 flex flex-wrap gap-3 text-sm">
+                    <a
+                      href="https://www.linkedin.com/in/ismailabbasi/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-300 hover:text-blue-200"
+                    >
+                      LinkedIn
+                    </a>
+                    <a
+                      href="https://github.com/IsmailofficialGithub/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-300 hover:text-blue-200"
+                    >
+                      GitHub
+                    </a>
+                    <a
+                      href="https://x.com/ismailAbbasi23"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-300 hover:text-blue-200"
+                    >
+                      X
+                    </a>
+                    <a
+                      href="mailto:ismail.official295@gmail.com"
+                      className="text-blue-300 hover:text-blue-200"
+                    >
+                      Email
+                    </a>
+                  </div>
+                </div>
                 <div className="text-center">
                   <h3 className="text-xl font-semibold mb-4">Enjoyed this article?</h3>
                   <p className="text-gray-400 mb-6">Share it with your friends and colleagues!</p>
