@@ -107,9 +107,13 @@ export async function POST(req) {
             }, { status: 409 });
         }
 
+        const thumbnail = body.images?.includes(body.thumbnail)
+            ? body.thumbnail
+            : body.images?.[0] || '';
+
         const project = new Project({
             ...body,
-            thumbnail: body.thumbnail || body.images?.[0]
+            thumbnail
         });
         await project.save();
 

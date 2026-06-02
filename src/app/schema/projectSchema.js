@@ -27,12 +27,7 @@ const ProjectSchema = new mongoose.Schema({
     },
     thumbnail: {
         type: String,
-        validate: {
-            validator: function(v) {
-                return !v || this.images.includes(v);
-            },
-            message: 'Thumbnail must be one of the project images'
-        }
+        default: ''
     },
     code: {
         type: String,

@@ -67,9 +67,12 @@ export async function PUT(req, { params }) {
 
     const { id } = params;
     const body = await req.json();
+    const thumbnail = body.images?.includes(body.thumbnail)
+      ? body.thumbnail
+      : body.images?.[0] || "";
     const updateBody = {
       ...body,
-      thumbnail: body.thumbnail || body.images?.[0],
+      thumbnail,
     };
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
