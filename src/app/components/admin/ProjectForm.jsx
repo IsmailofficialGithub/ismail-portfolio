@@ -74,7 +74,7 @@ const ProjectForm = ({
     return () => document.removeEventListener('paste', handlePaste);
   }, [handlePaste]);
 
-  // Clean up object URLs when component unmounts or images are removed
+  // Clean up object URLs when the form unmounts.
   React.useEffect(() => {
     imageUrlsRef.current = formData.images;
   }, [formData.images]);
@@ -220,7 +220,7 @@ const ProjectForm = ({
             setIsDragging(true);
           }}
           onDragLeave={(e) => {
-            if (e.currentTarget.contains(e.relatedTarget)) return;
+            if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) return;
             setIsDragging(false);
           }}
           onDrop={handleDrop}
