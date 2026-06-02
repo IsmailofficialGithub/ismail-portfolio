@@ -66,6 +66,24 @@ const personSchema = {
   name: "Ismail Abbasi",
   url: siteUrl,
   jobTitle: "Software Engineer, AI Developer & Rust Developer",
+  hasOccupation: [
+    {
+      "@type": "Occupation",
+      name: "Software Engineer",
+    },
+    {
+      "@type": "Occupation",
+      name: "AI Developer",
+    },
+    {
+      "@type": "Occupation",
+      name: "Rust Developer",
+    },
+    {
+      "@type": "Occupation",
+      name: "Full Stack Developer",
+    },
+  ],
   email: "mailto:ismail.official295@gmail.com",
   telephone: "+923255028225",
   image: `${siteUrl}/ismail-abbasi.jpg`,

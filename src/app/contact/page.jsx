@@ -5,6 +5,13 @@ export const metadata = {
   title: "Contact Ismail Abbasi",
   description:
     "Contact Ismail Abbasi for software engineering, AI development, Rust development, full-stack development, React, Next.js, Node.js, and cloud infrastructure work.",
+  keywords: [
+    "Contact Ismail Abbasi",
+    "Software Engineer Pakistan",
+    "AI Developer Pakistan",
+    "Rust Developer Pakistan",
+    "Full Stack Developer Pakistan",
+  ],
   alternates: {
     canonical: "/contact",
   },
