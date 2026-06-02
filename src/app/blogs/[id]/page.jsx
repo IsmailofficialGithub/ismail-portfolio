@@ -299,10 +299,11 @@ const ArticleCard = () => {
                     About the Author
                   </h3>
                   <p className="text-gray-200 leading-relaxed">
-                    Ismail Abbasi is a Full Stack and AI Developer based in
-                    Rawalpindi / Islamabad, Pakistan, specializing in React,
-                    Next.js, Node.js, Supabase, PostgreSQL, DevOps, AI
-                    automation, and cloud infrastructure.
+                    Ismail Abbasi is a Software Engineer, AI Developer, Rust
+                    Developer, and Full Stack Developer based in Rawalpindi /
+                    Islamabad, Pakistan, specializing in React, Next.js,
+                    Node.js, Supabase, PostgreSQL, Rust, DevOps, AI automation,
+                    and cloud infrastructure.
                   </p>
                   <div className="mt-4 flex flex-wrap gap-3 text-sm">
                     <a

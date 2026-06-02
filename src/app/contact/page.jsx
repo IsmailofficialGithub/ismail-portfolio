@@ -4,7 +4,7 @@ import LayoutWrapper from "@/lib/LayoutWrapper";
 export const metadata = {
   title: "Contact Ismail Abbasi",
   description:
-    "Contact Ismail Abbasi for full-stack development, AI automation, React, Next.js, Node.js, and cloud infrastructure work.",
+    "Contact Ismail Abbasi for software engineering, AI development, Rust development, full-stack development, React, Next.js, Node.js, and cloud infrastructure work.",
   alternates: {
     canonical: "/contact",
   },
@@ -19,9 +19,10 @@ export default function ContactPage() {
             Contact Ismail Abbasi
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-[#ADB7BE]">
-            Full Stack & AI Developer based in Rawalpindi / Islamabad,
-            Pakistan. Available for product development, automation, and cloud
-            infrastructure work.
+            Software Engineer, AI Developer, Rust Developer, and Full Stack
+            Developer based in Rawalpindi / Islamabad, Pakistan. Available for
+            product development, automation, Rust systems work, and cloud
+            infrastructure.
           </p>
           <div className="mx-auto mt-6 grid max-w-2xl gap-3 text-sm text-[#E2E8F0] sm:grid-cols-2">
             <a

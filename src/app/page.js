@@ -8,9 +8,16 @@ import GitHubCommitsSection from "./components/GitHubCommitsSection";
 import LayoutWrapper from "../lib/LayoutWrapper";
 
 export const metadata = {
-  title: "Ismail Abbasi | Full Stack & AI Developer",
+  title: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
   description:
-    "Ismail Abbasi is a Full Stack and AI Developer specializing in React, Next.js, Node.js, Supabase, Rust, AI automation, and cloud infrastructure.",
+    "Ismail Abbasi is a Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+  keywords: [
+    "Ismail Abbasi",
+    "Software Engineer",
+    "AI Developer",
+    "Rust Developer",
+    "Full Stack Developer Pakistan",
+  ],
   alternates: {
     canonical: "/",
   },

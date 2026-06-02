@@ -40,7 +40,7 @@ const skillHighlights = [
 const experiences = [
   {
     company: "Cloud Rexpo",
-    role: "Full Stack & AI Developer",
+    role: "Software Engineer, AI Developer & Rust Developer",
     period: "Jan 2025 – Present",
     items: [
       "Lead end-to-end delivery of AI-powered products with admin control, analytics, and pixel-perfect UX.",
@@ -122,7 +122,11 @@ const HeroSection = () => {
           >
             <TypeAnimation
               sequence={[
-                "Full Stack & AI Developer",
+                "Software Engineer",
+                1200,
+                "AI Developer",
+                1200,
+                "Rust Developer",
                 1200,
                 "MERN Specialist",
                 1200,
@@ -143,7 +147,7 @@ const HeroSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Full-Stack AI Developer proficient in the MERN stack (MongoDB, Express.js, React.js, Node.js, Next.js) with expertise in AI-driven automation and n8n integrations. I design and ship dynamic, intelligent, and scalable web applications that keep teams productive and users delighted.
+            Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan proficient in the MERN stack (MongoDB, Express.js, React.js, Node.js, Next.js), Rust systems programming, AI-driven automation, and n8n integrations. I design and ship dynamic, intelligent, and scalable applications that keep teams productive and users delighted.
           </motion.p>
 
           <motion.div
@@ -221,7 +225,7 @@ const HeroSection = () => {
             <div className="relative aspect-[3/4] rounded-[32px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
               <Image
                 src={heroImageSrc}
-                alt="Ismail Abbasi Full Stack AI Developer"
+                alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
                 fill
                 priority
                 sizes="(max-width: 1024px) 70vw, 520px"

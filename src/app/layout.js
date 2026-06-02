@@ -10,18 +10,30 @@ const siteUrl = "https://ismailabbasi.qzz.io";
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ismail Abbasi | Full Stack & AI Developer",
+    default: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
     template: "%s | Ismail Abbasi",
   },
   description:
-    "Ismail Abbasi is a Full Stack and AI Developer specializing in React, Next.js, Node.js, Supabase, Rust, AI automation, and cloud infrastructure.",
+    "Ismail Abbasi is a Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+  keywords: [
+    "Ismail Abbasi",
+    "Ismail Abbasi Developer",
+    "Software Engineer Pakistan",
+    "AI Developer Pakistan",
+    "Rust Developer Pakistan",
+    "Full Stack Developer Pakistan",
+    "Next.js Developer",
+    "React Developer",
+    "Node.js Developer",
+    "AI automation developer",
+  ],
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "Ismail Abbasi | Full Stack & AI Developer",
+    title: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
     description:
-      "Full Stack and AI Developer specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+      "Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
     url: siteUrl,
     siteName: "Ismail Abbasi Portfolio",
     images: [
@@ -37,9 +49,9 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ismail Abbasi | Full Stack & AI Developer",
+    title: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
     description:
-      "Full Stack and AI Developer specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+      "Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
     images: ["/ismail-abbasi.jpg"],
   },
   robots: {
@@ -53,7 +65,7 @@ const personSchema = {
   "@type": "Person",
   name: "Ismail Abbasi",
   url: siteUrl,
-  jobTitle: "Full Stack & AI Developer",
+  jobTitle: "Software Engineer, AI Developer & Rust Developer",
   email: "mailto:ismail.official295@gmail.com",
   telephone: "+923255028225",
   image: `${siteUrl}/ismail-abbasi.jpg`,
@@ -82,11 +94,14 @@ const personSchema = {
     availableLanguage: ["English", "Urdu"],
   },
   knowsAbout: [
+    "Software engineering",
+    "Full stack development",
     "React",
     "Next.js",
     "Node.js",
     "Supabase",
     "Rust",
+    "Rust development",
     "AI automation",
     "Cloud infrastructure",
   ],
@@ -98,7 +113,7 @@ const websiteSchema = {
   name: "Ismail Abbasi",
   url: siteUrl,
   description:
-    "Portfolio, projects, blogs, and professional contact details for Ismail Abbasi, Full Stack & AI Developer.",
+    "Portfolio, projects, blogs, and professional contact details for Ismail Abbasi, Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan.",
   publisher: {
     "@type": "Person",
     name: "Ismail Abbasi",
@@ -110,8 +125,8 @@ const imageSchema = {
   "@type": "ImageObject",
   url: `${siteUrl}/ismail-abbasi.jpg`,
   contentUrl: `${siteUrl}/ismail-abbasi.jpg`,
-  name: "Ismail Abbasi Full Stack AI Developer",
-  caption: "Ismail Abbasi, Full Stack & AI Developer",
+  name: "Ismail Abbasi Software Engineer AI Developer Rust Developer",
+  caption: "Ismail Abbasi, Software Engineer, AI Developer & Rust Developer",
   representativeOfPage: true,
 };
 

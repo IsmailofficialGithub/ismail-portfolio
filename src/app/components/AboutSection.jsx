@@ -8,7 +8,7 @@ import { motion, useInView } from "framer-motion";
 const EXPERIENCE_DATA = [
   {
     company: "Cloud Rexpo",
-    role: "Full Stack & AI Developer",
+    role: "Software Engineer, AI Developer & Rust Developer",
     period: "Jan 2025 – Present",
     duration: "Present",
     items: [
@@ -166,7 +166,7 @@ const AboutSection = () => {
             src="/ismail-abbasi.jpg"
             width={500}
             height={500}
-            alt="Ismail Abbasi Full Stack AI Developer"
+            alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
             className="rounded-3xl object-cover"
           />
         </motion.div>
