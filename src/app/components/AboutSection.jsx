@@ -158,17 +158,20 @@ const AboutSection = () => {
     >
       <div className="md:grid md:grid-cols-2 gap-8 items-center py-8 px-4 xl:gap-16 sm:py-16 xl:px-16">
         <motion.div
+          className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]"
           initial={{ opacity: 0, x: -24 }}
           animate={isInView ? { opacity: 1, x: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.6, ease: "easeOut" }}
         >
-          <Image
-            src="/ismail-abbasi.jpg"
-            width={500}
-            height={500}
-            alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
-            className="rounded-3xl object-cover"
-          />
+          <div className="relative aspect-[588/980] overflow-hidden rounded-[28px]">
+            <Image
+              src="/images/hero-portrait.png"
+              alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
+              fill
+              sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 440px"
+              className="object-cover object-top mix-blend-lighten"
+            />
+          </div>
         </motion.div>
         <motion.div
           className="mt-4 md:mt-0 text-left flex flex-col h-full"

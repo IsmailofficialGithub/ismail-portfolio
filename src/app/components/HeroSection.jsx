@@ -221,18 +221,16 @@ const HeroSection = () => {
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
-          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[430px] lg:max-w-[500px]">
-            <div className="relative aspect-[4/5] rounded-[28px] bg-white/5 shadow-[0_25px_60px_-15px_rgba(12,10,27,0.65)] overflow-hidden">
+          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
+            <div className="relative aspect-[588/980] overflow-hidden rounded-[28px]">
               <Image
                 src={heroImageSrc}
                 alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
                 fill
                 priority
-                sizes="(max-width: 1024px) 70vw, 520px"
-                className="relative z-[1] object-cover object-[center_18%]"
-                style={{ marginTop: "95px" }}
+                sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 440px"
+                className="object-cover object-top mix-blend-lighten"
               />
-              <div className="pointer-events-none absolute inset-0 z-[1] bg-gradient-to-t  via-transparent to-transparent" />
             </div>
           </div>
         </motion.div>
