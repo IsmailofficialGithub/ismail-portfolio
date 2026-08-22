@@ -1,5 +1,12 @@
 import EmailSection from "../components/EmailSection";
 import LayoutWrapper from "@/lib/LayoutWrapper";
+import {
+  ADDRESS,
+  CONTACT_EMAIL,
+  CONTACT_PHONE_DISPLAY,
+  JOB_TITLE,
+  SITE_NAME,
+} from "@/lib/site";
 
 export const metadata = {
   title: "Contact Ismail Abbasi",
@@ -26,24 +33,50 @@ export default function ContactPage() {
             Contact Ismail Abbasi
           </h1>
           <p className="mx-auto mt-3 max-w-2xl text-[#ADB7BE]">
-            Software Engineer, AI Developer, Rust Developer, and Full Stack
-            Developer based in Rawalpindi / Islamabad, Pakistan. Available for
-            product development, automation, Rust systems work, and cloud
-            infrastructure.
+            {SITE_NAME} is a {JOB_TITLE} based in {ADDRESS.addressDisplay}.
+            Available for product development, AI automation, Rust systems work,
+            and cloud infrastructure. Use the details below or the form to start
+            a professional inquiry with goals, timeline, and technical
+            constraints included.
           </p>
           <div className="mx-auto mt-6 grid max-w-2xl gap-3 text-sm text-[#E2E8F0] sm:grid-cols-2">
             <a
-              href="mailto:ismail.official295@gmail.com"
+              href={`mailto:${CONTACT_EMAIL}`}
               className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 hover:border-orange-500/50"
             >
-              ismail.official295@gmail.com
+              {CONTACT_EMAIL}
             </a>
             <a
-              href="tel:+923255028225"
+              href={`tel:${CONTACT_PHONE_DISPLAY.replace(/\s/g, "")}`}
               className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 hover:border-orange-500/50"
             >
-              +92 325 5028225
+              {CONTACT_PHONE_DISPLAY}
             </a>
+          </div>
+          <div className="mx-auto mt-8 max-w-2xl text-left text-sm leading-relaxed text-[#E2E8F0]">
+            <h2 className="text-lg font-semibold text-white">
+              Best-fit engagements
+            </h2>
+            <p className="mt-2 text-[#ADB7BE]">
+              Reach out when you need help shipping or modernizing a web product
+              with React, Next.js, Node.js, or Supabase; designing AI automation
+              or agent workflows; building Rust services; or hardening deployment
+              with Docker, Nginx, CI/CD, and cloud hosting. This contact channel
+              is for hiring, contracting, and collaboration — not for spam or
+              unrelated promotions.
+            </p>
+            <h2 className="mt-6 text-lg font-semibold text-white">
+              What to include
+            </h2>
+            <p className="mt-2 text-[#ADB7BE]">
+              Share a short problem statement, target stack, success criteria,
+              and preferred timeline. Clear briefs receive clearer replies.
+              Privacy details for messages you send are described on the{" "}
+              <a href="/privacy" className="text-orange-300 hover:text-orange-200">
+                privacy policy
+              </a>
+              .
+            </p>
           </div>
         </section>
         <EmailSection />

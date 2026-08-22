@@ -4,8 +4,18 @@ const inter = Inter({ subsets: ["latin"] });
 import { Toaster } from "react-hot-toast";
 import ClientProviders from "./Provider";
 import { Analytics } from '@vercel/analytics/next';
+import {
+  ADDRESS,
+  CONTACT_EMAIL,
+  CONTACT_PHONE,
+  JOB_TITLE,
+  SAME_AS,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
 
-const siteUrl = "https://ismailabbasi.qzz.io";
+const siteUrl = SITE_URL;
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -13,8 +23,7 @@ export const metadata = {
     default: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
     template: "%s | Ismail Abbasi",
   },
-  description:
-    "Ismail Abbasi is a Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+  description: SITE_DESCRIPTION,
   keywords: [
     "Ismail Abbasi",
     "Ismail Abbasi Developer",
@@ -32,8 +41,7 @@ export const metadata = {
   },
   openGraph: {
     title: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
-    description:
-      "Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+    description: SITE_DESCRIPTION,
     url: siteUrl,
     siteName: "Ismail Abbasi Portfolio",
     images: [
@@ -50,8 +58,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Ismail Abbasi | Software Engineer, AI & Rust Developer",
-    description:
-      "Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+    description: SITE_DESCRIPTION,
     images: ["/ismail-abbasi.jpg"],
   },
   robots: {
@@ -63,9 +70,10 @@ export const metadata = {
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Ismail Abbasi",
+  name: SITE_NAME,
+  description: SITE_DESCRIPTION,
   url: siteUrl,
-  jobTitle: "Software Engineer, AI Developer & Rust Developer",
+  jobTitle: JOB_TITLE,
   hasOccupation: [
     {
       "@type": "Occupation",
@@ -84,29 +92,25 @@ const personSchema = {
       name: "Full Stack Developer",
     },
   ],
-  email: "mailto:ismail.official295@gmail.com",
-  telephone: "+923255028225",
+  email: `mailto:${CONTACT_EMAIL}`,
+  telephone: CONTACT_PHONE,
   image: `${siteUrl}/ismail-abbasi.jpg`,
   address: {
     "@type": "PostalAddress",
-    addressLocality: "Rawalpindi / Islamabad",
-    addressCountry: "PK",
+    addressLocality: ADDRESS.addressLocality,
+    addressRegion: ADDRESS.addressRegion,
+    addressCountry: ADDRESS.addressCountry,
   },
   worksFor: {
     "@type": "Organization",
     name: "DevDabs",
     url: "https://devdabs.com",
   },
-  sameAs: [
-    "https://www.linkedin.com/in/ismailabbasi/",
-    "https://github.com/IsmailofficialGithub/",
-    "https://x.com/ismailAbbasi23",
-    "https://devdabs.com",
-  ],
+  sameAs: SAME_AS,
   contactPoint: {
     "@type": "ContactPoint",
-    email: "ismail.official295@gmail.com",
-    telephone: "+923255028225",
+    email: CONTACT_EMAIL,
+    telephone: CONTACT_PHONE,
     contactType: "Professional inquiries",
     areaServed: "Worldwide",
     availableLanguage: ["English", "Urdu"],
@@ -125,16 +129,49 @@ const personSchema = {
   ],
 };
 
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  legalName: SITE_NAME,
+  url: siteUrl,
+  description: SITE_DESCRIPTION,
+  email: CONTACT_EMAIL,
+  telephone: CONTACT_PHONE,
+  logo: `${siteUrl}/ismail-abbasi.jpg`,
+  image: `${siteUrl}/ismail-abbasi.jpg`,
+  sameAs: SAME_AS,
+  contactPoint: {
+    "@type": "ContactPoint",
+    email: CONTACT_EMAIL,
+    telephone: CONTACT_PHONE,
+    contactType: "customer service",
+    areaServed: "Worldwide",
+    availableLanguage: ["English", "Urdu"],
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: ADDRESS.addressLocality,
+    addressRegion: ADDRESS.addressRegion,
+    addressCountry: ADDRESS.addressCountry,
+  },
+  founder: {
+    "@type": "Person",
+    name: SITE_NAME,
+    url: siteUrl,
+  },
+};
+
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Ismail Abbasi",
+  name: SITE_NAME,
   url: siteUrl,
   description:
     "Portfolio, projects, blogs, and professional contact details for Ismail Abbasi, Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan.",
   publisher: {
     "@type": "Person",
-    name: "Ismail Abbasi",
+    name: SITE_NAME,
   },
 };
 
@@ -155,6 +192,10 @@ export default function RootLayout({ children }) {
           <script
             type="application/ld+json"
             dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
           />
           <script
             type="application/ld+json"

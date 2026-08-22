@@ -43,6 +43,12 @@ export default async function sitemap() {
       priority: 0.7,
     },
     {
+      url: `${siteUrl}/privacy`,
+      lastModified,
+      changeFrequency: "yearly",
+      priority: 0.5,
+    },
+    {
       url: `${siteUrl}/projects`,
       lastModified,
       changeFrequency: "weekly",
