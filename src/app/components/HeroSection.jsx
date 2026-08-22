@@ -68,11 +68,20 @@ const experiences = [
   },
 ];
 
+const ROLE_HEADLINE =
+  "Software Engineer, AI Developer & Rust Developer";
+
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.01 });
   const heroImageSrc = "/images/hero-portrait.png";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
+  // Keep a real H2 string in the SSR HTML for agents; animate only after mount.
+  const [roleAnimationReady, setRoleAnimationReady] = useState(false);
+
+  useEffect(() => {
+    setRoleAnimationReady(true);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -120,25 +129,29 @@ const HeroSection = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.12, duration: 0.6, ease: "easeOut" }}
           >
-            <TypeAnimation
-              sequence={[
-                "Software Engineer",
-                1200,
-                "AI Developer",
-                1200,
-                "Rust Developer",
-                1200,
-                "MERN Specialist",
-                1200,
-                "Automation Engineer",
-                1200,
-                "Technical Lead",
-                1200,
-              ]}
-              wrapper="span"
-              speed={55}
-              repeat={Infinity}
-            />
+            {roleAnimationReady ? (
+              <TypeAnimation
+                sequence={[
+                  "Software Engineer",
+                  1200,
+                  "AI Developer",
+                  1200,
+                  "Rust Developer",
+                  1200,
+                  "MERN Specialist",
+                  1200,
+                  "Automation Engineer",
+                  1200,
+                  "Technical Lead",
+                  1200,
+                ]}
+                wrapper="span"
+                speed={55}
+                repeat={Infinity}
+              />
+            ) : (
+              ROLE_HEADLINE
+            )}
           </motion.h2>
 
           <motion.p
@@ -171,48 +184,53 @@ const HeroSection = () => {
             </a>
           </motion.div>
 
-          <div className="grid gap-3 sm:grid-cols-2">
-            {skillHighlights.map((highlight, index) => (
-              <motion.div
-                key={highlight.title}
-                className="rounded-xl border border-white/5 bg-white/[0.03] backdrop-blur-sm p-4 text-left hover:border-orange-500/40 transition"
-                variants={highlightVariants}
-                initial="hidden"
-                animate={isInView ? "visible" : "hidden"}
-                custom={index}
-              >
-                <p className="text-sm font-semibold text-orange-300 uppercase tracking-wide">
-                  {highlight.title}
-                </p>
-                <p className="text-sm text-[#E2E8F0] leading-relaxed mt-1">
-                  {highlight.items}
-                </p>
-              </motion.div>
-            ))}
+          <div>
+            <h2 className="mb-3 text-left text-lg font-semibold text-white sm:text-xl">
+              Skills &amp; stack
+            </h2>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {skillHighlights.map((highlight, index) => (
+                <motion.div
+                  key={highlight.title}
+                  className="rounded-xl border border-white/5 bg-white/[0.03] backdrop-blur-sm p-4 text-left hover:border-orange-500/40 transition"
+                  variants={highlightVariants}
+                  initial="hidden"
+                  animate={isInView ? "visible" : "hidden"}
+                  custom={index}
+                >
+                  <h3 className="text-sm font-semibold text-orange-300 uppercase tracking-wide">
+                    {highlight.title}
+                  </h3>
+                  <p className="text-sm text-[#E2E8F0] leading-relaxed mt-1">
+                    {highlight.items}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          <motion.div
-            key={currentExperienceIndex}
-            className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left min-h-[180px]"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.5 }}
-          >
-            <p className="text-xs uppercase tracking-[0.2em] text-emerald-200 mb-2">
-              Experience Highlight
-            </p>
-            <h3 className="text-lg font-semibold text-white">
-              {experiences[currentExperienceIndex].company} |{" "}
-              {experiences[currentExperienceIndex].role} ·{" "}
-              {experiences[currentExperienceIndex].period}
-            </h3>
-            <ul className="mt-2 space-y-2 text-sm text-[#C8E6D0] list-disc pl-5">
-              {experiences[currentExperienceIndex].items.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </motion.div>
+          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left min-h-[180px]">
+            <h2 className="text-xs uppercase tracking-[0.2em] text-emerald-200 mb-2 font-semibold">
+              Experience
+            </h2>
+            {experiences.map((experience, index) => (
+              <div
+                key={experience.company}
+                className={
+                  index === currentExperienceIndex ? "block" : "hidden"
+                }
+              >
+                <h3 className="text-lg font-semibold text-white">
+                  {experience.company} | {experience.role} · {experience.period}
+                </h3>
+                <ul className="mt-2 space-y-2 text-sm text-[#C8E6D0] list-disc pl-5">
+                  {experience.items.map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         <motion.div

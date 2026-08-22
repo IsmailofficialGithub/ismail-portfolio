@@ -206,9 +206,9 @@ const BlogSection = () => {
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.1, duration: 0.5 }}
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Latest <span className="text-[#a855f7]">Blog Posts</span>
-          </h1>
+          </h2>
           <p className="text-gray-300 text-lg max-w-2xl mx-auto">
             Discover insights, tutorials, and thoughts on modern software development, AI, and technology trends.
           </p>

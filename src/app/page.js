@@ -1,4 +1,5 @@
 import HeroSection from "./components/HeroSection";
+import HomeSsrSections from "./components/HomeSsrSections";
 import AboutSection from "./components/AboutSection";
 import ProjectsSection from "./components/ProjectsSection";
 import EmailSection from "./components/EmailSection";
@@ -25,14 +26,15 @@ export const metadata = {
 
 export default function Home() {
   return (
-   <LayoutWrapper>
-     <HeroSection />
-        <AchievementsSection />
-        <AboutSection />
-        <ProjectsSection />
-        <GitHubCommitsSection />
-        <Blogsection />
-        <EmailSection />
-   </LayoutWrapper>
+    <LayoutWrapper>
+      <HeroSection />
+      <HomeSsrSections />
+      <AchievementsSection />
+      <AboutSection />
+      <ProjectsSection />
+      <GitHubCommitsSection />
+      <Blogsection />
+      <EmailSection />
+    </LayoutWrapper>
   );
 }

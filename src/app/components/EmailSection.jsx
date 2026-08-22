@@ -62,9 +62,9 @@ const EmailSection = () => {
         animate={isInView ? { opacity: 1, x: 0 } : {}}
         transition={{ delay: 0.1, duration: 0.5 }}
       >
-        <h5 className="text-xl font-bold text-white my-2">
+        <h2 className="text-xl font-bold text-white my-2">
           Let&apos;s Connect
-        </h5>
+        </h2>
         <p className="text-[#ADB7BE] mb-4 max-w-md">
           I&apos;m currently looking for new opportunities, my inbox is always
           open. Whether you have a question or just want to say hi, I&apos;ll

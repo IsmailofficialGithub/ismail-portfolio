@@ -100,13 +100,18 @@ const ProjectsSection = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       <motion.h2
-        className="mt-4 mb-8 text-center text-4xl font-bold text-white md:mb-12"
+        className="mt-4 mb-4 text-center text-4xl font-bold text-white md:mb-6"
         initial={{ opacity: 0, y: 20 }}
         animate={isSectionInView ? { opacity: 1, y: 0 } : {}}
         transition={{ delay: 0.1, duration: 0.5 }}
       >
         My Projects
       </motion.h2>
+      <p className="mx-auto mb-8 max-w-2xl text-center text-[#ADB7BE]">
+        Featured product and platform work spanning full-stack web apps, AI
+        automation, and systems delivery. Open a project for stack details,
+        write-ups, and links — or browse the full projects index.
+      </p>
 
       {availableTags.length > 1 && (
         <motion.div
