@@ -3,13 +3,14 @@ import EmailSection from "../components/EmailSection";
 import LayoutWrapper from "@/lib/LayoutWrapper";
 
 export const metadata = {
-  title: "About Ismail Abbasi",
+  title: "About Ismail Abbasi | DevOps Engineer & Full-Stack Developer",
   description:
-    "Learn about Ismail Abbasi, a Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.",
+    "Learn about Ismail Abbasi, a DevOps Engineer and Full-Stack Developer with 4+ years of experience across Next.js, Node.js, Rust microservices, AWS cloud architecture, Kubernetes, and CI/CD automation.",
   keywords: [
     "About Ismail Abbasi",
-    "Ismail Abbasi Software Engineer",
-    "Ismail Abbasi AI Developer",
+    "Ismail Abbasi DevOps Engineer",
+    "Ismail Abbasi Full-Stack Developer",
+    "Ismail Abbasi AWS Cloud",
     "Ismail Abbasi Rust Developer",
   ],
   alternates: {
@@ -24,7 +25,7 @@ export default function AboutPage() {
         <section className="px-4 py-10 text-center text-white">
           <h1 className="text-4xl font-bold sm:text-5xl">Ismail Abbasi</h1>
           <p className="mt-3 text-xl text-[#ADB7BE]">
-            Software Engineer, AI Developer & Rust Developer
+            DevOps Engineer | Full-Stack Developer | AWS Cloud
           </p>
           <div className="mx-auto mt-6 grid max-w-3xl gap-3 text-sm text-[#E2E8F0] sm:grid-cols-2">
             <a

@@ -5,76 +5,74 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { useRef } from "react";
 import Image from "next/image";
+import ProfileCard from "./ProfileCard";
 
 const skillHighlights = [
   {
+    title: "DevOps & Cloud",
+    items: "AWS (EKS, EC2, RDS, S3, Lambda, VPC) · Kubernetes · Helm · Terraform · ArgoCD · Docker",
+  },
+  {
+    title: "Backend & Systems",
+    items: "Node.js · Express.js · Rust (Actix Web, Tokio) · REST APIs · Prisma ORM · WebSockets · WebRTC · MediaSoup",
+  },
+  {
     title: "Frontend",
-    items: "JavaScript · React.js · Next.js 15 · TypeScript",
+    items: "TypeScript · JavaScript · React.js · Next.js · Zustand · React Query · Tailwind CSS",
   },
   {
-    title: "Backend",
-    items: "Node.js · Express.js · TypeScript",
+    title: "Databases",
+    items: "PostgreSQL · MongoDB · Redis · MySQL · Supabase · Pgvector (RAG)",
   },
   {
-    title: "Database",
-    items: "MongoDB · MySQL · PostgreSQL · Supabase",
+    title: "CI/CD & Observability",
+    items: "GitHub Actions · Prometheus · Grafana · Loki · Nginx · Zero-Downtime Deployments",
   },
   {
-    title: "DevOps",
-    items: "Docker · Docker Compose · AWS · CI/CD · Microservices · Monitoring · Secrets Management",
-  },
-  {
-    title: "AI Automation",
-    items: "n8n · Make · Zapier · No-Code Integrations",
-  },
-  {
-    title: "Mobile",
-    items: "React Native · Expo CLI · Android · iOS",
-  },
-  {
-    title: "More",
-    items: "GitHub · C++ (Basic) · Postman · Shadcn · Socket.io · Redux Toolkit",
+    title: "AI & Automation",
+    items: "OpenAI API · Gemini · LangChain · Vector Embeddings · RAG Pipelines · n8n · Kafka",
   },
 ];
 
 const experiences = [
   {
-    company: "Cloud Rexpo",
-    role: "Software Engineer, AI Developer & Rust Developer",
-    period: "Jan 2025 – Present",
+    company: "YC Solutions",
+    role: "Full-Stack & AI Developer",
+    period: "Jan 2024 – Present",
     items: [
-      "Lead end-to-end delivery of AI-powered products with admin control, analytics, and pixel-perfect UX.",
-      "Built an AI Interview Bot leveraging OpenAI and orchestrated with n8n workflows for evaluation and feedback.",
-      "Delivered zero-downtime deployments with Docker, Nginx, Linux, and CI/CD pipelines for automated scaling.",
+      "Architected and shipped production AI SaaS apps using React, Node.js, and TypeScript with RBAC for multi-tenant access.",
+      "Built an AI technical interview bot using OpenAI and n8n, automating candidate screening and delivering objective feedback.",
+      "Owned full AWS deployment lifecycles using Docker, Nginx, and automated CI/CD pipelines for high-availability infrastructure.",
     ],
   },
   {
     company: "ENCS",
-    role: "Backend Developer",
-    period: "August 2023 – December 2024",
+    role: "Backend Developer / DevOps Engineer",
+    period: "Mar 2023 – Jan 2024",
     items: [
-      "Developed and maintained scalable backend systems, including RESTful APIs, database schemas, authentication flows, and third-party integrations.",
-      "Optimized legacy APIs, improved query performance, fixed production issues, and implemented best practices in security and code quality.",
+      "Developed 20+ REST APIs in Node.js/Express with JWT auth, tuning PostgreSQL and MongoDB queries for performance.",
+      "Achieved 99.9% uptime by resolving critical bugs and refactoring legacy endpoints with validation, rate limiting, and secrets management.",
+      "Built standardized CI/CD workflows, containerized apps with Docker/Compose, and configured DNS, SSL, and Nginx/Apache infrastructure.",
     ],
   },
   {
-    company: "Firefly Tech Solutions",
-    role: "Database Manager",
-    period: "July 2022 – March 2023",
+    company: "Leecare Solutions (Australia)",
+    role: "Backend Developer (Remote)",
+    period: "Apr 2023 – Aug 2023",
     items: [
-      "Developed and maintained scalable backend systems including RESTful APIs, authentication flows, automation workflows, and server-side logic.",
-      "Designed and optimized SQL/NoSQL databases, created efficient schemas, tuned queries, and managed cloud databases using AWS RDS.",
+      "Optimized backend REST APIs and database queries for a distributed, healthcare-adjacent production SaaS platform.",
+      "Built real-time communication features using WebRTC and built an end-to-end meeting app using MediaSoup for connection management.",
+      "Implemented secure authentication flows and data-integrity safeguards compliant with healthcare data standards.",
     ],
   },
 ];
 
 const ROLE_HEADLINE =
-  "Software Engineer, AI Developer & Rust Developer";
+  "DevOps Engineer | Full-Stack Developer | AWS Cloud";
 
 const HeroSection = () => {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.01 });
-  const heroImageSrc = "/images/hero-portrait.png";
   const [currentExperienceIndex, setCurrentExperienceIndex] = useState(0);
   // Keep a real H2 string in the SSR HTML for agents; animate only after mount.
   const [roleAnimationReady, setRoleAnimationReady] = useState(false);
@@ -105,13 +103,14 @@ const HeroSection = () => {
   return (
     <motion.section
       ref={sectionRef}
-      className="py-4 sm:py-6 lg:py-8"
+      className="min-h-[calc(100vh-5rem)] flex flex-col justify-between py-6 sm:py-8 lg:py-10"
       initial={{ opacity: 0, y: 32 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-12 sm:gap-10 lg:gap-14">
-        <div className="col-span-1 sm:col-span-7 place-self-center text-center sm:text-left justify-self-start space-y-5 sm:space-y-6 order-2 sm:order-1">
+      {/* Top Hero Row: Intro & Profile Card */}
+      <div className="grid grid-cols-1 items-start gap-8 sm:grid-cols-12 sm:gap-10 lg:gap-14">
+        <div className="col-span-1 sm:col-span-7 text-center sm:text-left space-y-4 sm:space-y-5 pt-1 sm:pt-2 order-2 sm:order-1">
           <motion.h1
             className="text-white text-4xl leading-tight sm:text-5xl lg:text-6xl lg:leading-tight font-extrabold"
             initial={{ opacity: 0, y: 24 }}
@@ -132,17 +131,17 @@ const HeroSection = () => {
             {roleAnimationReady ? (
               <TypeAnimation
                 sequence={[
-                  "Software Engineer",
+                  "DevOps Engineer",
                   1200,
-                  "AI Developer",
+                  "Full-Stack Developer",
+                  1200,
+                  "AWS Cloud Architect",
+                  1200,
+                  "Kubernetes & CI/CD",
                   1200,
                   "Rust Developer",
                   1200,
-                  "MERN Specialist",
-                  1200,
-                  "Automation Engineer",
-                  1200,
-                  "Technical Lead",
+                  "Forward Deployed Engineer",
                   1200,
                 ]}
                 wrapper="span"
@@ -155,12 +154,12 @@ const HeroSection = () => {
           </motion.h2>
 
           <motion.p
-            className="text-[#ADB7BE] text-base sm:text-lg lg:text-xl leading-relaxed"
+            className="text-[#ADB7BE] text-base sm:text-lg leading-relaxed"
             initial={{ opacity: 0, y: 18 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
-            Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan proficient in the MERN stack (MongoDB, Express.js, React.js, Node.js, Next.js), Rust systems programming, AI-driven automation, and n8n integrations. I design and ship dynamic, intelligent, and scalable applications that keep teams productive and users delighted.
+            Full-Stack Developer and DevOps Engineer with 4+ years of experience designing, deploying, and scaling production SaaS applications and cloud infrastructure. Proven track record across Next.js, Node.js, and Rust microservices, paired with AWS architecture (EKS, EC2, RDS, Lambda), Kubernetes orchestration, and CI/CD automation (GitHub Actions, ArgoCD, Terraform).
           </motion.p>
 
           <motion.div
@@ -183,75 +182,98 @@ const HeroSection = () => {
               Download CV
             </a>
           </motion.div>
-
-          <div>
-            <h2 className="mb-3 text-left text-lg font-semibold text-white sm:text-xl">
-              Skills &amp; stack
-            </h2>
-            <div className="grid gap-3 sm:grid-cols-2">
-              {skillHighlights.map((highlight, index) => (
-                <motion.div
-                  key={highlight.title}
-                  className="rounded-xl border border-white/5 bg-white/[0.03] backdrop-blur-sm p-4 text-left hover:border-orange-500/40 transition"
-                  variants={highlightVariants}
-                  initial="hidden"
-                  animate={isInView ? "visible" : "hidden"}
-                  custom={index}
-                >
-                  <h3 className="text-sm font-semibold text-orange-300 uppercase tracking-wide">
-                    {highlight.title}
-                  </h3>
-                  <p className="text-sm text-[#E2E8F0] leading-relaxed mt-1">
-                    {highlight.items}
-                  </p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left min-h-[180px]">
-            <h2 className="text-xs uppercase tracking-[0.2em] text-emerald-200 mb-2 font-semibold">
-              Experience
-            </h2>
-            {experiences.map((experience, index) => (
-              <div
-                key={experience.company}
-                className={
-                  index === currentExperienceIndex ? "block" : "hidden"
-                }
-              >
-                <h3 className="text-lg font-semibold text-white">
-                  {experience.company} | {experience.role} · {experience.period}
-                </h3>
-                <ul className="mt-2 space-y-2 text-sm text-[#C8E6D0] list-disc pl-5">
-                  {experience.items.map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
         </div>
 
         <motion.div
-          className="col-span-1 sm:col-span-5 place-self-center w-full order-1 sm:order-2"
+          className="col-span-1 sm:col-span-5 order-1 sm:order-2 flex justify-center sm:justify-end items-start"
           initial={{ opacity: 0, scale: 0.92 }}
           animate={isInView ? { opacity: 1, scale: 1 } : {}}
           transition={{ delay: 0.25, duration: 0.6, ease: "easeOut" }}
         >
-          <div className="relative mx-auto w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px]">
-            <div className="relative aspect-[588/980] overflow-hidden rounded-[28px]">
-              <Image
-                src={heroImageSrc}
-                alt="Ismail Abbasi Software Engineer AI Developer Rust Developer"
-                fill
-                priority
-                sizes="(max-width: 640px) 340px, (max-width: 1024px) 400px, 440px"
-                className="object-cover object-top mix-blend-lighten"
-              />
+          <ProfileCard />
+        </motion.div>
+      </div>
+
+      {/* Skills & Experience Row */}
+      <div className="mt-8 sm:mt-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <div className="lg:col-span-7 flex flex-col">
+          <h2 className="mb-3 text-left text-lg font-semibold text-white sm:text-xl">
+            Skills &amp; stack
+          </h2>
+          <div className="grid gap-2.5 sm:grid-cols-2 flex-1">
+            {skillHighlights.map((highlight, index) => (
+              <motion.div
+                key={highlight.title}
+                className="rounded-xl border border-white/5 bg-white/[0.03] backdrop-blur-sm p-3.5 text-left hover:border-orange-500/40 transition flex flex-col justify-center"
+                variants={highlightVariants}
+                initial="hidden"
+                animate={isInView ? "visible" : "hidden"}
+                custom={index}
+              >
+                <h3 className="text-xs font-semibold text-orange-300 uppercase tracking-wide">
+                  {highlight.title}
+                </h3>
+                <p className="text-xs text-[#E2E8F0] leading-relaxed mt-0.5">
+                  {highlight.items}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        <div className="lg:col-span-5 flex flex-col">
+          <h2 className="mb-3 text-left text-lg font-semibold text-white sm:text-xl">
+            Experience
+          </h2>
+          <div className="flex-1 rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-5 text-left flex flex-col justify-between min-h-[220px]">
+            <div>
+              <span className="inline-block text-[11px] uppercase tracking-[0.2em] text-emerald-300 mb-2 font-semibold bg-emerald-500/20 px-2 py-0.5 rounded">
+                Active Career
+              </span>
+              {experiences.map((experience, index) => (
+                <div
+                  key={experience.company}
+                  className={
+                    index === currentExperienceIndex ? "block" : "hidden"
+                  }
+                >
+                  <h3 className="text-base sm:text-lg font-semibold text-white">
+                    {experience.company} | {experience.role}
+                  </h3>
+                  <p className="text-xs text-emerald-300/80 mt-0.5">
+                    {experience.period}
+                  </p>
+                  <ul className="mt-3 space-y-1.5 text-xs sm:text-sm text-[#C8E6D0] list-disc pl-4">
+                    {experience.items.map((item, idx) => (
+                      <li key={idx}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            {/* Carousel progress dots */}
+            <div className="mt-4 pt-3 border-t border-emerald-500/20 flex items-center justify-between">
+              <span className="text-[11px] text-emerald-300/70">
+                {currentExperienceIndex + 1} of {experiences.length} roles
+              </span>
+              <div className="flex gap-1.5">
+                {experiences.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => setCurrentExperienceIndex(idx)}
+                    aria-label={`Go to experience ${idx + 1}`}
+                    className={`h-1.5 rounded-full transition-all ${
+                      idx === currentExperienceIndex
+                        ? "w-5 bg-emerald-400"
+                        : "w-1.5 bg-emerald-500/30 hover:bg-emerald-400/60"
+                    }`}
+                  />
+                ))}
+              </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </motion.section>
   );

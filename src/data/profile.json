@@ -1,0 +1,13 @@
+{
+  "name": "Ismail Abbasi",
+  "headline": "DevOps Engineer | Full-Stack Developer | Rust and low level programming |AWS Cloud | Forward Deployed Engineer",
+  "location": "Islamabad, Pakistan",
+  "phone": "+92 325 5028225",
+  "photo": "/images/ismail-avatar-400.jpg",
+  "banner": "/images/profile-banner.jpg",
+  "bottom": {
+    "text": "YC Solutions",
+    "logo": "/images/devdabs-logo.svg",
+    "href": "https://devdabs.com"
+  }
+}

@@ -7,34 +7,36 @@ import { motion, useInView } from "framer-motion";
 
 const EXPERIENCE_DATA = [
   {
-    company: "Cloud Rexpo",
-    role: "Software Engineer, AI Developer & Rust Developer",
-    period: "Jan 2025 – Present",
+    company: "YC Solutions",
+    role: "Full-Stack & AI Developer",
+    period: "Jan 2024 – Present",
     duration: "Present",
     items: [
-      "Delivering full-stack and AI-driven platforms from UX concepts to production-ready releases with admin control & analytics.",
-      "Built an AI Interview Bot powered by OpenAI and orchestrated with n8n for adaptive question generation and performance feedback.",
-      "Deployed scalable systems using Docker, Nginx, Linux, and CI/CD pipelines with load balancing for automation and 100% uptime.",
+      "Architected and shipped production-grade AI SaaS applications end-to-end using React, Node.js, and TypeScript with RBAC for multi-tenant access.",
+      "Built an AI-powered technical interview bot using OpenAI and n8n, automating candidate screening and delivering objective feedback.",
+      "Owned the full AWS deployment lifecycle using Docker and Nginx, creating CI/CD pipelines enabling scalable, high-availability infrastructure.",
     ],
   },
   {
     company: "ENCS",
-    role: "Backend Developer",
-    period: "August 2023 – December 2024",
-    duration: "1.6 years",
+    role: "Backend Developer / DevOps Engineer",
+    period: "Mar 2023 – Jan 2024",
+    duration: "11 months",
     items: [
-      "Developed and maintained scalable backend systems, including RESTful APIs, database schemas, authentication flows, and third-party integrations.",
-      "Optimized legacy APIs, improved query performance, fixed production issues, and implemented best practices in security and code quality.",
+      "Developed and optimized 20+ REST APIs in Node.js/Express with JWT auth, tuning PostgreSQL and MongoDB queries for performance.",
+      "Achieved 99.9% application uptime by resolving critical production bugs and refactoring 15+ legacy API endpoints with validation and rate limiting.",
+      "Built standardized CI/CD workflows, containerized apps with Docker/Compose, and configured DNS, SSL, and Nginx/Apache infrastructure.",
     ],
   },
   {
-    company: "Firefly Tech Solutions",
-    role: "Database Manager",
-    period: "July 2022 – March 2023",
-    duration: "9 months",
+    company: "Leecare Solutions (Australia)",
+    role: "Backend Developer (Remote)",
+    period: "Apr 2023 – Aug 2023",
+    duration: "5 months",
     items: [
-      "Developed and maintained scalable backend systems including RESTful APIs, authentication flows, automation workflows, and server-side logic.",
-      "Designed and optimized SQL/NoSQL databases, created efficient schemas, tuned queries, and managed cloud databases using AWS RDS.",
+      "Developed and optimized backend REST APIs for a distributed, healthcare-adjacent production SaaS platform.",
+      "Built real-time communication features using WebRTC and built an end-to-end meeting app with MediaSoup for connection management.",
+      "Implemented secure authentication flows and data-integrity safeguards compliant with healthcare data standards.",
     ],
   },
 ];
@@ -45,7 +47,7 @@ const ExperienceCarousel = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % EXPERIENCE_DATA.length);
-    }, 3000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -80,29 +82,30 @@ const TAB_DATA = [
     title: "Skills",
     id: "skills",
     content: (
-      <ul className="list-disc pl-4 space-y-2">
+      <ul className="list-disc pl-4 space-y-2 text-sm text-[#E2E8F0]">
         <li>
-          <strong>Frontend:</strong> JavaScript, React.js, Next.js 15, TypeScript
+          <strong>Languages:</strong> TypeScript, JavaScript, Python, Rust, Bash / Shell Scripting
         </li>
         <li>
-          <strong>Backend:</strong> Node.js, Express.js, TypeScript
+          <strong>Cloud &amp; AWS:</strong> EC2, EKS, Lambda, S3, CloudFront, Route 53, RDS, ElastiCache, VPC, IAM, ASG, ALB, CloudWatch
         </li>
         <li>
-          <strong>Database:</strong> MongoDB, MySQL, Supabase
+          <strong>Containerization &amp; DevOps:</strong> Docker, Docker Compose, Kubernetes, Helm, Ingress Controllers, HPA, Cluster Autoscaler, Terraform, ArgoCD, GitHub Actions
         </li>
         <li>
-          <strong>DevOps:</strong> Docker, Docker Compose, AWS, CI/CD,
-          Microservices, Monitoring, Secrets Management
+          <strong>Backend &amp; Systems:</strong> Node.js, Express.js, Rust (Actix Web, Tokio, Serde), REST APIs, Prisma ORM, WebSockets, WebRTC, MediaSoup
         </li>
         <li>
-          <strong>AI Automation:</strong> n8n, Make, Zapier, Low/No-Code tools
+          <strong>Frontend:</strong> React.js, Next.js, Zustand, React Query, Tailwind CSS
         </li>
         <li>
-          <strong>Mobile:</strong> React Native, Expo CLI, Android, iOS
+          <strong>Databases:</strong> PostgreSQL, MySQL, MongoDB, Redis, Supabase, Pgvector (RAG)
         </li>
         <li>
-          <strong>More:</strong> GitHub, C++ (Basic), Postman, Shadcn,
-          WebSockets (Socket.io), Redux Toolkit
+          <strong>AI &amp; Automation:</strong> OpenAI API, Gemini, LangChain, Vector Embeddings, RAG Pipelines, n8n, Kafka
+        </li>
+        <li>
+          <strong>Monitoring &amp; Web Servers:</strong> Prometheus, Grafana, Loki, Nginx, Apache, SSL/TLS, Let&apos;s Encrypt
         </li>
       </ul>
     ),
@@ -111,10 +114,22 @@ const TAB_DATA = [
     title: "Education",
     id: "education",
     content: (
-      <ul className="list-disc pl-2">
-        <li>Bachelor of Science in Computer Science</li>
-        <li>Government College University Faisalabad (GCUF)</li>
-        <li>Expected Graduation: 2027.</li>
+      <ul className="list-disc pl-4 space-y-2 text-sm text-[#E2E8F0]">
+        <li>
+          <strong>Bachelor of Science in Computer Science (BSCS)</strong>
+          <br />
+          <span className="text-gray-400">Government College University Faisalabad (GCUF) · 2019 – 2023</span>
+        </li>
+        <li>
+          <strong>Intermediate in Computer Science (ICS)</strong>
+          <br />
+          <span className="text-gray-400">Best Group of Colleges · 2017 – 2019</span>
+        </li>
+        <li>
+          <strong>Matriculation (Computer Sciences)</strong>
+          <br />
+          <span className="text-gray-400">The Educators · 2017</span>
+        </li>
       </ul>
     ),
   },
@@ -122,9 +137,22 @@ const TAB_DATA = [
     title: "Certifications",
     id: "certifications",
     content: (
-      <ul className="list-disc pl-2">
-        <li>AWS Cloud Practitioner</li>
-        <li>Google Professional Cloud Developer</li>
+      <ul className="list-disc pl-4 space-y-2 text-sm text-[#E2E8F0]">
+        <li>
+          <strong>AWS Certified Solutions Architect – Associate</strong>
+          <br />
+          <span className="text-gray-400">Amazon Web Services · 2024</span>
+        </li>
+        <li>
+          <strong>Relational Database Certification</strong>
+          <br />
+          <span className="text-gray-400">freeCodeCamp · 2023</span>
+        </li>
+        <li>
+          <strong>The Complete JavaScript Course</strong>
+          <br />
+          <span className="text-gray-400">Jonas Schmedtmann / Udemy · 2023</span>
+        </li>
       </ul>
     ),
   },
@@ -181,10 +209,10 @@ const AboutSection = () => {
         >
           <h2 className="text-4xl font-bold text-white mb-4">About Me</h2>
           <p className="text-base lg:text-lg text-[#E2E8F0] leading-relaxed">
-            I architect full-stack experiences infused with AI automations that keep businesses moving quickly and intelligently. From product discovery through production reliability, I partner with teams to iterate fast and ship impact.
+            I work in Production. Full-Stack Developer and DevOps Engineer with 4+ years of experience designing, deploying, and scaling production SaaS applications and cloud infrastructure.
             <br />
             <br />
-            I thrive in cross-functional settings, translating complex requirements into scalable, secure, and delightful products that customers love using every day.
+            Proven track record across Next.js, Node.js, and Rust microservices, paired with hands-on AWS cloud architecture (EC2, EKS, RDS, S3, CloudFront, Lambda), Kubernetes orchestration, and CI/CD automation (GitHub Actions, ArgoCD, Terraform) delivering 99.9% uptime systems and AI-integrated products.
             <br />
           </p>
           <div className="mt-8">

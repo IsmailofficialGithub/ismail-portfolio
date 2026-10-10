@@ -3,7 +3,7 @@ export const SITE_URL = "https://ismailabbasi.qzz.io";
 export const SITE_NAME = "Ismail Abbasi";
 
 export const SITE_DESCRIPTION =
-  "Ismail Abbasi is a Software Engineer, AI Developer, Rust Developer, and Full Stack Developer in Pakistan specializing in React, Next.js, Node.js, Supabase, AI automation, and cloud infrastructure.";
+  "Ismail Abbasi is a DevOps Engineer and Full-Stack Developer with 4+ years of experience designing, deploying, and scaling production SaaS applications and AWS cloud infrastructure across Next.js, Node.js, Rust microservices, Kubernetes, and CI/CD automation.";
 
 export const CONTACT_EMAIL = "ismail.official295@gmail.com";
 export const CONTACT_PHONE = "+923255028225";
@@ -17,7 +17,7 @@ export const SAME_AS = [
 ];
 
 export const JOB_TITLE =
-  "Software Engineer, AI Developer & Rust Developer";
+  "DevOps Engineer | Full-Stack Developer | AWS Cloud";
 
 export const ADDRESS = {
   addressLocality: "Rawalpindi",
